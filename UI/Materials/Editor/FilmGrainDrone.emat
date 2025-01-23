@@ -1,0 +1,8 @@
+FilmGrainEffect {
+ Intensity 0.733
+ Sharpness 16
+ GrainSize 6.76
+ IntensityX0 1
+ Frequency 927
+ NoiseMap "{3D30E1118D3FA6AE}Assets/_SharedData/Noises/ST_PerlinNoise_02_NMO.edds"
+}

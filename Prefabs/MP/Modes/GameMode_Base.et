@@ -1,0 +1,13 @@
+SCR_BaseGameMode {
+ ID "56B2B479C6B96951"
+ components {
+  SAL_DroneGamemodeComponent "{62BE47C8B216AB30}" {
+   m_rDrones {
+    "{B15B428EE6A71C17}Prefabs/Vehicles/Helicopters/UH1H/fpv test.et" "{9EF586992C4676D1}Prefabs/Vehicles/Helicopters/UH1H/drop drone test.et" "{BEA9299EC850E2E0}Prefabs/Vehicles/Helicopters/UH1H/fpv rpg test.et" "{02003541B68ACE1E}Prefabs/Vehicles/Helicopters/UH1H/fpv test dji recon.et" "{B54E079EA41DADEA}Prefabs/Vehicles/Helicopters/UH1H/fpv V2.et" "{37CAFA3DC0777428}Prefabs/Vehicles/Helicopters/UH1H/drop drone mortar.et"
+   }
+   m_rDroneItems {
+    "{91DC7A8FCA0EF92E}Prefabs/Items/FPV Item/FPVInventoryItem.et" "{4F5F88313EB02CE8}Prefabs/Items/FPV Item/DJIInventoryItemRDGDropper.et" "{89A2E827AF67939D}Prefabs/Items/FPV Item/FPVInventoryItemrpg.et" "{8984C9CE1EC8EA98}Prefabs/Items/FPV Item/FPVInventoryItemrecon.et" "{DC7430634BA79060}Prefabs/Items/FPV Item/FPVInventoryItemV2.et" "{9949FD4FB7F7464A}Prefabs/Items/FPV Item/DJIInventoryItem2IMDropper.et"
+   }
+  }
+ }
+}

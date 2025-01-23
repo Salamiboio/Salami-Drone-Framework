@@ -1,0 +1,23 @@
+FrameWidgetClass {
+ Name "rootFrame"
+ {
+  ImageWidgetClass "{62BB21822EB1786A}" {
+   Name "static1"
+   Slot FrameWidgetSlot "{62BB21822EB1789D}" {
+    Anchor 0 0 1 1
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 0
+    OffsetRight 0
+    SizeY 0
+    OffsetBottom 0
+   }
+   Color 1 1 1 0
+   "Inherit Color" 1
+   Texture "{980EF09C711CD338}UI/Textures/TVSTATIC.edds"
+   Size 1920 1080
+  }
+ }
+}

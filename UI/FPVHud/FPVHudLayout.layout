@@ -1,0 +1,149 @@
+FrameWidgetClass {
+ Name "rootFrame"
+ {
+  ImageWidgetClass "{62CA0D01166D627B}" {
+   Name "MainHud"
+   Slot FrameWidgetSlot "{62CA0D01166D62B7}" {
+    Anchor 0.5 0.5 0.5 0.5
+    PositionX -960
+    OffsetLeft -960
+    PositionY -540
+    OffsetTop -540
+    SizeX 1920
+    OffsetRight -960
+    SizeY 1080
+    OffsetBottom -540
+   }
+   Texture "{41F5E3C0DDB8D955}UI/FPVHud/Data/MAIN_FPV_LAYOUT.edds"
+   Size 768 432
+  }
+  ImageWidgetClass "{62CA0D01BB1C106D}" {
+   Name "BatteryLevel1"
+   Slot FrameWidgetSlot "{62CA0D01166D62B7}" {
+    Anchor 0.5 0.5 0.5 0.5
+    PositionX -960
+    OffsetLeft -960
+    PositionY -540
+    OffsetTop -540
+    SizeX 1920
+    OffsetRight -960
+    SizeY 1080
+    OffsetBottom -540
+   }
+   Texture "{7659E2E23E968DE7}UI/FPVHud/Data/battery1.edds"
+   Size 768 432
+  }
+  ImageWidgetClass "{62CA0D0CD4F9620E}" {
+   Name "BatteryLevel2"
+   Slot FrameWidgetSlot "{62CA0D01166D62B7}" {
+    Anchor 0.5 0.5 0.5 0.5
+    PositionX -960
+    OffsetLeft -960
+    PositionY -540
+    OffsetTop -540
+    SizeX 1920
+    OffsetRight -960
+    SizeY 1080
+    OffsetBottom -540
+   }
+   Texture "{28B1CBA1811B03E8}UI/FPVHud/Data/battery2.edds"
+   Size 768 432
+  }
+  ImageWidgetClass "{62CA0D0CD65511DD}" {
+   Name "BatteryLevel3"
+   Slot FrameWidgetSlot "{62CA0D01166D62B7}" {
+    Anchor 0.5 0.5 0.5 0.5
+    PositionX -960
+    OffsetLeft -960
+    PositionY -540
+    OffsetTop -540
+    SizeX 1920
+    OffsetRight -960
+    SizeY 1080
+    OffsetBottom -540
+   }
+   Texture "{DCB98C398CC66B9C}UI/FPVHud/Data/battery3.edds"
+   Size 768 432
+  }
+  ImageWidgetClass "{62CA0D0CD1DF3228}" {
+   Name "BatteryLevel4"
+   Slot FrameWidgetSlot "{62CA0D01166D62B7}" {
+    Anchor 0.5 0.5 0.5 0.5
+    PositionX -960
+    OffsetLeft -960
+    PositionY -540
+    OffsetTop -540
+    SizeX 1920
+    OffsetRight -960
+    SizeY 1080
+    OffsetBottom -540
+   }
+   Texture "{95619926FE001FF6}UI/FPVHud/Data/battery4.edds"
+   Size 768 432
+  }
+  ImageWidgetClass "{62CA0D01F179FC67}" {
+   Name "Dots"
+   Slot FrameWidgetSlot "{62CA0D01166D62B7}" {
+    Anchor 0.5 0.5 0.5 0.5
+    PositionX -960
+    OffsetLeft -960
+    PositionY -540
+    OffsetTop -540
+    SizeX 1920
+    OffsetRight -960
+    SizeY 1080
+    OffsetBottom -540
+   }
+   Texture "{743031231E240003}UI/FPVHud/Data/BLANK.edds"
+   Size 768 432
+  }
+  ImageWidgetClass "{62CA0D0E1D0F8145}" {
+   Name "Pipper"
+   Slot FrameWidgetSlot "{62CA0D01166D62B7}" {
+    Anchor 0.5 0.5 0.5 0.5
+    PositionX -960
+    OffsetLeft -960
+    PositionY -540
+    OffsetTop -540
+    SizeX 1920
+    OffsetRight -960
+    SizeY 1080
+    OffsetBottom -540
+   }
+   Texture "{FA53F5C14C831991}UI/FPVHud/Data/FPV_PIPPER.edds"
+   Size 768 432
+  }
+  ImageWidgetClass "{62CA0D0E15E72EB0}" {
+   Name "Vertical"
+   Slot FrameWidgetSlot "{62CA0D01166D62B7}" {
+    Anchor 0.5 0.5 0.5 0.5
+    PositionX -960
+    OffsetLeft -960
+    PositionY -540
+    OffsetTop -540
+    SizeX 1920
+    OffsetRight -960
+    SizeY 1080
+    OffsetBottom -540
+   }
+   Texture "{4BC43CA82DF19734}UI/FPVHud/Data/THINGS_THAT_MOVE_UP_AND_DOWN.edds"
+   Size 768 432
+  }
+  ImageWidgetClass "{62CA2599CD689BF4}" {
+   Name "Rec"
+   Slot FrameWidgetSlot "{62CA0D01166D62B7}" {
+    Anchor 0.5 0.5 0.5 0.5
+    PositionX -960
+    OffsetLeft -960
+    PositionY -540
+    OffsetTop -540
+    SizeX 1920
+    OffsetRight -960
+    SizeY 1080
+    OffsetBottom -540
+   }
+   Texture "{743031231E240003}UI/FPVHud/Data/BLANK.edds"
+   Size 768 432
+  }
+ }
+}

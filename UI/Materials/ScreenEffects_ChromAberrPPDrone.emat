@@ -1,0 +1,10 @@
+ChromAberEffect {
+ PowerX 0.02
+ PowerY 0.02
+ Refs {
+  "Enabled"
+  "SCR_RegenerationScreenEffect.s_bEnabled"
+  "PowerX"
+  "SCR_RegenerationScreenEffect.s_fChromAberPower"
+ }
+}

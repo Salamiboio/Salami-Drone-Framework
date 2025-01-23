@@ -1,0 +1,7 @@
+PlayerCamera {
+ ID "62C8178F7B4547FC"
+ FOV 74
+ nearPlane 0.025
+ cameraFlags 3
+ FocusModeFOV 28
+}

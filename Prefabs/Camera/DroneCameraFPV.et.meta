@@ -1,0 +1,17 @@
+MetaFileClass {
+ Name "{77E1E46D77DFBD86}Prefabs/Vehicles/Helicopters/Ka-137/VehParts/WZP_Triplextfpv.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass PS5 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

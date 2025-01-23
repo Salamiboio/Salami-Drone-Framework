@@ -1,0 +1,185 @@
+FrameWidgetClass {
+ Name "rootFrame"
+ {
+  TextWidgetClass "{62C92C1EEDA42999}" {
+   Name "Bearing"
+   Slot FrameWidgetSlot "{62C92C1EEDA429E2}" {
+    Anchor 0.5 0.5 0.5 0.5
+    PositionX -76.316
+    OffsetLeft -76.316
+    PositionY 191.286
+    OffsetTop 191.286
+    SizeX 158.791
+    OffsetRight -82.475
+    SizeY 79.309
+    OffsetBottom -270.595
+   }
+   Color 0.009 1 0.73 1
+   Text ""
+   "Font Size" 42
+   "Horizontal Alignment" Center
+   "Vertical Alignment" Center
+   FontProperties FontProperties "{62C92C1F1E83A46A}" {
+    Font "{CD2634D279AB011A}UI/Fonts/Roboto/Roboto_Bold.fnt"
+   }
+  }
+  ImageWidgetClass "{62C92C11780C8B0B}" {
+   Name "Compass"
+   Slot FrameWidgetSlot "{62C92C11780C8B65}" {
+    Anchor 0.5 0.5 0.5 0.5
+    PositionX -94.011
+    OffsetLeft -94.011
+    PositionY 310.8
+    OffsetTop 310.8
+    SizeX 182
+    OffsetRight -87.989
+    SizeY 182
+    OffsetBottom -492.8
+   }
+   Texture "{44E4EFF3FBCA563A}UI/DJIHud/Data/compass.edds"
+   Size 426 422
+   Filter 0
+  }
+  ImageWidgetClass "{62C92C05AAE213D1}" {
+   Name "BaseHud"
+   Slot FrameWidgetSlot "{62C92C05AAE212B5}" {
+    Anchor 0.5 0.5 0.5 0.5
+    PositionX -960
+    OffsetLeft -960
+    PositionY -540
+    OffsetTop -540
+    SizeX 1920
+    OffsetRight -960
+    SizeY 1080
+    OffsetBottom -540
+   }
+   "Z Order" -1
+   Texture "{5B7F380F42B8AD69}UI/DJIHud/Data/dji_recon_hud.edds"
+   Size 768 432
+   Filter 0
+  }
+  ImageWidgetClass "{62C92C05EBB44A43}" {
+   Name "Lines"
+   Slot FrameWidgetSlot "{62C92C05AAE212B5}" {
+    Anchor 0.5 0.5 0.5 0.5
+    PositionX -960
+    OffsetLeft -960
+    PositionY -540
+    OffsetTop -540
+    SizeX 1920
+    OffsetRight -960
+    SizeY 1080
+    OffsetBottom -540
+   }
+   Texture "{5186E45D33D14651}UI/DJIHud/Data/lines.edds"
+   Size 768 432
+   Filter 0
+  }
+  ImageWidgetClass "{62C92C05E2FC8463}" {
+   Name "ZoomSlider"
+   Slot FrameWidgetSlot "{62C92C05AAE212B5}" {
+    Anchor 0.5 0.5 0.5 0.5
+    PositionX -956.592
+    OffsetLeft -956.592
+    PositionY -540
+    OffsetTop -540
+    SizeX 1920
+    OffsetRight -963.408
+    SizeY 1080
+    OffsetBottom -540
+   }
+   "Z Order" 10
+   Texture "{743031231E240003}UI/FPVHud/Data/BLANK.edds"
+   Size 768 432
+   Filter 0
+  }
+  TextWidgetClass "{62C92C1FD95270BA}" {
+   Name "Altitude"
+   Slot FrameWidgetSlot "{62C92C1EEDA429E2}" {
+    Anchor 0.5 0.5 0.5 0.5
+    PositionX 156.004
+    OffsetLeft 156.004
+    PositionY 351.539
+    OffsetTop 351.539
+    SizeX 158.791
+    OffsetRight -314.795
+    SizeY 79.309
+    OffsetBottom -430.848
+   }
+   Color 0.009 1 0.73 1
+   Text ""
+   "Font Size" 42
+   "Horizontal Alignment" Center
+   "Vertical Alignment" Center
+   FontProperties FontProperties "{62C92C1F1E83A46A}" {
+    Font "{CD2634D279AB011A}UI/Fonts/Roboto/Roboto_Bold.fnt"
+   }
+  }
+  TextWidgetClass "{62C92C1FF861DADB}" {
+   Name "Speed"
+   Slot FrameWidgetSlot "{62C92C1EEDA429E2}" {
+    Anchor 0.5 0.5 0.5 0.5
+    PositionX -283.033
+    OffsetLeft -283.033
+    PositionY 351.539
+    OffsetTop 351.539
+    SizeX 158.791
+    OffsetRight 124.242
+    SizeY 79.309
+    OffsetBottom -430.848
+   }
+   Color 0.009 1 0.73 1
+   Text ""
+   "Font Size" 42
+   "Horizontal Alignment" Center
+   "Vertical Alignment" Center
+   FontProperties FontProperties "{62C92C1F1E83A46A}" {
+    Font "{CD2634D279AB011A}UI/Fonts/Roboto/Roboto_Bold.fnt"
+   }
+  }
+  TextWidgetClass "{62D2B78850F14D6D}" {
+   Name "Grid"
+   Slot FrameWidgetSlot "{62C92C1EEDA429E2}" {
+    Anchor 0.5 0.5 0.5 0.5
+    PositionX -840.734
+    OffsetLeft -840.734
+    PositionY 351.539
+    OffsetTop 351.539
+    SizeX 438.545
+    OffsetRight 402.189
+    SizeY 79.309
+    OffsetBottom -430.848
+   }
+   Color 0.009 1 0.73 1
+   Text ""
+   "Font Size" 42
+   "Horizontal Alignment" Center
+   "Vertical Alignment" Center
+   FontProperties FontProperties "{62C92C1F1E83A46A}" {
+    Font "{CD2634D279AB011A}UI/Fonts/Roboto/Roboto_Bold.fnt"
+   }
+  }
+  TextWidgetClass "{62D2B78834B8ACEE}" {
+   Name "Distance"
+   Slot FrameWidgetSlot "{62C92C1EEDA429E2}" {
+    Anchor 0.5 0.5 0.5 0.5
+    PositionX -840.734
+    OffsetLeft -840.734
+    PositionY 310.78
+    OffsetTop 310.78
+    SizeX 438.545
+    OffsetRight 402.189
+    SizeY 79.309
+    OffsetBottom -390.089
+   }
+   Color 0.009 1 0.73 1
+   Text ""
+   "Font Size" 42
+   "Horizontal Alignment" Center
+   "Vertical Alignment" Center
+   FontProperties FontProperties "{62C92C1F1E83A46A}" {
+    Font "{CD2634D279AB011A}UI/Fonts/Roboto/Roboto_Bold.fnt"
+   }
+  }
+ }
+}
