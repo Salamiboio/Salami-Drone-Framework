@@ -1,7 +1,7 @@
-modded class RAM_CustomCameraPointInfo
-{
-	void SetCameraFOV(float input)
-	{
-		m_fCameraFoV = input;
-	}
-}
+//modded class RAM_CustomCameraPointInfo
+//{
+//	void SetCameraFOV(float input)
+//	{
+//		m_fCameraFoV = input;
+//	}
+//}

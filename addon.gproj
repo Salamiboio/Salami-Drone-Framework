@@ -3,6 +3,6 @@ GameProject {
  GUID "62D37C97F61002F9"
  TITLE "SalamisDroneFramework"
  Dependencies {
-  "5AAF6D5352E5FCAB"
+  "58D0FB3206B6F859"
  }
 }

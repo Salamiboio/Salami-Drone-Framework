@@ -11,7 +11,6 @@ class SAL_DroneClientComponent : ScriptComponent
 	protected RplId m_rConnectedDroneRplId;
 	protected SCR_CharacterControllerComponent m_sCharacterController;
 	protected bool m_bIsInDrone = false;
-	protected RAM_CustomCameraPointInfo m_CameraPointInfo;
 	protected SignalsManagerComponent m_SignalsManagerComponent;
 	protected int m_iIsUsed;
 	protected IEntity m_ePlayer;
@@ -22,7 +21,6 @@ class SAL_DroneClientComponent : ScriptComponent
 	protected ResourceName m_rControllerPrefab = "";
 	protected ResourceName m_rOverlayWidgetLayout;
 	protected float m_fCameraFOV = 70;
-	protected RAM_CustomCameraPointInfo m_customCameraPoint;
 	protected int m_iZoomLevel = -302;
 	protected IEntity m_eClosestBag;
 	protected SAL_DroneJammerComponent m_cDroneJammerComponent;
@@ -30,6 +28,7 @@ class SAL_DroneClientComponent : ScriptComponent
 	protected float m_fvoiceVolume;
 	protected float m_iGroundBuffer = 0;
 	protected SAL_DroneComponent m_cDroneComponent;
+	protected CameraBase m_eCurrentCamera;
 	
 	//Get Members
 	//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -412,6 +411,7 @@ class SAL_DroneClientComponent : ScriptComponent
 			m_cDroneComponent = null;
 			m_iGroundBuffer = 0;
 			SetDroneConnection(false, droneID);
+			GetGame().GetInputManager().ActivateContext("DroneContext");
 		}
 		else
 		{
@@ -421,6 +421,7 @@ class SAL_DroneClientComponent : ScriptComponent
 			SetDroneConnection(true, droneID);
 			if(m_bIsInDrone)
 				ExitDrone();
+			GetGame().GetInputManager().ActivateContext("DroneContext", 999999);
 		}
 	}
 	
@@ -625,17 +626,9 @@ class SAL_DroneClientComponent : ScriptComponent
 	
 	void SwitchCamera(IEntity drone, IEntity droneController)
 	{
-		m_customCameraPoint = RAM_TriplexEntitySlotInfo.Cast(SlotManagerComponent.Cast(SlotManagerComponent.Cast(drone.FindComponent(SlotManagerComponent)).GetSlotByName("DroneCamera").GetAttachedEntity().FindComponent(SlotManagerComponent)).GetSlotByName("DroneCamera")).m_CameraPointInfo;
-		
-		SignalsManagerComponent signalsManagerComponent = SignalsManagerComponent.Cast(droneController.FindComponent(SignalsManagerComponent));
-		SCR_CharacterCameraHandlerComponent characterCameraHandlerComponent = SCR_CharacterCameraHandlerComponent.Cast(droneController.FindComponent(SCR_CharacterCameraHandlerComponent));
-		if (!characterCameraHandlerComponent)
-			return;
-		characterCameraHandlerComponent.RAM_SetCustomPointInfo(m_customCameraPoint);
-		if (signalsManagerComponent)
-			signalsManagerComponent.SetSignalValue(signalsManagerComponent.AddOrFindMPSignal("IsUsed", 0.5, 1.0, 0, SignalCompressionFunc.Range01), 1);
-		
-		m_customCameraPoint.SetCameraFOV(m_fCameraFOV);
+		CameraBase camera = CameraBase.Cast(SlotManagerComponent.Cast(drone.FindComponent(SlotManagerComponent)).GetSlotByName("Camera").GetAttachedEntity());
+		m_eCurrentCamera = GetGame().GetCameraManager().CurrentCamera();
+		GetGame().GetCameraManager().SetCamera(camera);
 	}
 	
 	//Exit drone members
@@ -656,7 +649,9 @@ class SAL_DroneClientComponent : ScriptComponent
 			m_wStaticWidget.RemoveFromHierarchy();
 		m_wStaticWidget = null;
 		
+		
 		m_bIsInDrone = false;
+		GetGame().GetCameraManager().SetCamera(m_eCurrentCamera);
 		GetGame().GetCallqueue().Remove(Update);
 		GetGame().GetCallqueue().Remove(RecAnimation);
 		Rpc(RpcDo_ExitDrone, GetRplId(m_ePlayer), m_rConnectedDroneRplId, SCR_PlayerController.GetLocalPlayerId());
@@ -736,7 +731,7 @@ class SAL_DroneClientComponent : ScriptComponent
 	{
 		if(value == 1)
 		{
-			IEntity cameraPoint = SlotManagerComponent.Cast(m_eConnectedDrone.FindComponent(SlotManagerComponent)).GetSlotByName("DroneCamera").GetAttachedEntity();
+			IEntity cameraPoint = SlotManagerComponent.Cast(m_eConnectedDrone.FindComponent(SlotManagerComponent)).GetSlotByName("Camera").GetAttachedEntity();
 			vector angles = cameraPoint.GetLocalYawPitchRoll();
 			angles[1] = angles[1] + 1;
 			
@@ -746,7 +741,7 @@ class SAL_DroneClientComponent : ScriptComponent
 		}
 		else if(value == -1)
 		{
-			IEntity cameraPoint = SlotManagerComponent.Cast(m_eConnectedDrone.FindComponent(SlotManagerComponent)).GetSlotByName("DroneCamera").GetAttachedEntity();
+			IEntity cameraPoint = SlotManagerComponent.Cast(m_eConnectedDrone.FindComponent(SlotManagerComponent)).GetSlotByName("Camera").GetAttachedEntity();
 			vector angles = cameraPoint.GetLocalYawPitchRoll();
 			angles[1] = angles[1] - 1;
 			
@@ -760,13 +755,13 @@ class SAL_DroneClientComponent : ScriptComponent
 	{
 		if(value == 1)
 		{
-			IEntity cameraPoint = SlotManagerComponent.Cast(m_eConnectedDrone.FindComponent(SlotManagerComponent)).GetSlotByName("DroneCamera").GetAttachedEntity();
+			IEntity cameraPoint = SlotManagerComponent.Cast(m_eConnectedDrone.FindComponent(SlotManagerComponent)).GetSlotByName("Camera").GetAttachedEntity();
 			vector angles = cameraPoint.GetLocalYawPitchRoll();
 			angles[0] = angles[0] + 1;
 			cameraPoint.SetYawPitchRoll(angles);
 		} else if (value == -1)
 		{
-			IEntity cameraPoint = SlotManagerComponent.Cast(m_eConnectedDrone.FindComponent(SlotManagerComponent)).GetSlotByName("DroneCamera").GetAttachedEntity();
+			IEntity cameraPoint = SlotManagerComponent.Cast(m_eConnectedDrone.FindComponent(SlotManagerComponent)).GetSlotByName("Camera").GetAttachedEntity();
 			vector angles = cameraPoint.GetLocalYawPitchRoll();
 			angles[0] = angles[0] - 1;
 			cameraPoint.SetYawPitchRoll(angles);
@@ -781,7 +776,7 @@ class SAL_DroneClientComponent : ScriptComponent
 	
 	void CenterCameraUp()
 	{
-		IEntity cameraPoint = SlotManagerComponent.Cast(m_eConnectedDrone.FindComponent(SlotManagerComponent)).GetSlotByName("DroneCamera").GetAttachedEntity();
+		IEntity cameraPoint = SlotManagerComponent.Cast(m_eConnectedDrone.FindComponent(SlotManagerComponent)).GetSlotByName("Camera").GetAttachedEntity();
 		vector angles = cameraPoint.GetLocalYawPitchRoll();	
 		if(angles[1] > -1 && angles[1] < 1)
 		{
@@ -803,7 +798,7 @@ class SAL_DroneClientComponent : ScriptComponent
 	
 	void CenterCameraRight()
 	{
-		IEntity cameraPoint = SlotManagerComponent.Cast(m_eConnectedDrone.FindComponent(SlotManagerComponent)).GetSlotByName("DroneCamera").GetAttachedEntity();
+		IEntity cameraPoint = SlotManagerComponent.Cast(m_eConnectedDrone.FindComponent(SlotManagerComponent)).GetSlotByName("Camera").GetAttachedEntity();
 		vector angles = cameraPoint.GetLocalYawPitchRoll();	
 		if(angles[0] > -1 && angles[0] < 1)
 		{
@@ -844,7 +839,7 @@ class SAL_DroneClientComponent : ScriptComponent
 			case 20: {m_wOverlayImageWidget.SetImage(6); break;}
 		}
 		
-		m_customCameraPoint.SetCameraFOV(m_fCameraFOV);
+		GetGame().GetCameraManager().CurrentCamera().SetFOVDegree(m_fCameraFOV);
 	}
 	
 	void RecAnimation(ImageWidget imageWidget)
