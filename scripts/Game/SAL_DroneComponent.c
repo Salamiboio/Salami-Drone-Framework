@@ -104,6 +104,7 @@ class SAL_DroneComponent : ScriptComponent
 	override void OnPostInit(IEntity owner)
 	{
 		SetEventMask(owner, EntityEvent.INIT);
+		SetEventMask(owner, EntityEvent.CONTACT);
 	}
 	
 	void SpawnController(IEntity entity)
@@ -169,5 +170,16 @@ class SAL_DroneComponent : ScriptComponent
 	vector GetMaxDown()
 	{
 		return m_vMaxDown;
+	}
+	
+	override void EOnContact(IEntity owner, IEntity other, Contact contact)
+	{
+		if (SAL_DroneClientComponent.GetInstance().GetConnectedDrone() != owner)
+			return;
+		
+		if (SAL_DroneClientComponent.GetInstance().m_bIsArmed)
+		{
+			Print("explod");
+		}
 	}
 }

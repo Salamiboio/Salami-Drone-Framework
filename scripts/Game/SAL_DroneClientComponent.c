@@ -29,6 +29,7 @@ class SAL_DroneClientComponent : ScriptComponent
 	protected float m_iGroundBuffer = 0;
 	protected SAL_DroneComponent m_cDroneComponent;
 	protected CameraBase m_eCurrentCamera;
+	bool m_bIsArmed = false;
 	
 	//Get Members
 	//------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -496,6 +497,7 @@ class SAL_DroneClientComponent : ScriptComponent
 		if (!slot)
 			return;
 		
+		
 		SwitchCamera(m_eConnectedDrone, slot.GetOccupant());
 		
 		m_ePlayer = SCR_PlayerController.GetLocalControlledEntity();
@@ -569,6 +571,7 @@ class SAL_DroneClientComponent : ScriptComponent
 
 		m_fMasterVolume = AudioSystem.GetMasterVolume(AudioSystem.SFX);
 		AudioSystem.SetMasterVolume(AudioSystem.SFX, 0.05);
+		GetGame().GetInputManager().AddActionListener("ArmDrone", EActionTrigger.VALUE, ArmDrone);
 	}
 	
 	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
@@ -626,9 +629,20 @@ class SAL_DroneClientComponent : ScriptComponent
 	
 	void SwitchCamera(IEntity drone, IEntity droneController)
 	{
-		CameraBase camera = CameraBase.Cast(SlotManagerComponent.Cast(drone.FindComponent(SlotManagerComponent)).GetSlotByName("Camera").GetAttachedEntity());
+		EntitySpawnParams cameraParams = new EntitySpawnParams;
+		IEntity cameraEnt = GetGame().SpawnEntityPrefab(Resource.Load("{4D8DD5373C809334}Prefabs/Characters/Core/DefaultPlayerCamera.et"), null, cameraParams);
+		SlotManagerComponent.Cast(drone.FindComponent(SlotManagerComponent)).GetSlotByName("Camera").AttachEntity(cameraEnt);
 		m_eCurrentCamera = GetGame().GetCameraManager().CurrentCamera();
-		GetGame().GetCameraManager().SetCamera(camera);
+		GetGame().GetCameraManager().SetCamera(CameraBase.Cast(cameraEnt));
+	}
+	
+	void ArmDrone(float value, EActionTrigger reason)
+	{
+		if (value == 1)
+		{
+			m_bIsArmed = !m_bIsArmed;
+			Print(m_bIsArmed);
+		}
 	}
 	
 	//Exit drone members
@@ -651,7 +665,9 @@ class SAL_DroneClientComponent : ScriptComponent
 		
 		
 		m_bIsInDrone = false;
+		CameraBase oldCamera = GetGame().GetCameraManager().CurrentCamera();
 		GetGame().GetCameraManager().SetCamera(m_eCurrentCamera);
+		SCR_EntityHelper.DeleteEntityAndChildren(oldCamera);
 		GetGame().GetCallqueue().Remove(Update);
 		GetGame().GetCallqueue().Remove(RecAnimation);
 		Rpc(RpcDo_ExitDrone, GetRplId(m_ePlayer), m_rConnectedDroneRplId, SCR_PlayerController.GetLocalPlayerId());
@@ -662,6 +678,7 @@ class SAL_DroneClientComponent : ScriptComponent
 		GetGame().GetInputManager().RemoveActionListener("ResetCamera", EActionTrigger.PRESSED, CenterCamera);
 		GetGame().GetInputManager().RemoveActionListener("AdjustCameraFOV", EActionTrigger.VALUE, CameraZoom);
 		GetGame().GetInputManager().RemoveActionListener("DroneLaser", EActionTrigger.DOWN, GetGrid);
+		GetGame().GetInputManager().RemoveActionListener("ArmDrone", EActionTrigger.PRESSED, ArmDrone);
 		
 		AudioSystem.SetMasterVolume(AudioSystem.SFX, m_fMasterVolume);
 	}
