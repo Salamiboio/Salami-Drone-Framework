@@ -1,0 +1,15 @@
+GenericEntity {
+ ID "65A29C46BDA25B00"
+ components {
+  MeshObject "{65A29C4CEDA32B75}" {
+   Object "{A49369E24DF84B3F}Assets/Drones/DJIs/DJI.xob"
+  }
+  RigidBody "{65A29C4CE19B5E17}" {
+   Active Active
+   Mass 0.8
+  }
+  RplComponent "{65A29C4CEF5CB46C}" {
+  }
+ }
+ coords 2.703 -0.703 -1.519
+}

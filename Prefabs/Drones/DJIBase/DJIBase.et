@@ -1,0 +1,107 @@
+GenericEntity {
+ ID "659863D5118F3377"
+ components {
+  SignalsManagerComponent "{659C775FD223E512}" {
+  }
+  SAL_DroneSoundComponent "{659C775FD18F485D}" {
+   Filenames {
+    "{220EEE2FA211DDDC}Sounds/DroneRotors.acp"
+   }
+   ScriptCallbacks 1
+   DistanceManagement 0
+   IncludeInactive 1
+  }
+  MeshObject "{659863D74A35D5DA}" {
+   Object "{A49369E24DF84B3F}Assets/Drones/DJIs/DJI.xob"
+  }
+  RigidBody "{659863D747DB7DA8}" {
+   Active Active
+   Mass 0.8
+   LinearDamping 0.2
+   AngularDamping 0.1
+   LinearSleepingThreashold 0
+   AngularSleepingThreashold 0
+   ModelGeometry 1
+  }
+  SAL_CameraZoomComponent "{65A23C4DF4B2E231}" {
+   m_iMaxZoom 3
+   m_iMinZoom 84
+  }
+  SAL_DroneControllerComponent "{659863D74259DF47}" {
+   m_iMaxThrustRPM 15000
+   m_bStabilized 1
+   m_fYawSensitivity 0.5
+   m_DroneStablizerProfile SAL_DroneStablizerProfile "{659C775FE5A6A7EF}" {
+    m_fMaxHorizontalSpeed 12
+   }
+  }
+  SAL_DroneHUDComponent "{65A23C4DFE108560}" {
+   m_DroneHUDLayout "{D28FC76211CCFD45}UI/DJIHud/DJIHudLayout.layout"
+   m_eHudType DJI
+  }
+  SAL_DroneHealthComponent "{65A29C6C04B54BFD}" {
+   m_sDroneWreckPrefab "{D326D010DF556A79}Prefabs/Drones/DJIBase/DJIWreck.et"
+  }
+  SlotManagerComponent "{659863D7B9C69FEF}" {
+   Slots {
+    EntitySlotInfo Rotor1 {
+     Offset -0.41 0.237 0.31
+     Angles 0 0 -4.5
+     Prefab "{E7255C105E20C8C0}Prefabs/Drones/DJIBase/DJIRotor.et"
+    }
+    EntitySlotInfo Rotor2 {
+     Offset 0.41 0.237 0.31
+     Angles 0 0 4.5
+     Prefab "{E7255C105E20C8C0}Prefabs/Drones/DJIBase/DJIRotor.et"
+    }
+    EntitySlotInfo Rotor3 {
+     Offset -0.3113 0.1374 -0.2895
+     Angles 0 0 -6.5
+     Prefab "{E7255C105E20C8C0}Prefabs/Drones/DJIBase/DJIRotor.et"
+    }
+    EntitySlotInfo Rotor4 {
+     Offset 0.2947 0.1374 -0.2895
+     Angles 0 0 6.5
+     Prefab "{E7255C105E20C8C0}Prefabs/Drones/DJIBase/DJIRotor.et"
+    }
+    EntitySlotInfo Camera {
+     Offset -0.0019 0.1143 0.3872
+     Prefab "{DD1F5C844352D9A7}Prefabs/Drones/DJIBase/CameraEntity.et"
+    }
+    EntitySlotInfo CameraBody {
+     Offset -0.0014 0.1089 0.3036
+     Prefab "{5A605E0B80EC0B21}Prefabs/Drones/DJIBase/DJICamera.et"
+    }
+    EntitySlotInfo CameraRotator {
+     Offset -0.0019 0.1095 0.2401
+     Prefab "{A4F062E36D6517DA}Prefabs/Drones/DJIBase/DJICameraRotator.et"
+    }
+   }
+  }
+  ActionsManagerComponent "{659863D77B18E89B}" {
+   ActionContexts {
+    UserActionContext "{659881F9A8C1BB40}" {
+     ContextName "DroneBody"
+     Position PointInfo "{659881F9A1E2296D}" {
+      Offset 0 0.0845 0.0347
+     }
+    }
+   }
+   additionalActions {
+    SAL_ConnectToDrone "{659881F9BE92DE15}" {
+     ParentContextList {
+      "DroneBody"
+     }
+     UIInfo UIInfo "{659881F9B8D270EF}" {
+      Name "Connect to Drone"
+     }
+    }
+   }
+  }
+  RplComponent "{659863D793C45A93}" {
+   "Parent Node From Parent Entity" 0
+  }
+ }
+ coords 1.605 3.526 4.999
+ scale 0.5
+}

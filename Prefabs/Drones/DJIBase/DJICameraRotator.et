@@ -1,0 +1,12 @@
+GenericEntity : "{5A605E0B80EC0B21}Prefabs/Drones/DJIBase/DJICamera.et" {
+ ID "658B340BE800639F"
+ components {
+  MeshObject "{658B340BD9325940}" {
+   Object "{AD0C6CF179FE45F3}Assets/Drones/DJIs/DJICameraRotator.xob"
+  }
+  SAL_GimbalCameraComponent "{6597106D4CFB211D}" {
+   m_GimbalMode Roll
+  }
+ }
+ coords 0 0 0
+}

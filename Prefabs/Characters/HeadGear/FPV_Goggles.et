@@ -1,0 +1,54 @@
+GameEntity : "{17F335BF60DD2550}Prefabs/Characters/Core/Headgear_Base.et" {
+ ID "5112706CD4157AC7"
+ components {
+  InventoryItemComponent "{5244E4431E28A759}" {
+   Attributes SCR_ItemAttributeCollection "{659F1EAD965D8094}" {
+    ItemDisplayName UIInfo "{659F1EAD965D8084}" {
+     Name "#AR-Headgear_BoonieHat_Name"
+     Description "#AR-Headgear_BoonieHat_Description"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{659F1EAD965D808A}" {
+     Weight 0.17
+     SizeSetupStrategy Volume
+     ItemVolume 300
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{659F1EAD965D80F0}" {
+      CameraOrbitAngles -25 25 0
+      CameraDistanceToItem 2
+      FOV 10
+     }
+    }
+   }
+  }
+  MeshObject "{5112706CD4157AE0}" {
+   Object "{A53DDA3AE84CA676}Assets/Drones/FPVGoggles/FPVGoggles.xob"
+  }
+  SCR_ItemOutfitFactionComponent "{659F1EAD965D80F8}" {
+   m_OutfitDataHolder SCR_OutfitFactionDataHolder "{659F1EAD965D80E1}" {
+    m_aOutfitFactionData {
+     SCR_OutfitFactionData "{659F1EAD965D80E4}" {
+      m_AffiliatedFactionKey "US"
+      m_iOutfitFactionValue 15
+     }
+    }
+   }
+  }
+  BaseLoadoutClothComponent "{5112706CD4157AF8}" {
+   AreaType LoadoutHeadCoverArea "{659F1EAD965D80EB}" {
+   }
+   WornModel "{A53DDA3AE84CA676}Assets/Drones/FPVGoggles/FPVGoggles.xob"
+   ItemModel "{72CD7E5E3190D3FE}Assets/Drones/FPVGoggles/FPVGogglesItem.xob"
+  }
+  ActionsManagerComponent "{5112706CD4157AC9}" {
+   ActionContexts {
+    UserActionContext "{5112706CD4157AF3}" {
+     Position PointInfo "{5112706CD4157AF0}" {
+      Offset 0 0.1 0
+     }
+    }
+   }
+  }
+ }
+ coords 0.594 1.202 -1.52
+}

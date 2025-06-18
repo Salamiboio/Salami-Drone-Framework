@@ -1,0 +1,51 @@
+GenericEntity {
+ ID "659B46C895499451"
+ components {
+  SignalsManagerComponent "{659B46C83FDB0FD8}" {
+  }
+  SoundComponent "{659B46C83B5D0F21}" {
+   Filenames {
+    "{B9347A5498317F65}Sounds/Particles/Logistics/Explosion/TNT/Particles_Explosions_TNT_Medium.acp"
+   }
+   DistanceManagement 0
+  }
+  TimerTriggerComponent "{659B46C83697C084}" {
+   PROJECTILE_EFFECTS {
+    ExplosionDamageContainer "{659B46C86DF525CA}" {
+     TriggerOnce 1
+     ExplosionEffects {
+      BaseExplosionDamage "{5D8D1EB3EF9D02C6}" {
+      }
+      BaseExplosionDamage "{61DAF5E24D9CA168}" {
+      }
+      BaseExplosionDamage "{5D8D1EB3EBB36077}" {
+      }
+      ExplosionImpulseEffect "{5E6D1CEE09A33086}" {
+      }
+     }
+     ChargeWeight 27000
+     LayerPreset "Projectile"
+    }
+    SpawnDecalEffect "{659B46C86831601D}" {
+     Scale 7.5
+     Material "{09F013150D25803F}Assets/Decals/Logistics/Data/Logistics_Explosion_Decal_Medium.emat"
+    }
+    SpawnParticleEffect "{659B46C8664904C4}" {
+     UseFrameEvent 1
+     ParticleEffect "{001CC9410BE16BE3}Particles/Logistics/Explosion/TNT/Explosion_TNT_Medium.ptc"
+     SoundEvent "SOUND_EXPLOSION"
+    }
+   }
+   DELETE_ON_TRIGGER 0
+   TRIGGER_ALIVE 1
+   TIMER 0.05
+  }
+  HitEffectComponent "{659B46C832793470}" {
+   ParticleEffect "{001CC9410BE16BE3}Particles/Logistics/Explosion/TNT/Explosion_TNT_Medium.ptc"
+   EnabledOnDedicatedServer 1
+  }
+  RplComponent "{659B46C84F9F0796}" {
+  }
+ }
+ coords 3.614 -1.088 -1.119
+}

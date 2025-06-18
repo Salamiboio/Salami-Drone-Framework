@@ -1,0 +1,17 @@
+GenericEntity {
+ ID "65A29C46B5531F96"
+ components {
+  MeshObject "{65A29C4CEDA32B75}" {
+   Object "{D309E1AC4DE1B212}Assets/Drones/FPVs/FPVBase/FPV.xob"
+  }
+  RigidBody "{65A29C4CE19B5E17}" {
+   Active Active
+   Mass 0.8
+   ModelGeometry 1
+  }
+  RplComponent "{65A29C4CEF5CB46C}" {
+  }
+ }
+ coords 2.703 -0.703 -1.519
+ scale 0.5
+}

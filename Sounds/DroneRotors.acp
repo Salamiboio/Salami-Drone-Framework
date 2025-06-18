@@ -1,0 +1,185 @@
+AudioClass {
+ signals {
+  SignalClass {
+   id 8205
+   name "Signal 8"
+   tl -456 -13.15
+   res "{5A053CBDE9F13FEC}Sounds/DroneRPMSignal.sig"
+   inputsport {
+    1
+   }
+   outputsport {
+    2
+   }
+   inputvalues {
+    35000
+   }
+   inputvaluesmin {
+    0
+   }
+   inputvaluesmax {
+    35000
+   }
+   path "{5A053CBDE9F13FEC}Sounds/DroneRPMSignal.sig"
+  }
+ }
+ sounds {
+  SoundClass {
+   id 7177
+   name "DRONE_ROTOR"
+   version 5
+   tl 332 20
+   ins {
+    ConnectionsClass connections {
+     id 64
+     links {
+      ConnectionClass connection {
+       id 3090
+       port 65
+      }
+     }
+    }
+   }
+   outState 9227
+   outStatePort 79879
+  }
+ }
+ mixers {
+  MixerClass {
+   id 9227
+   name "OutputState 9"
+   version 4
+   tl 552 26
+   res "{B764D803219C775E}Sounds/FinalMix.afm"
+   ins {
+    ConnectionsClass connections {
+     id 79879
+     links {
+      ConnectionClass connection {
+       id 7177
+       port 65
+      }
+     }
+    }
+   }
+   pi {
+    16384 0
+   }
+   path "{B764D803219C775E}Sounds/FinalMix.afm"
+   inputs {
+    "WPN_Handling" "WPN_Shots" "WPN_Explosions" "WNP_BulletHits" "CHAR" "ENV_AMB_2D" "VEH_Animations" "Impacts" "Dialog" "Music" "ENV_Doors" "VEH_Engine" "VEH_Tires" "VON" "SFX" "SFX_Reverb" "VON_Reverb" "Dialog_Reverb" "Impacts_EXT" "ENV_AMB_3D" "WPN_SonicCracks" "CHAR_Gear" "PA" "SFX_Reverb_Exterior" "UI" "ENV_AMB_3D_Reverb_Exterior" "SFX_Direct" "SFX_Reverb_Small" "SFX_Reverb_Medium" "SFX_Reverb_Large" "WPN_Shots_Player" "Dialog_Reverb_Small" "Dialog_Reverb_Medium" "Dialog_Reverb_Large" "WPN_TravelingProjectile" "Dialog_Delay_Exterior" "SFX_Reverb_InCabin"
+   }
+  }
+ }
+ shaders {
+  ShaderClass {
+   id 3090
+   name "Shader 3"
+   version 5
+   tl 46 -7
+   ins {
+    ConnectionsClass connections {
+     id 0
+     links {
+      ConnectionClass connection {
+       id 6172
+       port 65
+      }
+     }
+    }
+    ConnectionsClass connections {
+     id 1
+     links {
+      ConnectionClass connection {
+       id 5139
+       port 65
+      }
+     }
+    }
+    ConnectionsClass connections {
+     id 2
+     links {
+      ConnectionClass connection {
+       id 4117
+       port 65
+      }
+     }
+    }
+    ConnectionsClass connections {
+     id 64
+     links {
+      ConnectionClass connection {
+       id 2052
+       port 65
+      }
+     }
+    }
+   }
+   pi {
+    7 0
+   }
+  }
+ }
+ amplitudes {
+  AmplitudeClass {
+   id 5139
+   name "Amplitude 5"
+   version 5
+   tl 48.626 -216.754
+   curve "1/r"
+  }
+ }
+ frequency {
+  FrequencyClass {
+   id 4117
+   name "Frequency 4"
+   version 5
+   tl 53.626 -140.754
+   enableDistanceAtt 1
+  }
+ }
+ banks_local {
+  BankLocalClass {
+   id 2052
+   name "DroneBank"
+   version 7
+   tl -232.847 -5.576
+   ins {
+    ConnectionsClass connections {
+     id 1
+     links {
+      ConnectionClass connection {
+       id 8205
+       port 2
+      }
+     }
+    }
+   }
+   pi {
+    2 0
+   }
+   pu {
+    2 0
+   }
+   Volume -12
+   "Loop count" 255
+   "Infinite loop" 1
+   Samples {
+    AudioBankSampleClass Sample {
+     Filename "{F7C26C21FEB3D78F}Sounds/drone sound1.wav"
+     Index 1
+    }
+   }
+  }
+ }
+ spatialities {
+  SpatialityClass {
+   id 6172
+   name "Spatiality 6"
+   version 5
+   tl 49.341 -297.748
+   spatialFactor 1
+  }
+ }
+ version 1
+}

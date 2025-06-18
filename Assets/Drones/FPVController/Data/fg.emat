@@ -1,0 +1,4 @@
+MatPBRBasic {
+ BCRMap "{09C9B7E0890202A9}Assets/Drones/FPVController/Data/REMOT_fg_BCR.edds"
+ NMOMap "{B37283321240E432}Assets/Drones/FPVController/Data/REMOT_fg_Height.edds"
+}

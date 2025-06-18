@@ -1,0 +1,6 @@
+MatPBRBasic {
+ AllowUserAlphaBias 1
+ DisableUserAphaInShadow 1
+ BCRMap "{73FE21BA0169C895}Assets/Drones/FPVGoggles/Data/FPVGoggles_BCR.edds"
+ NMOMap "{6D451251520CA7A1}Assets/Drones/FPVGoggles/Data/FPVGoggles_normal.edds"
+}

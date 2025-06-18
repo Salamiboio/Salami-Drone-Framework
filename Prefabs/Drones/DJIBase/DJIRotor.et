@@ -1,0 +1,10 @@
+GenericEntity : "{D072D3706963BB04}Prefabs/Drones/FPVBasic/FPVBasicRotor.et" {
+ ID "658B340BE800639F"
+ components {
+  MeshObject "{658B340BD9325940}" {
+   Object "{B54CB68DF5B150BE}Assets/Drones/DJIs/DJI_Rotor.xob"
+  }
+ }
+ coords 0 0 0
+ scale 0.5
+}

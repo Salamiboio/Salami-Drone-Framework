@@ -1,0 +1,93 @@
+GenericEntity {
+ ID "65932E3D2F6C309A"
+ components {
+  SignalsManagerComponent "{659B5B96B8C116B7}" {
+  }
+  SAL_DroneSoundComponent "{659B5B96CB87B3A2}" {
+   Filenames {
+    "{220EEE2FA211DDDC}Sounds/DroneRotors.acp"
+   }
+   ScriptCallbacks 1
+   DistanceManagement 0
+   IncludeInactive 1
+  }
+  MeshObject "{65932E3A1462927F}" {
+   Object "{D309E1AC4DE1B212}Assets/Drones/FPVs/FPVBase/FPV.xob"
+  }
+  RigidBody "{65932E3A2275FA52}" {
+   LayerPreset "Vehicle"
+   Active Active
+   Mass 0.8
+   LinearDamping 0.4
+   AngularDamping 0.4
+   LinearSleepingThreashold 0
+   AngularSleepingThreashold 0
+   ModelGeometry 1
+  }
+  SAL_DroneControllerComponent "{65967B50676709BE}" {
+   m_iMaxThrustRPM 20000
+   m_fPitchSensitivity 2
+   m_fYawSensitivity 2
+   m_fRollSensitivity 2
+  }
+  SAL_DroneHUDComponent "{65A136661B17A824}" {
+   m_DroneHUDLayout "{3DD4E524949841A7}UI/FPVHud/FPVHudLayout.layout"
+  }
+  SAL_DroneHealthComponent "{65A29C6C8DC04DAD}" {
+   m_sDroneWreckPrefab "{713EFC799FE361F6}Prefabs/Drones/FPVBase/FPVWreck.et"
+  }
+  SlotManagerComponent "{65932E3A16300B2D}" {
+   Slots {
+    EntitySlotInfo Rotor1 {
+     Offset -0.31 0.06 0.3
+     Prefab "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et"
+    }
+    EntitySlotInfo Rotor2 {
+     Offset 0.31 0.06 0.31
+     Prefab "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et"
+    }
+    EntitySlotInfo Rotor3 {
+     Offset -0.31 0.06 -0.3
+     Prefab "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et"
+    }
+    EntitySlotInfo Rotor4 {
+     Offset 0.31 0.06 -0.31
+     Prefab "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et"
+    }
+    EntitySlotInfo Camera {
+     Offset 0.0057 0.0275 0.2696
+     Angles 25 0 0
+     Prefab "{B9E77330D570CF99}Prefabs/Drones/FPVBase/CameraEntityFPV.et"
+    }
+   }
+  }
+  ActionsManagerComponent "{65932E3A3F9915A0}" {
+   ActionContexts {
+    UserActionContext "{65932E3ADF580EC4}" {
+     UIInfo UIInfo "{65932E3AD84EDD6F}" {
+      Name "DroneBody"
+     }
+     ContextName "DroneBody"
+     Position PointInfo "{65932E3AD0B0EFDF}" {
+      Offset 0 0.125 0
+     }
+    }
+   }
+   additionalActions {
+    SAL_ConnectToDrone "{65932E3D03898E5B}" {
+     ParentContextList {
+      "DroneBody"
+     }
+     UIInfo UIInfo "{65932E3D1E82E1DD}" {
+      Name "Connect To Drone"
+     }
+    }
+   }
+  }
+  RplComponent "{65932E3A10C5CD87}" {
+   "Parent Node From Parent Entity" 0
+  }
+ }
+ coords 0 0 0.477
+ scale 0.5
+}

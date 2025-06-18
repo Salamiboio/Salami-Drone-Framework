@@ -1,0 +1,20 @@
+GenericEntity {
+ ID "6597106FDE7C6D94"
+ components {
+  SAL_GimbalCameraComponent "{6598587BB8C05469}" {
+   m_GimbalMode Combined
+  }
+  SlotManagerComponent "{6597106F87A1A871}" {
+   Slots {
+    EntitySlotInfo Camera {
+    }
+   }
+  }
+  RplComponent "{6597106F9D218A8D}" {
+   "Parent Node From Parent Entity" 0
+  }
+  Hierarchy "{6597106F9B752347}" {
+  }
+ }
+ coords 3.974 -1.995 -1.816
+}

@@ -1,0 +1,23 @@
+MetaFileClass {
+ Name "{6D451251520CA7A1}Assets/Drones/FPVGoggles/Data/FPVGoggles_normal.edds"
+ Configurations {
+  PNGResourceClass PC : "{835E083C88C3D9C3}Configs/System/ResourceTypes/PC/TextureTerrainNormal.conf" {
+   MaxSize "1024"
+  }
+  PNGResourceClass XBOX_ONE : "{6C5EFFA712A52100}Configs/System/ResourceTypes/XBOX_ONE/TextureTerrainNormal.conf" {
+   MaxSize "1024"
+  }
+  PNGResourceClass XBOX_SERIES : "{90ADE65A903F3042}Configs/System/ResourceTypes/XBOX_SERIES/TextureTerrainNormal.conf" {
+   MaxSize "1024"
+  }
+  PNGResourceClass PS4 : "{6F6E5A1432381FD2}Configs/System/ResourceTypes/PS4/TextureTerrainNormal.conf" {
+   MaxSize "1024"
+  }
+  PNGResourceClass PS5 : "{5CEA2418C9F889F8}configs/ResourceTypes/PS5/TextureTerrainNormal.conf" {
+   MaxSize "1024"
+  }
+  PNGResourceClass HEADLESS : "{EAB38BDFD096C0A6}Configs/System/ResourceTypes/HEADLESS/TextureTerrainNormal.conf" {
+   MaxSize "1024"
+  }
+ }
+}

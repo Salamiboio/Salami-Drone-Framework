@@ -1,0 +1,32 @@
+GenericEntity : "{6BEC092D354A997E}Prefabs/Weapons/Warheads/Explosions/Warhead_Explosion_Base.et" {
+ ID "9D9BE68EA2672F76"
+ components {
+  SignalsManagerComponent "{C572A75F88B55309}" {
+   Enabled 1
+  }
+  SoundComponent "{D092A75ECEFAE456}" {
+   Enabled 1
+   Filenames {
+    "{B9347A5498317F65}Sounds/Particles/Logistics/Explosion/TNT/Particles_Explosions_TNT_Medium.acp"
+   }
+  }
+  TimerTriggerComponent "{55129E81CBAA1390}" {
+   PROJECTILE_EFFECTS {
+    ExplosionDamageContainer "{5D8D1EB3E2893B43}" {
+     ChargeWeight 27000
+    }
+    SpawnDecalEffect "{5E24A9E4AE3FCD64}" {
+     Scale 7.5
+     Material "{09F013150D25803F}Assets/Decals/Logistics/Data/Logistics_Explosion_Decal_Medium.emat"
+    }
+    SpawnParticleEffect "{5E24A9E49067B7F5}" {
+     ParticleEffect "{001CC9410BE16BE3}Particles/Logistics/Explosion/TNT/Explosion_TNT_Medium.ptc"
+     SoundEvent "SOUND_EXPLOSION"
+    }
+   }
+  }
+  HitEffectComponent "{9D9BE68D6F65A10F}" {
+   ParticleEffect "{B6275B6B9E29E9ED}Particles/Weapon/Explosion_RPG7V1.ptc"
+  }
+ }
+}

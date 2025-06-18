@@ -1,6 +1,22 @@
 FrameWidgetClass {
  Name "rootFrame"
  {
+  ImageWidgetClass "{65A43CCD7EEF1CC0}" {
+   Name "Static"
+   Slot FrameWidgetSlot "{65A43CCD7EEF36DE}" {
+    Anchor 0 0 1 1
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 0
+    OffsetRight 0
+    SizeY 0
+    OffsetBottom 0
+   }
+   Texture "{743031231E240003}UI/FPVHud/Data/BLANK.edds"
+   Size 768 432
+  }
   ImageWidgetClass "{62CA0D01166D627B}" {
    Name "MainHud"
    Slot FrameWidgetSlot "{62CA0D01166D62B7}" {

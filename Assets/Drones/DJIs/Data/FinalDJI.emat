@@ -1,0 +1,4 @@
+MatPBRBasic {
+ BCRMap "{47A5D29F3FB9905F}Assets/Drones/DJIs/Data/DJI_BCR.edds"
+ NMOMap "{760D18CD30C22BA3}Assets/Drones/DJIs/Data/DJI_Normal.edds"
+}

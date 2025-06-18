@@ -1,0 +1,16 @@
+GenericEntity {
+ ID "658B340BE800639F"
+ components {
+  MeshObject "{658B340BD9325940}" {
+   Object "{66F8323981520082}Assets/Drones/FPVs/FPVBaseRotor/FPVRotor.xob"
+  }
+  RigidBody "{658B340BDB337EC0}" {
+  }
+  RplComponent "{658B340BDAF50D06}" {
+   "Parent Node From Parent Entity" 0
+  }
+  Hierarchy "{658EE3B8937BD833}" {
+  }
+ }
+ coords -2.934 -1.257 2.067
+}

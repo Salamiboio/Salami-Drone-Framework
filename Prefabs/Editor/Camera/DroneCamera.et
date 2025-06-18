@@ -1,0 +1,17 @@
+SCR_ManualCamera {
+ ID "658F14978D39CCF0"
+ components {
+  SCR_HintConditionComponent "{658F14978D39CCF8}" {
+   m_Hints SCR_HintConditionList "{56469C624E6EB694}" : "{13D7BA631A52EC59}Configs/Hints/ManualCamera.conf" {
+   }
+  }
+  Hierarchy "{658F14978D39CCEE}" {
+  }
+ }
+ coords 1339.068 51.001 1437.776
+ FOV 70
+ cameraFlags 7
+ m_bStartAtEntity 1
+ m_sActionContext "DroneContext"
+ m_DefaultFlags 0
+}

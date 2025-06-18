@@ -89,7 +89,7 @@ FrameWidgetClass {
     OffsetBottom -540
    }
    "Z Order" 10
-   Texture "{743031231E240003}UI/FPVHud/Data/BLANK.edds"
+   Texture "{EC0977F3BECC2866}UI/DJIHud/Data/zoomlevel1.edds"
    Size 768 432
    Filter 0
   }

@@ -1,0 +1,13 @@
+AnimSetInstanceSource "{65A09CDEA66B60E3}" {
+ Template "{95D440E6E73BDFD4}anims/DroneController/dronecontroller.ast"
+ Lines {
+  AnimSetInstanceSource_Line "Reload.Erc.IKOffset" {
+   Resource "{B44E170C2B01AEA4}anims/DroneController/f_dronecontroller_offset.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Pne.IKOffset" {
+   Resource "{B44E170C2B01AEA4}anims/DroneController/f_dronecontroller_offset.anm"
+  }
+ }
+ RBF AnimSetInstanceSourceRBFArray "{65A09CDEA633B6FA}" {
+ }
+}

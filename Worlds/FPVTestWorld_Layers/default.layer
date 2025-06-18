@@ -1,0 +1,53 @@
+SCR_GameModeEditor GameMode_Editor_Full1 : "{DA3986AF1B5032B7}Prefabs/MP/Modes/Editor/GameMode_Editor_Full.et" {
+ coords 1407.511 39 2162.124
+ {
+  SCR_FactionManager {
+   ID "56E685E92F1B7E7A"
+   Factions {
+    SCR_Faction "{56DEAC40D2DBC8B1}" {
+     m_bIsPlayable 1
+    }
+   }
+  }
+ }
+}
+GenericEntity : "{2A283EA7BADDBD28}Prefabs/Drones/FPVBase/FPVBase.et" {
+ components {
+  RigidBody "{65932E3A2275FA52}" {
+   LinearDamping 0.4
+   AngularDamping 0.4
+  }
+ }
+ coords 1411.745 39 2164.627
+}
+SCR_SpawnPoint : "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoint_US.et" {
+ coords 1410.153 39 2166.017
+}
+GameEntity : "{8951045BFE8BC8E4}Prefabs/Characters/HeadGear/FPV_Goggles.et" {
+ coords 1409.968 39 2163.836
+}
+GenericEntity : "{E2434ED1318D8476}Prefabs/Characters/Items/DroneController.et" {
+ components {
+  SCR_WeaponAttachmentsStorageComponent "{51F080D5CE45A1A2}" {
+   Attributes SCR_ItemAttributeCollection "{51F080D5C64F12C5}" {
+    ItemAnimationAttributes ItemAnimationAttributes "{5284960E1D29F45C}" {
+     AnimIKPoseStandOverride "{103FD9D3DB45BD86}anims/DroneController/p_dronecontroller16_ik.anm"
+     AnimIKPoseCrouchOverride "{103FD9D3DB45BD86}anims/DroneController/p_dronecontroller16_ik.anm"
+     AnimIKPoseProneOverride "{103FD9D3DB45BD86}anims/DroneController/p_dronecontroller16_ik.anm"
+    }
+   }
+  }
+ }
+ coords 1409.846 39 2165.006
+}
+GenericEntity : "{FDA92D590B9C633B}Prefabs/Drones/DJIBase/DJIBase.et" {
+ components {
+  SAL_CameraZoomComponent "{65A136CCF776A570}" {
+  }
+  SAL_DroneHUDComponent "{65A136CCF942797D}" {
+   m_DroneHUDLayout "{D28FC76211CCFD45}UI/DJIHud/DJIHudLayout.layout"
+   m_eHudType DJI
+  }
+ }
+ coords 1411.881 39 2163.621
+}
