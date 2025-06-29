@@ -18,6 +18,7 @@ class SAL_DroneHUDComponent: ScriptComponent
 	CameraManager m_CameraManager;
 	SAL_CameraZoomComponent m_CameraZoom;
 	SAL_DroneSignalComponent m_SignalComponent;
+	SAL_DroneBatteryComponent m_BatteryComponent;
 	
 	Widget m_wOverlayWidget;
 	
@@ -32,8 +33,11 @@ class SAL_DroneHUDComponent: ScriptComponent
 		m_DroneConnectionManager = SAL_DroneConnectionManager.GetInstance();
 		m_CameraZoom = SAL_CameraZoomComponent.Cast(owner.FindComponent(SAL_CameraZoomComponent));
 		m_SignalComponent = SAL_DroneSignalComponent.Cast(owner.FindComponent(SAL_DroneSignalComponent));
+		m_BatteryComponent = SAL_DroneBatteryComponent.Cast(owner.FindComponent(SAL_DroneBatteryComponent));
 	};
 	
+	float m_fTimer = 0;
+	float m_fBatteryTimer = 0;
 	override void EOnFixedFrame(IEntity owner, float timeSlice)
 	{
 		if (!m_CameraManager.CurrentCamera())
@@ -86,6 +90,14 @@ class SAL_DroneHUDComponent: ScriptComponent
 			staticWidget.LoadImageTexture(3, "{64F0609D6E78D53C}UI/Textures/TVSTATIC2.edds");
 			staticWidget.LoadImageTexture(4, "{90F8270563A5BD48}UI/Textures/TVSTATIC3.edds");
 		}
+		
+		if (m_fTimer < 0.01)
+		{
+			m_fTimer += timeSlice;
+			return;
+		}
+		else
+			m_fTimer = 0;
 
 		
 		if (m_wOverlayWidget)
@@ -98,6 +110,64 @@ class SAL_DroneHUDComponent: ScriptComponent
 					GetGame().GetWorld().GetCurrentCamera(transform);
 					float roll = -Math3D.MatrixToAngles(transform)[2];
 					ImageWidget.Cast(m_wOverlayWidget.FindWidget("Dots")).SetRotation(roll);
+					
+					TextWidget signalText = TextWidget.Cast(m_wOverlayWidget.FindWidget("SignalText"));
+					int rssiInt = Math.Lerp(-30, -120, m_SignalComponent.m_fRSSI);
+					string rssi = rssiInt.ToString();
+					signalText.SetText(rssi);
+					
+					TextWidget lqText = TextWidget.Cast(m_wOverlayWidget.FindWidget("LQText"));
+					int lqInt = Math.Lerp(100, 0, m_SignalComponent.m_fLQ);
+					string lq = lqInt.ToString();
+					lqText.SetTextFormat("LQ: %1%", lq);
+					
+					float batteryPercentage = m_BatteryComponent.m_fCurrentBattery/m_BatteryComponent.m_fCurrentBatteryMax;
+					if (batteryPercentage <= 1 && batteryPercentage >= 0.75)
+					{
+						m_wOverlayWidget.FindWidget("BatteryLevel4").SetVisible(true);
+						m_wOverlayWidget.FindWidget("BatteryLevel3").SetVisible(true);
+						m_wOverlayWidget.FindWidget("BatteryLevel2").SetVisible(true);
+						m_wOverlayWidget.FindWidget("BatteryLevel1").SetVisible(true);
+					}
+					else if (batteryPercentage <= 0.75 && batteryPercentage >= 0.5)
+					{
+						m_wOverlayWidget.FindWidget("BatteryLevel4").SetVisible(false);
+						m_wOverlayWidget.FindWidget("BatteryLevel3").SetVisible(true);
+						m_wOverlayWidget.FindWidget("BatteryLevel2").SetVisible(true);
+						m_wOverlayWidget.FindWidget("BatteryLevel1").SetVisible(true);
+					}
+					else if (batteryPercentage <= 0.50 && batteryPercentage >= 0.25)
+					{
+						m_wOverlayWidget.FindWidget("BatteryLevel4").SetVisible(false);
+						m_wOverlayWidget.FindWidget("BatteryLevel3").SetVisible(false);
+						m_wOverlayWidget.FindWidget("BatteryLevel2").SetVisible(true);
+						m_wOverlayWidget.FindWidget("BatteryLevel1").SetVisible(true);
+					}
+					else if (batteryPercentage <= 0.25 && batteryPercentage >= 0.10)
+					{
+						m_wOverlayWidget.FindWidget("BatteryLevel4").SetVisible(false);
+						m_wOverlayWidget.FindWidget("BatteryLevel3").SetVisible(false);
+						m_wOverlayWidget.FindWidget("BatteryLevel2").SetVisible(false);
+						m_wOverlayWidget.FindWidget("BatteryLevel1").SetVisible(true);
+					}
+					else
+					{
+						m_fBatteryTimer += timeSlice;
+						m_wOverlayWidget.FindWidget("BatteryLevel4").SetVisible(false);
+						m_wOverlayWidget.FindWidget("BatteryLevel3").SetVisible(false);
+						m_wOverlayWidget.FindWidget("BatteryLevel2").SetVisible(false);
+						
+						if (m_fBatteryTimer <= 0.5)
+							m_wOverlayWidget.FindWidget("BatteryLevel1").SetVisible(true);
+						else
+						{
+							m_wOverlayWidget.FindWidget("BatteryLevel1").SetVisible(false);
+						}
+						
+						if (m_fBatteryTimer >= 1)
+							m_fBatteryTimer = 0;
+					}
+					
 					break;
 				}
 				
@@ -186,6 +256,26 @@ class SAL_DroneHUDComponent: ScriptComponent
 					float fovDifference = Math.Clamp((m_CameraManager.CurrentCamera().GetVerticalFOV() - m_CameraZoom.m_iMaxZoom) / (m_CameraZoom.m_iMinZoom - m_CameraZoom.m_iMaxZoom), 0.0, 1.0);
 					float zoomPos = Math.Lerp(-930, -540, fovDifference);
 					FrameSlot.SetPosY(m_wOverlayWidget.FindAnyWidget("ZoomSlider"), zoomPos);
+					
+					//Signal BS
+					//---------------------------------------------------------------------------------------------------------------
+					//---------------------------------------------------------------------------------------------------------------
+					TextWidget signalText = TextWidget.Cast(m_wOverlayWidget.FindWidget("SignalText"));
+					int rssiInt = Math.Lerp(-30, -120, m_SignalComponent.m_fRSSI);
+					string rssi = rssiInt.ToString();
+					signalText.SetText(rssi);
+					
+					TextWidget lqText = TextWidget.Cast(m_wOverlayWidget.FindWidget("LQText"));
+					int lqInt = Math.Lerp(100, 0, m_SignalComponent.m_fLQ);
+					string lq = lqInt.ToString();
+					lqText.SetTextFormat("LQ: %1%", lq);
+					//---------------------------------------------------------------------------------------------------------------
+					//---------------------------------------------------------------------------------------------------------------
+					
+					float batteryPercentage = m_BatteryComponent.m_fCurrentBattery/m_BatteryComponent.m_fCurrentBatteryMax;
+					int currentPercent = 100 * batteryPercentage;
+					TextWidget.Cast(m_wOverlayWidget.FindWidget("BatteryText")).SetText(currentPercent.ToString());
+					ProgressBarWidget.Cast(m_wOverlayWidget.FindWidget("BatteryBar")).SetCurrent(batteryPercentage);
 				}
 			}
 			

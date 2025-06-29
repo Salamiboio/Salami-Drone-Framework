@@ -8,6 +8,8 @@ class SAL_DroneSignalComponent: ScriptComponent
 	
 	float m_fSignalStrength = 255.0;
 	int m_iGroundBuffer = 0;
+	float m_fRSSI = 0.0;
+	float m_fLQ = 0;
 	
 	SAL_DroneConnectionManager m_DroneManager;
 	
@@ -23,10 +25,19 @@ class SAL_DroneSignalComponent: ScriptComponent
 		m_DroneManager = SAL_DroneConnectionManager.GetInstance();
 	}
 	
+	float m_fTimer = 0;
 	override void EOnFixedFrame(IEntity owner, float timeSlice)
 	{
 		if (!m_DroneManager.IsDronePlayers(owner))
 			return;
+		
+		if (m_fTimer < 0.01)
+		{
+			m_fTimer += timeSlice;
+			return;
+		}
+		else
+			m_fTimer = 0;
 		
 		vector playerOrigin = SCR_PlayerController.GetLocalControlledEntity().GetOrigin();
 		vector droneOrigin = owner.GetOrigin();
@@ -118,6 +129,8 @@ class SAL_DroneSignalComponent: ScriptComponent
 			}
 		}
 		m_fSignalStrength = Math.Round(finalSignal * 255);
+		m_fRSSI = Math.Clamp(signalLoss + m_fObstructionPenaltySmoothed, 0.0, 1.0);
+		m_fLQ = finalSignal;
 	}
 	
 	

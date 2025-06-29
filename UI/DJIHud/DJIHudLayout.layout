@@ -1,6 +1,84 @@
 FrameWidgetClass {
  Name "rootFrame"
  {
+  ImageWidgetClass "{65AAA9DA8A704A5F}" {
+   Name "Static"
+   Slot FrameWidgetSlot "{65A43CCD7EEF36DE}" {
+    Anchor 0 0 1 1
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 0
+    OffsetRight 0
+    SizeY 0
+    OffsetBottom 0
+   }
+   Texture "{743031231E240003}UI/FPVHud/Data/BLANK.edds"
+   Size 768 432
+  }
+  ImageWidgetClass "{65AAA9DA87EB33B0}" {
+   Name "Header"
+   Slot FrameWidgetSlot "{65AAA9DA87EB33AA}" {
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX 1920
+    OffsetRight -1920
+    SizeY 80
+    OffsetBottom -80
+   }
+   Color 0 0 0 1
+  }
+  ProgressBarWidgetClass "{65AAA9DD0839087B}" {
+   Name "BatteryBar"
+   Slot FrameWidgetSlot "{65AAA9DD0839085E}" {
+    PositionX 1813.38
+    OffsetLeft 1813.38
+    PositionY 17.2
+    OffsetTop 17.2
+    SizeX 75.809
+    OffsetRight -1889.19
+    SizeY 46.238
+    OffsetBottom -63.439
+   }
+   Current 100
+   "Draw Background" 0
+  }
+  TextWidgetClass "{65AAA9DD3F5CD0E7}" {
+   Name "BatteryText"
+   Slot FrameWidgetSlot "{65AAA9DD3F5CD0C1}" {
+    PositionX 1824.29
+    OffsetLeft 1824.29
+    PositionY 26.775
+    OffsetTop 26.775
+    SizeX 53.889
+    OffsetRight -1878.18
+    SizeY 30
+    OffsetBottom -56.775
+   }
+   Color 0 0 0 1
+   Text "100"
+   "Font Size" 33
+   "Horizontal Alignment" Center
+   "Vertical Alignment" Center
+  }
+  ImageWidgetClass "{65AAA9DAD666010E}" {
+   Name "Battery"
+   Slot FrameWidgetSlot "{65AAA9DAD6660167}" {
+    PositionX 1801.01
+    OffsetLeft 1801.01
+    PositionY 2.182
+    OffsetTop 2.182
+    SizeX 109.73
+    OffsetRight -1910.74
+    SizeY 78.316
+    OffsetBottom -80.498
+   }
+   Texture "{035EBE5D66614837}UI/DJIHud/Data/DJIBattery.edds"
+   Size 112 64
+  }
   TextWidgetClass "{62C92C1EEDA42999}" {
    Name "Bearing"
    Slot FrameWidgetSlot "{62C92C1EEDA429E2}" {
@@ -178,6 +256,63 @@ FrameWidgetClass {
    "Horizontal Alignment" Center
    "Vertical Alignment" Center
    FontProperties FontProperties "{62C92C1F1E83A46A}" {
+    Font "{CD2634D279AB011A}UI/Fonts/Roboto/Roboto_Bold.fnt"
+   }
+  }
+  ImageWidgetClass "{65AAA9DD54E8EE8F}" {
+   Name "Signal"
+   Slot FrameWidgetSlot "{65A548E11B6E9E21}" {
+    PositionX 1603.72
+    OffsetLeft 1603.72
+    PositionY 11.993
+    OffsetTop 11.993
+    SizeX 76.05
+    OffsetRight -1679.77
+    SizeY 56.126
+    OffsetBottom -68.119
+   }
+   Texture "{013D5E57FEE34283}UI/FPVHud/Data/signal.edds"
+   Size 512 512
+  }
+  TextWidgetClass "{65AAA9DD54E8E978}" {
+   Name "SignalText"
+   Slot FrameWidgetSlot "{65A548E1526A9A62}" {
+    PositionX 1680.97
+    OffsetLeft 1680.97
+    PositionY 7.078
+    OffsetTop 7.078
+    SizeX 118.62
+    OffsetRight -1799.59
+    SizeY 63.617
+    OffsetBottom -70.695
+   }
+   Text ""
+   "Font Size" 49
+   "Min Font Size" 49
+   "Horizontal Alignment" Center
+   "Vertical Alignment" Center
+   FontProperties FontProperties "{65A548E179ECCF29}" {
+    Font "{CD2634D279AB011A}UI/Fonts/Roboto/Roboto_Bold.fnt"
+   }
+  }
+  TextWidgetClass "{65AAA9DD54E8E944}" {
+   Name "LQText"
+   Slot FrameWidgetSlot "{65A548E1526A9A62}" {
+    PositionX 1377.23
+    OffsetLeft 1377.23
+    PositionY 8.964
+    OffsetTop 8.964
+    SizeX 202.41
+    OffsetRight -1579.64
+    SizeY 63.616
+    OffsetBottom -72.58
+   }
+   Text ""
+   "Font Size" 49
+   "Min Font Size" 49
+   "Horizontal Alignment" Center
+   "Vertical Alignment" Center
+   FontProperties FontProperties "{65A548E179ECCF29}" {
     Font "{CD2634D279AB011A}UI/Fonts/Roboto/Roboto_Bold.fnt"
    }
   }

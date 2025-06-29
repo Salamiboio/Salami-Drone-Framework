@@ -1,0 +1,4 @@
+MatPBRBasic {
+ BCRMap "{4D20BAF09FE48DDF}Assets/Drones/JammerBag/Data/heatsink_Base_color.edds"
+ NMOMap "{604E77E6BB120F4C}Assets/Drones/JammerBag/Data/heatsink_Normal.edds"
+}

@@ -1,0 +1,60 @@
+MetaFileClass {
+ Name "{C31FC70EB14E4D1F}Assets/Drones/JammerBag/JammerBag.xob"
+ Configurations {
+  FBXResourceClass PC {
+   ExportSkinning 1
+   MaterialAssigns {
+    MaterialAssignClass "{65A558427B259CBB}" {
+     SourceMaterial "Bag_NONE"
+     AssignedMaterial "{4DBFA584DFF0E729}Assets/Drones/JammerBag/Data/Bag_NONE.emat"
+    }
+    MaterialAssignClass "{65A558427B259CCE}" {
+     SourceMaterial "back"
+     AssignedMaterial "{99C2415299AC1032}Assets/Drones/JammerBag/Data/back.emat"
+    }
+    MaterialAssignClass "{65A558427B259F34}" {
+     SourceMaterial "fans"
+     AssignedMaterial "{11EC162CB64A6AA4}Assets/Drones/JammerBag/Data/fans.emat"
+    }
+    MaterialAssignClass "{65A558427B259F38}" {
+     SourceMaterial "heatsink"
+     AssignedMaterial "{E6540E9685C8AC98}Assets/Drones/JammerBag/Data/heatsink.emat"
+    }
+    MaterialAssignClass "{65A558427B259F3C}" {
+     SourceMaterial "side_bits"
+     AssignedMaterial "{63DB63CC197AF919}Assets/Drones/JammerBag/Data/side_bits.emat"
+    }
+    MaterialAssignClass "{65A558427B259F27}" {
+     SourceMaterial "tubes"
+     AssignedMaterial "{2DE9919CFB508A08}Assets/Drones/JammerBag/Data/tubes.emat"
+    }
+   }
+   MeshParams {
+    MeshParam jammerBag {
+    }
+   }
+   Common TXOCommonClass "{65A5584278FBA688}" : "{0877E7C4BB2B2C9A}Configs/System/ResourceTypes/PC/MeshObjectCommon.conf" {
+   }
+  }
+  FBXResourceClass XBOX_ONE : PC {
+   Common TXOCommonClass "{65A5584278FA52F7}" : "{9D5B6207F7628CE2}Configs/System/ResourceTypes/XBOX_ONE/MeshObjectCommon.conf" {
+   }
+  }
+  FBXResourceClass XBOX_SERIES : PC {
+   Common TXOCommonClass "{65A5584278FA5CC9}" : "{DD9F02115C764647}Configs/System/ResourceTypes/XBOX_SERIES/MeshObjectCommon.conf" {
+   }
+  }
+  FBXResourceClass PS4 : PC {
+   Common TXOCommonClass "{65A5584278FA58D1}" : "{53EC476BC921D99A}Configs/System/ResourceTypes/PS4/MeshObjectCommon.conf" {
+   }
+  }
+  FBXResourceClass PS5 : PC {
+   Common TXOCommonClass "{65A5584278FA5AEB}" : "{F62AA8E7B8EA9D26}configs/ResourceTypes/PS5/MeshObjectCommon.conf" {
+   }
+  }
+  FBXResourceClass HEADLESS : PC {
+   Common TXOCommonClass "{65A5584278FA449F}" : "{3A5B3356978039E8}Configs/System/ResourceTypes/HEADLESS/MeshObjectCommon.conf" {
+   }
+  }
+ }
+}

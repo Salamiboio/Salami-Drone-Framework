@@ -124,6 +124,12 @@ modded class SCR_PlayerController
 		droneEntity.Update();
 		droneEntity.OnTransformReset();
 		
+		float rotorRPMs[4];
+		packet.GetRotorRPMs(rotorRPMs);
+		float averageRPM = (rotorRPMs[0] + rotorRPMs[1] + rotorRPMs[2] + rotorRPMs[3]) / 4;
+		
+		SAL_DroneBatteryComponent.Cast(droneEntity.FindComponent(SAL_DroneBatteryComponent)).m_fCurrentBattery = packet.GetBatteryLevel();
+		
 		SAL_DroneConnectionManager.GetInstance().ReplicateTransform(packet);
 	}
 	
@@ -158,5 +164,47 @@ modded class SCR_PlayerController
 	void RpcDo_DisarmDrone(SAL_DroneNetworkPacket packet)
 	{
 		SAL_DroneConnectionManager.GetInstance().DisarmDrone(packet);
+		
+		IEntity drone = RplComponent.Cast(Replication.FindItem(packet.GetDrone())).GetEntity();
+		if (!drone)
+			return;
+		
+		SAL_DroneControllerComponent.Cast(drone.FindComponent(SAL_DroneControllerComponent)).m_bIsArmed = packet.GetIsArmed();
+	}
+	
+	void UpdateBattery(SAL_DroneNetworkPacket packet)
+	{
+		Rpc(Rpc_DoUpdateBattery, packet);
+		
+		IEntity drone = RplComponent.Cast(Replication.FindItem(packet.GetDrone())).GetEntity();
+		if (!drone)
+			return;
+		
+		
+		SAL_DroneBatteryComponent battComp = SAL_DroneBatteryComponent.Cast(drone.FindComponent(SAL_DroneBatteryComponent));
+		if (!battComp)
+		return;
+		
+		battComp.m_fCurrentBattery = packet.GetBatteryLevel();
+		battComp.m_fCurrentBatteryMax = packet.GetBatteryLevel();
+	}
+	
+	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
+	void Rpc_DoUpdateBattery(SAL_DroneNetworkPacket packet)
+	{
+		if (SAL_DroneConnectionManager.GetInstance())
+			SAL_DroneConnectionManager.GetInstance().UpdateBattery(packet);
+		
+		IEntity drone = RplComponent.Cast(Replication.FindItem(packet.GetDrone())).GetEntity();
+		if (!drone)
+			return;
+		
+		
+		SAL_DroneBatteryComponent battComp = SAL_DroneBatteryComponent.Cast(drone.FindComponent(SAL_DroneBatteryComponent));
+		if (!battComp)
+		return;
+		
+		battComp.m_fCurrentBattery = packet.GetBatteryLevel();
+		battComp.m_fCurrentBatteryMax = packet.GetBatteryLevel();
 	}
 }

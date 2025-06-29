@@ -4,6 +4,9 @@ modded class SCR_CharacterInventoryStorageComponent
 	{
 		super.HandleOnItemAddedToInventory(item, storageOwner);
 		
+		if (!item)
+			return;
+		
 		if (!GetGame().GetPlayerController())
 			return;
 		
@@ -22,6 +25,9 @@ modded class SCR_CharacterInventoryStorageComponent
 	{
 		super.HandleOnItemRemovedFromInventory(item, storageOwner);
 		
+		if (!item)
+			return;
+		
 		if (!GetGame().GetPlayerController())
 			return;
 		
@@ -30,6 +36,9 @@ modded class SCR_CharacterInventoryStorageComponent
 	
 	void GoggleCheck(IEntity item, BaseInventoryStorageComponent storageOwner)
 	{
+		if (!item)
+			return;	
+		
 		if (item.GetPrefabData().GetPrefabName() == "{8951045BFE8BC8E4}Prefabs/Characters/HeadGear/FPV_Goggles.et")
 			if (!InventoryItemComponent.Cast(item.FindComponent(InventoryItemComponent)).GetParentSlot())
 				SCR_PlayerController.Cast(GetGame().GetPlayerController()).ExitDrone();

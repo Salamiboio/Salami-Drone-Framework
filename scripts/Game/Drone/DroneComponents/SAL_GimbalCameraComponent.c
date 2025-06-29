@@ -34,7 +34,8 @@ class SAL_GimbalCameraComponent: ScriptComponent
 		m_InputManager = GetGame().GetInputManager();
 		m_CameraManager = GetGame().GetCameraManager();
 		m_DroneConnectionManager = SAL_DroneConnectionManager.GetInstance();
-		m_CameraZoom = SAL_CameraZoomComponent.Cast(m_Parent.FindComponent(SAL_CameraZoomComponent));
+		if (m_Parent)
+			m_CameraZoom = SAL_CameraZoomComponent.Cast(m_Parent.FindComponent(SAL_CameraZoomComponent));
 	}
 
 	override void EOnFrame(IEntity owner, float timeSlice)

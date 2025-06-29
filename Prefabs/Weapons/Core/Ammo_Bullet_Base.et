@@ -1,0 +1,7 @@
+Projectile {
+ ID "DA5C6308000CDEF2"
+ components {
+  SAL_DroneBulletComponent "{65A45D698678C27C}" {
+  }
+ }
+}

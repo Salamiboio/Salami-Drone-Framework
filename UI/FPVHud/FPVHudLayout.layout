@@ -161,5 +161,62 @@ FrameWidgetClass {
    Texture "{743031231E240003}UI/FPVHud/Data/BLANK.edds"
    Size 768 432
   }
+  ImageWidgetClass "{65A548E11B6E9FDF}" {
+   Name "Signal"
+   Slot FrameWidgetSlot "{65A548E11B6E9E21}" {
+    PositionX 1585
+    OffsetLeft 1585
+    PositionY 888.294
+    OffsetTop 888.294
+    SizeX 76.051
+    OffsetRight -1661.05
+    SizeY 56.126
+    OffsetBottom -944.42
+   }
+   Texture "{013D5E57FEE34283}UI/FPVHud/Data/signal.edds"
+   Size 512 512
+  }
+  TextWidgetClass "{65A548E1526A9A03}" {
+   Name "SignalText"
+   Slot FrameWidgetSlot "{65A548E1526A9A62}" {
+    PositionX 1668.62
+    OffsetLeft 1668.62
+    PositionY 884.066
+    OffsetTop 884.066
+    SizeX 118.62
+    OffsetRight -1787.24
+    SizeY 63.617
+    OffsetBottom -947.683
+   }
+   Text ""
+   "Font Size" 49
+   "Min Font Size" 49
+   "Horizontal Alignment" Center
+   "Vertical Alignment" Center
+   FontProperties FontProperties "{65A548E179ECCF29}" {
+    Font "{CD2634D279AB011A}UI/Fonts/Roboto/Roboto_Bold.fnt"
+   }
+  }
+  TextWidgetClass "{65A548E17026B7E5}" {
+   Name "LQText"
+   Slot FrameWidgetSlot "{65A548E1526A9A62}" {
+    PositionX 1591.81
+    OffsetLeft 1591.81
+    PositionY 951.564
+    OffsetTop 951.564
+    SizeX 202.41
+    OffsetRight -1794.22
+    SizeY 63.616
+    OffsetBottom -1015.18
+   }
+   Text ""
+   "Font Size" 49
+   "Min Font Size" 49
+   "Horizontal Alignment" Center
+   "Vertical Alignment" Center
+   FontProperties FontProperties "{65A548E179ECCF29}" {
+    Font "{CD2634D279AB011A}UI/Fonts/Roboto/Roboto_Bold.fnt"
+   }
+  }
  }
 }

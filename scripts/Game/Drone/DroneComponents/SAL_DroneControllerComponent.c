@@ -15,6 +15,8 @@ class SAL_DroneControllerComponent: ScriptComponent
 {
 	SAL_DroneConnectionManager m_DroneManager;
 	InputManager m_InputManager;
+	SAL_DroneSignalComponent m_SignalComponent;
+	SAL_DroneBatteryComponent m_BatteryComponent;
 	
 	[Attribute("35000")] int m_iMaxThrustRPM;
 	[Attribute("0")] bool m_bStabilized;
@@ -23,7 +25,7 @@ class SAL_DroneControllerComponent: ScriptComponent
 	[Attribute("1")] float m_fRollSensitivity;
 	[Attribute("")] ref SAL_DroneStablizerProfile m_DroneStablizerProfile;
 	
-	
+	RplId m_DroneId;
 
 	float m_aRotorRPM[4] = { 0.0, 0.0, 0.0, 0.0 };
 	IEntity m_aRotors[4];
@@ -119,11 +121,14 @@ class SAL_DroneControllerComponent: ScriptComponent
 			return;
 		m_DroneManager = SAL_DroneConnectionManager.GetInstance();
 		m_InputManager = GetGame().GetInputManager();
+		m_SignalComponent = SAL_DroneSignalComponent.Cast(owner.FindComponent(SAL_DroneSignalComponent));
+		m_BatteryComponent = SAL_DroneBatteryComponent.Cast(owner.FindComponent(SAL_DroneBatteryComponent));
 		
 		owner.GetPhysics().SetActive(true);
 		float mass = owner.GetPhysics().GetMass();
 		m_fHoverForce = mass * 9.81;
 		m_fMaxAdditionalThrust = m_fHoverForce * 1.5;
+		m_DroneId = RplComponent.Cast(owner.FindComponent(RplComponent)).Id();
 		InitializeRotors();
 	}
 
@@ -217,6 +222,24 @@ class SAL_DroneControllerComponent: ScriptComponent
 		//If the drone controller arms it this is what starts listening for inputs
 		if (m_bIsArmed)
 		{
+			float lq = 1 - m_SignalComponent.m_fLQ;
+			
+			if (lq <= 0)
+			{
+				ArmDrone();
+				SCR_PlayerController.Cast(GetGame().GetPlayerController()).DisconnectDrone();
+			}
+				
+			if (lq < 0.2)
+				return;
+			
+			if (lq < 0.4)
+			{
+				float dropChance = Math.Clamp(1.0 - ((lq - 0.4) / (0.2 - 0.4)), 0.0, 1.0);
+				if (Math.RandomFloat01() < dropChance)
+					return;
+			}
+			
 			float rawInput = Math.Clamp(m_InputManager.GetActionValue("DroneUp"), -1.0, 1.0);
 			m_iThrottle = (rawInput + 1.0) * 0.5;
 
@@ -233,6 +256,50 @@ class SAL_DroneControllerComponent: ScriptComponent
 			soundComp.m_fAverageRotorRPM = averageRPM;
 		}
 	}
+	
+	void SendPacket(IEntity owner, float timeSlice)
+	{
+			
+		m_fSyncTimer += timeSlice;
+		if (m_fSyncTimer > 0.03)
+		{
+			m_fSyncTimer = 0;
+			vector transform[4];
+			owner.GetTransform(transform);
+					
+			SAL_DroneNetworkPacket packet = new SAL_DroneNetworkPacket;
+			packet.SetDrone(SCR_PlayerController.GetRplId(owner));
+			packet.SetRotors(m_aRotorsRplId);
+			packet.SetRotorRPMs(m_aRotorRPM);
+			packet.SetTransform(transform);
+			packet.SetTimeSlice(timeSlice);
+			packet.SetIsTriggerd(m_bIsTriggered);
+			packet.SetIsArmed(m_bIsArmed);
+			packet.SetBatteryLevel(m_BatteryComponent.m_fCurrentBattery);
+			if (m_bIsTriggered)
+			{
+				packet.SetExplosion(SAL_DroneExplosionComponent.Cast(owner.FindComponent(SAL_DroneExplosionComponent)).m_sExplosionEffect);
+				SCR_PlayerController.Cast(GetGame().GetPlayerController()).ExplodeDrone(packet);
+			}
+			else
+				SCR_PlayerController.Cast(GetGame().GetPlayerController()).SendTransformToServer(packet);
+		}
+	}
+	
+	bool IsOnGround(IEntity owner)
+	{
+		vector origin = owner.GetOrigin();
+		vector end = origin + Vector(0, -1, 0) * 1000.0; // cast 1000 meters down
+			
+		TraceParam trace = new TraceParam();
+		trace.Start = origin;
+		trace.End = end;
+		trace.Exclude = owner; // prevent hitting self
+		trace.Flags = TraceFlags.WORLD;
+			
+		int height = Math.Round(GetGame().GetWorld().TraceMove(trace, null) * 10000);
+		return height <= 0;
+	}
 
 	override void EOnSimulate(IEntity owner, float timeSlice)
 	{
@@ -243,6 +310,15 @@ class SAL_DroneControllerComponent: ScriptComponent
 		if (!m_DroneManager) 
 			m_DroneManager = SAL_DroneConnectionManager.GetInstance();
 		
+		//Server checks rq
+		if (RplSession.Mode() == RplMode.Dedicated)
+		{
+			//Is the drone disarmed and not connected to a player, if so takes over the network replication
+			if (!m_bIsArmed && m_DroneManager.GetConnectedDrones().Find(RplComponent.Cast(owner.FindComponent(RplComponent)).Id()))
+				if (!IsOnGround(owner))
+					SendPacket(owner, timeSlice);
+		}
+		
 		//Same as above just checks to see if the person running this is the drones controller
 		if (!m_DroneManager || !m_DroneManager.IsDronePlayers(owner))
 			return;
@@ -252,45 +328,11 @@ class SAL_DroneControllerComponent: ScriptComponent
 		vector inputTorque;
 		vector localAngVel;
 		
+		// Needed for when the drone is not armed and in the air so everyone can still track where its at
 		if (!m_bIsArmed)
 		{
-			vector origin = owner.GetOrigin();
-			vector end = origin + Vector(0, -1, 0) * 1000.0; // cast 1000 meters down
-			
-			TraceParam trace = new TraceParam();
-			trace.Start = origin;
-			trace.End = end;
-			trace.Exclude = owner; // prevent hitting self
-			trace.Flags = TraceFlags.WORLD;
-			
-			int height = Math.Round(GetGame().GetWorld().TraceMove(trace, null) * 10000);
-			if (height > 0)
-			{
-				m_fSyncTimer += timeSlice;
-				if (m_fSyncTimer > 0.03)
-				{
-					m_fSyncTimer = 0;
-					vector transform[4];
-					owner.GetTransform(transform);
-					
-					SAL_DroneNetworkPacket packet = new SAL_DroneNetworkPacket;
-					packet.SetDrone(SCR_PlayerController.GetRplId(owner));
-					packet.SetRotors(m_aRotorsRplId);
-					packet.SetRotorRPMs(m_aRotorRPM);
-					packet.SetTransform(transform);
-					packet.SetTimeSlice(timeSlice);
-					packet.SetIsTriggerd(m_bIsTriggered);
-					packet.SetIsArmed(m_bIsArmed);
-					if (m_bIsTriggered)
-					{
-						packet.SetExplosion(SAL_DroneExplosionComponent.Cast(owner.FindComponent(SAL_DroneExplosionComponent)).m_sExplosionEffect);
-						SCR_PlayerController.Cast(GetGame().GetPlayerController()).ExplodeDrone(packet);
-					}
-					else
-						SCR_PlayerController.Cast(GetGame().GetPlayerController()).SendTransformToServer(packet);
-				}
-			}
-			
+			if (!IsOnGround(owner))
+				SendPacket(owner, timeSlice);
 			return;
 		}
 
@@ -334,10 +376,6 @@ class SAL_DroneControllerComponent: ScriptComponent
 			localAngVel[0] = vector.Dot(worldAngVel, right);
 			localAngVel[1] = vector.Dot(worldAngVel, up);
 			localAngVel[2] = vector.Dot(worldAngVel, forward);
-		
-			//Leveling corrections
-			float pitchCorrection = 0.0;
-			float rollCorrection = 0.0;
 		
 			bool isRollNeutral = Math.AbsFloat(m_iRoll) < 0.1;
 			bool isPitchNeutral = Math.AbsFloat(m_iPitch) < 0.1;
@@ -444,28 +482,6 @@ class SAL_DroneControllerComponent: ScriptComponent
 		physics.ApplyTorque(worldTorque);
 
 		//Sends data to other players every 30ms
-		m_fSyncTimer += timeSlice;
-		if (m_fSyncTimer > 0.03)
-		{
-			m_fSyncTimer = 0;
-			vector transform[4];
-			owner.GetTransform(transform);
-			
-			SAL_DroneNetworkPacket packet = new SAL_DroneNetworkPacket;
-			packet.SetDrone(SCR_PlayerController.GetRplId(owner));
-			packet.SetRotors(m_aRotorsRplId);
-			packet.SetRotorRPMs(m_aRotorRPM);
-			packet.SetTransform(transform);
-			packet.SetTimeSlice(timeSlice);
-			packet.SetIsTriggerd(m_bIsTriggered);
-			packet.SetIsArmed(m_bIsArmed);
-			if (m_bIsTriggered)
-			{
-				packet.SetExplosion(SAL_DroneExplosionComponent.Cast(owner.FindComponent(SAL_DroneExplosionComponent)).m_sExplosionEffect);
-				SCR_PlayerController.Cast(GetGame().GetPlayerController()).ExplodeDrone(packet);
-			}
-			else
-				SCR_PlayerController.Cast(GetGame().GetPlayerController()).SendTransformToServer(packet);
-		}
+		SendPacket(owner, timeSlice);
 	}
 }

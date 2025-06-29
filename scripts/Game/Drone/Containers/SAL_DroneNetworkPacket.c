@@ -17,6 +17,7 @@ class SAL_DroneNetworkPacket
 	protected bool m_bIsTrigger;
 	protected string m_sExplosion;
 	protected bool m_bIsArmed;
+	protected float m_fbatteryLevel;
 	
 	//------------------------------------------------------------------------------------------------
 	// SETTERS
@@ -71,6 +72,11 @@ class SAL_DroneNetworkPacket
 		m_bIsArmed = input;
 	}
 	
+	void SetBatteryLevel(float input)
+	{
+		m_fbatteryLevel = input;
+	}
+	
 	//------------------------------------------------------------------------------------------------
 	// GETTERS
 	//------------------------------------------------------------------------------------------------
@@ -115,6 +121,11 @@ class SAL_DroneNetworkPacket
 		return m_bIsArmed;
 	}
 	
+	float GetBatteryLevel()
+	{
+		return m_fbatteryLevel;
+	}
+	
 	//------------------------------------------------------------------------------------------------
 	// REPLICATION STUFF
 	//------------------------------------------------------------------------------------------------
@@ -144,6 +155,8 @@ class SAL_DroneNetworkPacket
 		writer.WriteString(m_sExplosion);
 		
 		writer.WriteBool(m_bIsArmed);
+		
+		writer.WriteFloat(m_fbatteryLevel);
 			
 		return true;
 	}
@@ -176,6 +189,8 @@ class SAL_DroneNetworkPacket
 		
 		reader.ReadBool(m_bIsArmed);
 		
+		reader.ReadFloat(m_fbatteryLevel);
+		
 		return true;
 	}
 	
@@ -206,6 +221,8 @@ class SAL_DroneNetworkPacket
 		snapshot.SerializeString(instance.m_sExplosion);
 		
 		snapshot.SerializeBool(instance.m_bIsArmed);
+		
+		snapshot.SerializeFloat(instance.m_fbatteryLevel);
 		
 		return true;
 	}
@@ -238,6 +255,8 @@ class SAL_DroneNetworkPacket
 		
 		snapshot.SerializeBool(instance.m_bIsArmed);
 		
+		snapshot.SerializeFloat(instance.m_fbatteryLevel);
+		
 		return true;
 	}
 	
@@ -268,6 +287,8 @@ class SAL_DroneNetworkPacket
 		snapshot.EncodeString(packet);
 		
 		snapshot.EncodeBool(packet);
+		
+		snapshot.EncodeFloat(packet);
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -298,6 +319,8 @@ class SAL_DroneNetworkPacket
 		
 		snapshot.DecodeBool(packet);
 		
+		snapshot.DecodeFloat(packet);
+		
 		return true;
 	}
 	
@@ -321,6 +344,7 @@ class SAL_DroneNetworkPacket
 			&& lhs.CompareSnapshots(rhs, 4)
 			&& lhs.CompareSnapshots(rhs, 4)
 			&& lhs.CompareStringSnapshots(rhs)
+			&& lhs.CompareSnapshots(rhs, 4)
 			&& lhs.CompareSnapshots(rhs, 4);
 		
 		return bool1 && bool2;
@@ -347,7 +371,8 @@ class SAL_DroneNetworkPacket
 			&& snapshot.CompareInt(instance.m_fTimeSlice)
 			&& snapshot.CompareBool(instance.m_bIsTrigger)
 			&& snapshot.CompareString(instance.m_sExplosion)
-			&& snapshot.CompareBool(instance.m_bIsArmed);
+			&& snapshot.CompareBool(instance.m_bIsArmed)
+			&& snapshot.CompareFloat(instance.m_fbatteryLevel);
 		return bool1 && bool2;
 			
 	}

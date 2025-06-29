@@ -1,0 +1,4 @@
+MatPBRBasic {
+ BCRMap "{7931EE65B85151F3}Assets/Drones/JammerBag/Data/side bits_Base_color1.edds"
+ NMOMap "{D209A39F9170F5E1}Assets/Drones/JammerBag/Data/side bits_Normal.edds"
+}

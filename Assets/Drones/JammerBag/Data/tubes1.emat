@@ -1,0 +1,4 @@
+MatPBRBasic {
+ BCRMap "{A5776833315FBB91}Assets/Drones/JammerBag/Data/tubes_Base_color1.edds"
+ NMOMap "{EFDBECABEB38CAAB}Assets/Drones/JammerBag/Data/tubes_Normal.edds"
+}

@@ -11,6 +11,8 @@ GenericEntity {
    DistanceManagement 0
    IncludeInactive 1
   }
+  ColliderHistoryComponent "{65A5302D07FBBDA4}" {
+  }
   MeshObject "{65932E3A1462927F}" {
    Object "{D309E1AC4DE1B212}Assets/Drones/FPVs/FPVBase/FPV.xob"
   }
@@ -30,32 +32,39 @@ GenericEntity {
    m_fYawSensitivity 2
    m_fRollSensitivity 2
   }
+  SAL_DroneExplosionComponent "{65A45D68462685BF}" {
+   m_sExplosionEffect "{D8888E136766ECE9}Prefabs/Weapons/Warheads/Explosions/Explosion_FPV.et"
+  }
   SAL_DroneHUDComponent "{65A136661B17A824}" {
    m_DroneHUDLayout "{3DD4E524949841A7}UI/FPVHud/FPVHudLayout.layout"
   }
   SAL_DroneHealthComponent "{65A29C6C8DC04DAD}" {
+   m_fDamagePower 3
    m_sDroneWreckPrefab "{713EFC799FE361F6}Prefabs/Drones/FPVBase/FPVWreck.et"
+  }
+  SAL_DroneSignalComponent "{65A43CD2DD24F455}" {
+   m_fDroneRange 2000
   }
   SlotManagerComponent "{65932E3A16300B2D}" {
    Slots {
     EntitySlotInfo Rotor1 {
-     Offset -0.31 0.06 0.3
+     Offset -0.155 0.03 0.155
      Prefab "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et"
     }
     EntitySlotInfo Rotor2 {
-     Offset 0.31 0.06 0.31
+     Offset 0.155 0.03 0.155
      Prefab "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et"
     }
     EntitySlotInfo Rotor3 {
-     Offset -0.31 0.06 -0.3
+     Offset -0.155 0.03 -0.155
      Prefab "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et"
     }
     EntitySlotInfo Rotor4 {
-     Offset 0.31 0.06 -0.31
+     Offset 0.155 0.03 -0.155
      Prefab "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et"
     }
     EntitySlotInfo Camera {
-     Offset 0.0057 0.0275 0.2696
+     Offset -0.0009 0.0164 0.1352
      Angles 25 0 0
      Prefab "{B9E77330D570CF99}Prefabs/Drones/FPVBase/CameraEntityFPV.et"
     }
@@ -87,7 +96,8 @@ GenericEntity {
   RplComponent "{65932E3A10C5CD87}" {
    "Parent Node From Parent Entity" 0
   }
+  SAL_DroneBatteryComponent "{65AAA9DB5A927044}" {
+  }
  }
  coords 0 0 0.477
- scale 0.5
 }

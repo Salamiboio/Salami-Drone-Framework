@@ -27,6 +27,9 @@ GenericEntity {
    m_iMaxZoom 3
    m_iMinZoom 84
   }
+  SAL_DroneBatteryComponent "{65AAA9DA6F0BB1F5}" {
+   m_eBatteryType DJI
+  }
   SAL_DroneControllerComponent "{659863D74259DF47}" {
    m_iMaxThrustRPM 15000
    m_bStabilized 1
@@ -42,25 +45,27 @@ GenericEntity {
   SAL_DroneHealthComponent "{65A29C6C04B54BFD}" {
    m_sDroneWreckPrefab "{D326D010DF556A79}Prefabs/Drones/DJIBase/DJIWreck.et"
   }
+  SAL_DroneSignalComponent "{65AAA9DA6B1749D7}" {
+  }
   SlotManagerComponent "{659863D7B9C69FEF}" {
    Slots {
     EntitySlotInfo Rotor1 {
-     Offset -0.41 0.237 0.31
+     Offset -0.205 0.1184 0.195
      Angles 0 0 -4.5
      Prefab "{E7255C105E20C8C0}Prefabs/Drones/DJIBase/DJIRotor.et"
     }
     EntitySlotInfo Rotor2 {
-     Offset 0.41 0.237 0.31
+     Offset 0.205 0.1184 0.195
      Angles 0 0 4.5
      Prefab "{E7255C105E20C8C0}Prefabs/Drones/DJIBase/DJIRotor.et"
     }
     EntitySlotInfo Rotor3 {
-     Offset -0.3113 0.1374 -0.2895
+     Offset -0.1536 0.0689 -0.1081
      Angles 0 0 -6.5
      Prefab "{E7255C105E20C8C0}Prefabs/Drones/DJIBase/DJIRotor.et"
     }
     EntitySlotInfo Rotor4 {
-     Offset 0.2947 0.1374 -0.2895
+     Offset 0.1536 0.0689 -0.1081
      Angles 0 0 6.5
      Prefab "{E7255C105E20C8C0}Prefabs/Drones/DJIBase/DJIRotor.et"
     }
@@ -69,11 +74,11 @@ GenericEntity {
      Prefab "{DD1F5C844352D9A7}Prefabs/Drones/DJIBase/CameraEntity.et"
     }
     EntitySlotInfo CameraBody {
-     Offset -0.0014 0.1089 0.3036
+     Offset 0 0.0532 0.1889
      Prefab "{5A605E0B80EC0B21}Prefabs/Drones/DJIBase/DJICamera.et"
     }
     EntitySlotInfo CameraRotator {
-     Offset -0.0019 0.1095 0.2401
+     Offset 0 0.0532 0.1583
      Prefab "{A4F062E36D6517DA}Prefabs/Drones/DJIBase/DJICameraRotator.et"
     }
    }
@@ -103,5 +108,4 @@ GenericEntity {
   }
  }
  coords 1.605 3.526 4.999
- scale 0.5
 }

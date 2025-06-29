@@ -81,6 +81,23 @@ class SAL_DroneConnectionManager: ScriptComponent
 		Replication.BumpMe();
 	}
 	
+	void ExplodeDroneServer(SAL_DroneNetworkPacket packet)
+	{
+		if (!Replication.FindItem(packet.GetDrone()))
+			return;
+		
+		IEntity drone = RplComponent.Cast(Replication.FindItem(packet.GetDrone())).GetEntity();
+		
+		vector transform[4];
+		packet.GetTransform(transform);
+		EntitySpawnParams params = new EntitySpawnParams();
+		params.Transform = transform;
+		GetGame().SpawnEntityPrefab(Resource.Load(packet.GetExplosion()), GetGame().GetWorld(), params);
+		
+		SCR_EntityHelper.DeleteEntityAndChildren(drone);
+	}
+	
+	
 	void ReplicateTransform(SAL_DroneNetworkPacket packet)
 	{
 		Rpc(RpcDo_ReplicateTransform, packet);
@@ -130,6 +147,8 @@ class SAL_DroneConnectionManager: ScriptComponent
 				oldAngles[1] = oldAngles[1] + rotationAmount;
 				rotor.SetAngles(oldAngles);
 			}
+			
+			SAL_DroneBatteryComponent.Cast(droneEntity.FindComponent(SAL_DroneBatteryComponent)).m_fCurrentBattery = packet.GetBatteryLevel();
 		}
 	}
 	
@@ -138,7 +157,7 @@ class SAL_DroneConnectionManager: ScriptComponent
 		Rpc(RpcDo_DisarmDrone, packet);
 	}
 	
-	[RplRpc(RplChannel.Unreliable, RplRcver.Broadcast)]
+	[RplRpc(RplChannel.Reliable, RplRcver.Broadcast)]
 	void RpcDo_DisarmDrone(SAL_DroneNetworkPacket packet)
 	{
 		IEntity drone = RplComponent.Cast(Replication.FindItem(packet.GetDrone())).GetEntity();
@@ -170,5 +189,28 @@ class SAL_DroneConnectionManager: ScriptComponent
 		
 		m_aJammers.RemoveOrdered(index);
 		Replication.BumpMe();
+	}
+	
+	void UpdateBattery(SAL_DroneNetworkPacket packet)
+	{
+		Rpc(RpcDo_UpdateBattery, packet);
+	}
+	
+	[RplRpc(RplChannel.Reliable, RplRcver.Broadcast)]
+	void RpcDo_UpdateBattery(SAL_DroneNetworkPacket packet)
+	{
+		IEntity drone = RplComponent.Cast(Replication.FindItem(packet.GetDrone())).GetEntity();
+		if (!drone)
+			return;
+		
+		if (!SAL_DroneConnectionManager.GetInstance().IsDronePlayers(drone))  // Only apply if not the controller
+		{
+			SAL_DroneBatteryComponent battComp = SAL_DroneBatteryComponent.Cast(drone.FindComponent(SAL_DroneBatteryComponent));
+			if (!battComp)
+			return;
+		
+			battComp.m_fCurrentBattery = packet.GetBatteryLevel();
+			battComp.m_fCurrentBatteryMax = packet.GetBatteryLevel();
+		}
 	}
 }
