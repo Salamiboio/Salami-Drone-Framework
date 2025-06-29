@@ -20,12 +20,13 @@ FrameWidgetClass {
   ImageWidgetClass "{65AAA9DA87EB33B0}" {
    Name "Header"
    Slot FrameWidgetSlot "{65AAA9DA87EB33AA}" {
+    Anchor 0 0 1 0
     PositionX 0
     OffsetLeft 0
     PositionY 0
     OffsetTop 0
-    SizeX 1920
-    OffsetRight -1920
+    SizeX 0
+    OffsetRight 0
     SizeY 80
     OffsetBottom -80
    }
@@ -34,13 +35,14 @@ FrameWidgetClass {
   ProgressBarWidgetClass "{65AAA9DD0839087B}" {
    Name "BatteryBar"
    Slot FrameWidgetSlot "{65AAA9DD0839085E}" {
-    PositionX 1813.38
-    OffsetLeft 1813.38
+    Anchor 1 0 1 0
+    PositionX -106.62
+    OffsetLeft -106.62
     PositionY 17.2
     OffsetTop 17.2
-    SizeX 75.809
-    OffsetRight -1889.19
-    SizeY 46.238
+    SizeX 75.81
+    OffsetRight 30.81
+    SizeY 46.239
     OffsetBottom -63.439
    }
    Current 100
@@ -49,30 +51,34 @@ FrameWidgetClass {
   TextWidgetClass "{65AAA9DD3F5CD0E7}" {
    Name "BatteryText"
    Slot FrameWidgetSlot "{65AAA9DD3F5CD0C1}" {
-    PositionX 1824.29
-    OffsetLeft 1824.29
+    Anchor 1 0 1 0
+    PositionX -95.71
+    OffsetLeft -95.71
     PositionY 26.775
     OffsetTop 26.775
-    SizeX 53.889
-    OffsetRight -1878.18
+    SizeX 53.89
+    OffsetRight 41.82
     SizeY 30
     OffsetBottom -56.775
    }
-   Color 0 0 0 1
    Text "100"
    "Font Size" 33
    "Horizontal Alignment" Center
    "Vertical Alignment" Center
+   FontProperties FontProperties "{65AB25064CC7956E}" {
+    OutlineSize 3
+   }
   }
   ImageWidgetClass "{65AAA9DAD666010E}" {
    Name "Battery"
    Slot FrameWidgetSlot "{65AAA9DAD6660167}" {
-    PositionX 1801.01
-    OffsetLeft 1801.01
+    Anchor 1 0 1 0
+    PositionX -118.99
+    OffsetLeft -118.99
     PositionY 2.182
     OffsetTop 2.182
     SizeX 109.73
-    OffsetRight -1910.74
+    OffsetRight 9.26
     SizeY 78.316
     OffsetBottom -80.498
    }
@@ -105,17 +111,34 @@ FrameWidgetClass {
    Name "Compass"
    Slot FrameWidgetSlot "{62C92C11780C8B65}" {
     Anchor 0.5 0.5 0.5 0.5
-    PositionX -94.011
-    OffsetLeft -94.011
-    PositionY 310.8
-    OffsetTop 310.8
+    PositionX -87.933
+    OffsetLeft -87.933
+    PositionY 308.977
+    OffsetTop 308.977
     SizeX 182
-    OffsetRight -87.989
+    OffsetRight -94.067
     SizeY 182
-    OffsetBottom -492.8
+    OffsetBottom -490.977
    }
    Texture "{44E4EFF3FBCA563A}UI/DJIHud/Data/compass.edds"
    Size 426 422
+   Filter 0
+  }
+  ImageWidgetClass "{65B69DB3B156B8BC}" {
+   Name "CompassCursor"
+   Slot FrameWidgetSlot "{62C92C11780C8B65}" {
+    Anchor 0.5 0.5 0.5 0.5
+    PositionX -87.933
+    OffsetLeft -87.933
+    PositionY 308.977
+    OffsetTop 308.977
+    SizeX 182
+    OffsetRight -94.067
+    SizeY 182
+    OffsetBottom -490.977
+   }
+   Texture "{BB307ABF22642498}UI/DJIHud/Data/compasscursor.edds"
+   Size 713 723
    Filter 0
   }
   ImageWidgetClass "{62C92C05AAE213D1}" {
@@ -137,7 +160,7 @@ FrameWidgetClass {
    Filter 0
   }
   ImageWidgetClass "{62C92C05EBB44A43}" {
-   Name "Lines"
+   Name "LineLeft"
    Slot FrameWidgetSlot "{62C92C05AAE212B5}" {
     Anchor 0.5 0.5 0.5 0.5
     PositionX -960
@@ -149,7 +172,24 @@ FrameWidgetClass {
     SizeY 1080
     OffsetBottom -540
    }
-   Texture "{5186E45D33D14651}UI/DJIHud/Data/lines.edds"
+   Texture "{0A9D015F1B11D4EC}UI/DJIHud/Data/lineleft.edds"
+   Size 768 432
+   Filter 0
+  }
+  ImageWidgetClass "{65B69DB2153F4D96}" {
+   Name "LineRight"
+   Slot FrameWidgetSlot "{62C92C05AAE212B5}" {
+    Anchor 0.5 0.5 0.5 0.5
+    PositionX -960
+    OffsetLeft -960
+    PositionY -540
+    OffsetTop -540
+    SizeX 1920
+    OffsetRight -960
+    SizeY 1080
+    OffsetBottom -540
+   }
+   Texture "{0F382CB7673DA300}UI/DJIHud/Data/lineright.edds"
    Size 768 432
    Filter 0
   }
@@ -219,12 +259,12 @@ FrameWidgetClass {
    Name "Grid"
    Slot FrameWidgetSlot "{62C92C1EEDA429E2}" {
     Anchor 0.5 0.5 0.5 0.5
-    PositionX -840.734
-    OffsetLeft -840.734
+    PositionX 436.705
+    OffsetLeft 436.705
     PositionY 351.539
     OffsetTop 351.539
     SizeX 438.545
-    OffsetRight 402.189
+    OffsetRight -875.25
     SizeY 79.309
     OffsetBottom -430.848
    }
@@ -241,12 +281,12 @@ FrameWidgetClass {
    Name "Distance"
    Slot FrameWidgetSlot "{62C92C1EEDA429E2}" {
     Anchor 0.5 0.5 0.5 0.5
-    PositionX -840.734
-    OffsetLeft -840.734
+    PositionX 436.705
+    OffsetLeft 436.705
     PositionY 310.78
     OffsetTop 310.78
     SizeX 438.545
-    OffsetRight 402.189
+    OffsetRight -875.25
     SizeY 79.309
     OffsetBottom -390.089
    }
@@ -262,12 +302,13 @@ FrameWidgetClass {
   ImageWidgetClass "{65AAA9DD54E8EE8F}" {
    Name "Signal"
    Slot FrameWidgetSlot "{65A548E11B6E9E21}" {
-    PositionX 1603.72
-    OffsetLeft 1603.72
+    Anchor 1 0 1 0
+    PositionX -316.28
+    OffsetLeft -316.28
     PositionY 11.993
     OffsetTop 11.993
     SizeX 76.05
-    OffsetRight -1679.77
+    OffsetRight 240.23
     SizeY 56.126
     OffsetBottom -68.119
    }
@@ -277,12 +318,13 @@ FrameWidgetClass {
   TextWidgetClass "{65AAA9DD54E8E978}" {
    Name "SignalText"
    Slot FrameWidgetSlot "{65A548E1526A9A62}" {
-    PositionX 1680.97
-    OffsetLeft 1680.97
+    Anchor 1 0 1 0
+    PositionX -239.03
+    OffsetLeft -239.03
     PositionY 7.078
     OffsetTop 7.078
     SizeX 118.62
-    OffsetRight -1799.59
+    OffsetRight 120.41
     SizeY 63.617
     OffsetBottom -70.695
    }
@@ -298,12 +340,13 @@ FrameWidgetClass {
   TextWidgetClass "{65AAA9DD54E8E944}" {
    Name "LQText"
    Slot FrameWidgetSlot "{65A548E1526A9A62}" {
-    PositionX 1377.23
-    OffsetLeft 1377.23
+    Anchor 1 0 1 0
+    PositionX -542.77
+    OffsetLeft -542.77
     PositionY 8.964
     OffsetTop 8.964
     SizeX 202.41
-    OffsetRight -1579.64
+    OffsetRight 340.36
     SizeY 63.616
     OffsetBottom -72.58
    }
@@ -314,6 +357,416 @@ FrameWidgetClass {
    "Vertical Alignment" Center
    FontProperties FontProperties "{65A548E179ECCF29}" {
     Font "{CD2634D279AB011A}UI/Fonts/Roboto/Roboto_Bold.fnt"
+   }
+  }
+  FrameWidgetClass "{65B2E003D35D643E}" {
+   Name "MapFrame"
+   Slot FrameWidgetSlot "{65B2E003D35E43C2}" {
+    Anchor 0 1 0 1
+    PositionX 0
+    OffsetLeft 0
+    PositionY -376
+    OffsetTop -376
+    SizeX 540
+    OffsetRight -540
+    SizeY 376
+    OffsetBottom 0
+   }
+   {
+    MapWidgetClass "{65B2E003D35D6421}" {
+     Prefab "{000000009C582FB6}"
+     Name "MapWidget"
+     Slot FrameWidgetSlot "{50A4DDC879494878}" {
+      Anchor 0 0 1 1
+      PositionX 960
+      PositionY 540
+      SizeX 0
+      OffsetRight 0
+      SizeY 0
+      OffsetBottom 0
+      Alignment 0 0
+      SizeToContent 1
+     }
+     "Z Order" -1000
+     Color 1 1 1 1
+     SizeInUnits 1024 1024
+     OffsetPixels 0 0
+     Clear 1
+     ClearColor 0.114 0.209 0.231 1
+     Imagesets {
+      "{BCD5479864D1A79A}UI/Textures/Map/topographicIcons/icons_topographic_map.imageset" "{9AF52DEEF08E7F74}UI/Imagesets/Editor/editor_icons_map.imageset"
+     }
+     TextureDashedLine "{48D3C3A42E53D202}UI/Textures/Map/lines/lineDashed.edds"
+    }
+    CanvasWidgetClass "{65B2E003D35D6422}" {
+     Name "ManualCamera"
+     Slot FrameWidgetSlot "{5A45347FD72F20AD}" {
+      Anchor 0 0 1 1
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 0
+      OffsetRight 0
+      SizeY 0
+      OffsetBottom 0
+      Alignment 0 0
+      SizeToContent 1
+     }
+     SizeInUnits 1024 1024
+    }
+    CanvasWidgetClass "{65B2E003D35D6423}" {
+     Prefab "{00000000D821A644}"
+     Name "DrawingWidget"
+     Slot FrameWidgetSlot "{50A4DDC879494989}" {
+      Anchor 0 0 1 1
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 0
+      OffsetRight 0
+      SizeY 0
+      OffsetBottom 0
+      Alignment 0 0
+      SizeToContent 1
+     }
+     "Z Order" -500
+     Color 1 1 1 1
+     SizeInUnits 1024 1024
+     Clear 1
+     ClearColor 0 0 0 0
+     FontProperties {
+      FontProperties "{50A691C68850B695}" {
+       Font "{3E7733BAC8C831F6}UI/Fonts/RobotoCondensed/RobotoCondensed_Regular.fnt"
+      }
+     }
+    }
+    FrameWidgetClass "{65B2E003D35D6424}" {
+     Prefab "{5D828475DBE5390E}"
+     Name "DrawingContainer"
+     Slot FrameWidgetSlot "{5D828475DBE539F7}" {
+      Anchor 0 0 1 1
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX -1820
+      OffsetRight 0
+      SizeY -1050
+      OffsetBottom 0
+      SizeToContent 1
+     }
+     "Z Order" -400
+    }
+    FrameWidgetClass "{65B2E003D35D6425}" {
+     Name "UIIconsContainer"
+     Slot FrameWidgetSlot "{54E30A36DBD6A67B}" {
+      Anchor 0 0 1 1
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX 0
+      OffsetRight 0
+      SizeY 0
+      OffsetBottom 0
+     }
+     "Z Order" 65
+     "Is Visible" 0
+    }
+    FrameWidgetClass "{65B2E003D35D6426}" : "{759E272AB041AC21}UI/layouts/Map/MapRuler.layout" {
+     Name "RulerFrame"
+     Slot FrameWidgetSlot "{59387C05F9964BF9}" {
+     }
+     "Z Order" 80
+     "Is Enabled" 0
+     "Is Visible" 0
+     {
+      ImageWidgetClass "{59387C05CE1B5E65}" {
+       Prefab "{59387C05CE1B5E65}"
+       Size 4096 4096
+      }
+     }
+    }
+    FrameWidgetClass "{65B2E003D35D6427}" : "{3E056C4AA830A951}UI/layouts/Map/MapCompass.layout" {
+     Name "CompassFrame"
+     Slot FrameWidgetSlot "{50EEEA24A3B55E9F}" {
+     }
+     "Z Order" 90
+    }
+    FrameWidgetClass "{65B2E003D35D6429}" : "{53FECD6BF5324E19}UI/layouts/Map/MapWatch.layout" {
+     Name "WatchFrame"
+     Slot FrameWidgetSlot "{50EEEA24A3B55E9F}" {
+     }
+     "Z Order" 100
+    }
+    ImageWidgetClass "{65B2E003D35D642A}" {
+     Name "LightOverlay"
+     Slot FrameWidgetSlot "{52E6A9EC8F952EEC}" {
+      Anchor 0 0 1 1
+      PositionX 0
+      OffsetLeft 0
+      PositionY 0
+      OffsetTop 0
+      SizeX -1820
+      OffsetRight 0
+      SizeY -1050
+      OffsetBottom 0
+     }
+     "Z Order" 120
+     "Is Visible" 0
+     Opacity 0.05
+     Color 1 0.804 0.38 1
+     Size 0 0
+     "Blend Mode" Blend
+    }
+    HorizontalLayoutWidgetClass "{65B2E003D35D642B}" {
+     Name "LightCone"
+     Slot FrameWidgetSlot "{52DAFAF0E0E5133F}" {
+      Anchor 0 0 1 1
+      PositionX 1.745
+      PositionY 0
+      OffsetTop 0
+      SizeX 0
+      OffsetRight 0
+      SizeY 0
+      OffsetBottom 0
+      Alignment 0 0
+     }
+     "Z Order" 120
+     "Is Visible" 0
+     Color 0 0 0 1
+     {
+      ImageWidgetClass "{65B2E003D35D642C}" {
+       Name "FillLeft"
+       Slot LayoutSlot "{52DA9C9935318517}" {
+        Padding 0 0 0 0
+        FillWeight 1
+       }
+       Color 0 0 0 1
+       Size 0 0
+      }
+      VerticalLayoutWidgetClass "{65B2E003D35D8BF9}" {
+       Name "VerticalLayout0"
+       Slot LayoutSlot "{52DAFAF0E0E5139E}" {
+       }
+       Color 0 0 0 1
+       "Fill Origin" Top
+       {
+        ImageWidgetClass "{65B2E003D35D8BFA}" {
+         Name "FillTop"
+         Slot LayoutSlot "{52DA9C997457414E}" {
+          Padding 0 0 0 0
+          FillWeight 1
+         }
+         Color 0 0 0 1
+         Size 0 0
+        }
+        ImageWidgetClass "{65B2E003D35E2690}" {
+         Name "Cone"
+         Slot LayoutSlot "{52DAFAF0E0E51C5B}" {
+          HorizontalAlign 1
+          VerticalAlign 1
+          Padding 0 0 0 0
+         }
+         Color 0 0 0 1
+         Texture "{07DC87F03BA4402C}UI/Textures/Map/lightCones/lightCone_flashlight0_ca.edds"
+         Image ""
+         Size 1024 1024
+         "Blend Mode" Blend
+         Range 0.414
+        }
+        ImageWidgetClass "{65B2E003D35E26AF}" {
+         Name "FillBot"
+         Slot LayoutSlot "{52DA9C997457414E}" {
+          SizeMode Fill
+          FillWeight 1
+         }
+         Color 0 0 0 1
+         Size 0 0
+        }
+       }
+      }
+      ImageWidgetClass "{65B2E003D35E26AE}" {
+       Name "FillRight"
+       Slot LayoutSlot "{52DAFAF0E0E51C15}" {
+        SizeMode Fill
+        FillWeight 1
+       }
+       Color 0 0 0 1
+       Size 0 0
+      }
+     }
+    }
+    HorizontalLayoutWidgetClass "{65B2E003D35E26AD}" : "{6380743F533D3733}UI/layouts/Map/CursorCrosshair.layout" {
+     Name "CursorCrosshair"
+     Slot FrameWidgetSlot "{55A2A2EE2E39E9FB}" {
+     }
+     "Z Order" 110
+     {
+      VerticalLayoutWidgetClass "{55A2A2FEB2DAB65B}" {
+       Prefab "{55A2A2FEB2DAB65B}"
+       Clipping Ancestor
+       {
+        TextWidgetClass "{65B2E003D35E26AA}" {
+         Name "HeightText"
+         Slot LayoutSlot "{620A7508DDE49CA2}" {
+          HorizontalAlign 0
+          Padding -30 -2 0 0
+         }
+         "Z Order" 3
+         Opacity 0
+         Clipping False
+         Text "375, 1057"
+         "Font Size" 18
+         "Min Font Size" 12
+         FontProperties FontProperties "{620A7508578545AD}" {
+          Font "{3E7733BAC8C831F6}UI/Fonts/RobotoCondensed/RobotoCondensed_Regular.fnt"
+          OutlineSize 1
+         }
+        }
+        ImageWidgetClass "{55A2A2FEA6644F65}" {
+         Prefab "{55A2A2FEA6644F65}"
+         Slot LayoutSlot "{52DA9C997457414E}" {
+          Padding 0 296 0 0
+         }
+        }
+        TextWidgetClass "{5654A18BF82D9B59}" {
+         Prefab "{5654A18BF82D9B59}"
+         Slot LayoutSlot "{5654A18BF82D9B6D}" {
+          Padding -30 0 0 -2
+         }
+         "Z Order" 1
+         Clipping False
+         "Font Size" 18
+        }
+        HorizontalLayoutWidgetClass "{56527D6A08904DE4}" {
+         Prefab "{56527D6A08904DE4}"
+         "Z Order" 2
+        }
+        ImageWidgetClass "{55A2A2FE05FD6952}" {
+         Prefab "{55A2A2FE05FD6952}"
+         "Z Order" 4
+        }
+       }
+      }
+     }
+    }
+   }
+  }
+  ImageWidgetClass "{65B2E00C21667AD3}" {
+   Name "DroneCursor"
+   Slot FrameWidgetSlot "{65B2E00C21667A1C}" {
+    Anchor 0 1 0 1
+    PositionX 240.1
+    OffsetLeft 240.1
+    PositionY -188
+    OffsetTop -188
+    SizeX 50
+    OffsetRight -290.1
+    SizeY 50
+    OffsetBottom 138
+   }
+   Color 0.1913 0 0 1
+   Texture "{86774148D8ED8A50}UI/DJIHud/Data/DJICursor.edds"
+   Size 626 626
+  }
+  FrameWidgetClass "{65B2E00DA57B2261}" {
+   Name "ToolMenu"
+   Slot FrameWidgetSlot "{59107CDEE98682C5}" {
+    PositionX -275.607
+    OffsetLeft -275.607
+    PositionY 48.092
+    OffsetTop 48.092
+    SizeX 100
+    OffsetRight 175.607
+    SizeY 30
+    OffsetBottom -78.092
+    Alignment 0.5 0
+    SizeToContent 1
+   }
+   "Z Order" 1
+   Clipping False
+   "Ignore Cursor" 0
+   {
+    FrameWidgetClass "{65B2E00DA57B2260}" {
+     Name "ToolMenuBar"
+     Slot FrameWidgetSlot "{59107CC3B4EFA8B6}" {
+      OffsetLeft 0
+      OffsetTop 0
+      SizeX 30
+      OffsetRight -30
+      OffsetBottom -30
+      SizeToContent 1
+     }
+     Clipping True
+     {
+      ImageWidgetClass "{65B2E00DA57B227E}" {
+       Name "MenuBackground"
+       Slot FrameWidgetSlot "{59107CDD6A9F6BD3}" {
+        Anchor 0 0 1 1
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX -40
+        OffsetRight 0
+        SizeY -40
+        OffsetBottom 0
+        SizeToContent 1
+       }
+       Opacity 0.98
+       Color 0 0 0 1
+       Image ""
+       Size 40 40
+      }
+      VerticalLayoutWidgetClass "{65B2E00DA57B227D}" {
+       Name "ToolMenuHoriz"
+       Slot FrameWidgetSlot "{59107CC3B4EFA879}" {
+        PositionX 0
+        OffsetLeft 0
+        PositionY 0
+        OffsetTop 0
+        SizeX 0
+        OffsetRight 0
+        SizeY 0
+        OffsetBottom 0
+        SizeToContent 1
+       }
+      }
+     }
+    }
+    RichTextWidgetClass "{65B2E00DA57B227C}" {
+     Prefab "{00000000B0FD85CE}"
+     Name "Action"
+     Slot FrameWidgetSlot "{59107CC3B4EF4150}" {
+      Anchor 1 1 1 1
+      OffsetLeft 0
+      OffsetTop 0
+      SizeX 1
+      OffsetRight -1
+      SizeY 1
+      OffsetBottom -1
+      Alignment 0.5 0.5
+     }
+     Clipping False
+     Color 0.761 0.386 0.078 1
+     components {
+      SCR_DeviceSpecificComponent "{5918811AAA9B9B8D}" {
+       m_bControllerOnly 1
+      }
+     }
+     Text "<image set=\"{F7FD1672FECA05E8}UI/Textures/Icons/icons_gamepad_64.imageset\" name=\"DPAD_horizontal\" scale=\"1\"/>"
+     "Font Size" 32
+     "Min Font Size" 32
+     "Vertical Alignment" Center
+     FontProperties FontProperties "{58CE6BA0EDCA2C14}" {
+      Font "{EABA4FE9D014CCEF}UI/Fonts/RobotoCondensed/RobotoCondensed_Bold.fnt"
+     }
+     Offset -40 0
+     "Line Spacing" 0
+    }
    }
   }
  }

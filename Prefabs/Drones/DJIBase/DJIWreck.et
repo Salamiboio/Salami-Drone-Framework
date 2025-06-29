@@ -7,6 +7,7 @@ GenericEntity {
   RigidBody "{65A29C4CE19B5E17}" {
    Active Active
    Mass 0.8
+   ModelGeometry 1
   }
   RplComponent "{65A29C4CEF5CB46C}" {
   }

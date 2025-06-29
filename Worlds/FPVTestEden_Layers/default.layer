@@ -1,8 +1,21 @@
 SCR_GameModeEditor GameMode_Editor_Full1 : "{DA3986AF1B5032B7}Prefabs/MP/Modes/Editor/GameMode_Editor_Full.et" {
  coords 9866.029 310.007 2412.578
+ {
+  SCR_FactionManager {
+   ID "56E685E92F1B7E7A"
+   Factions {
+    SCR_Faction "{56DEAC40D2DBC8B1}" {
+     m_bIsPlayable 1
+    }
+   }
+  }
+ }
 }
 GenericEntity : "{2A283EA7BADDBD28}Prefabs/Drones/FPVBase/FPVBase.et" {
- coords 9876.563 311.024 2413.373
+ coords 9875.43 310.941 2413.745
+}
+SCR_SpawnPoint : "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoint_US.et" {
+ coords 9877.229 311.083 2412.814
 }
 GameEntity : "{8951045BFE8BC8E4}Prefabs/Characters/HeadGear/FPV_Goggles.et" {
  coords 9876.308 311.021 2412.941

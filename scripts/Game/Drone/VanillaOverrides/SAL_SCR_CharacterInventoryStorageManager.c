@@ -19,6 +19,15 @@ modded class SCR_CharacterInventoryStorageComponent
 			else
 				SCR_PlayerController.Cast(GetGame().GetPlayerController()).ExitDrone();
 		}
+		
+		if (item.FindComponent(SAL_DroneControllerComponent))
+		{
+			if (!GetGame().GetCameraManager().CurrentCamera())
+				return;
+			
+			if (GetGame().GetCameraManager().CurrentCamera().GetPrefabData().GetPrefabName() == "{D10C3C304FC29655}Prefabs/Editor/Camera/DroneCamera.et")
+				SCR_PlayerController.Cast(GetGame().GetPlayerController()).ExitDrone();
+		}
 	}
 	
 	override void HandleOnItemRemovedFromInventory( IEntity item, BaseInventoryStorageComponent storageOwner )
@@ -42,5 +51,16 @@ modded class SCR_CharacterInventoryStorageComponent
 		if (item.GetPrefabData().GetPrefabName() == "{8951045BFE8BC8E4}Prefabs/Characters/HeadGear/FPV_Goggles.et")
 			if (!InventoryItemComponent.Cast(item.FindComponent(InventoryItemComponent)).GetParentSlot())
 				SCR_PlayerController.Cast(GetGame().GetPlayerController()).ExitDrone();
+		
+		if (item.FindComponent(SAL_DroneControllerComponent))
+		{
+			//GoggleCheck to throw em into the drone
+			if (SAL_DroneConnectionManager.GetInstance().IsDronePlayers(item))
+				if(SCR_CharacterInventoryStorageComponent.Cast(SCR_PlayerController.GetLocalControlledEntity().FindComponent(SCR_CharacterInventoryStorageComponent)).Get(0))
+					if (SCR_CharacterInventoryStorageComponent.Cast(SCR_PlayerController.GetLocalControlledEntity().FindComponent(SCR_CharacterInventoryStorageComponent)).Get(0).GetPrefabData().GetPrefabName() == "{8951045BFE8BC8E4}Prefabs/Characters/HeadGear/FPV_Goggles.et")
+							SCR_PlayerController.Cast(GetGame().GetPlayerController()).EnterDrone();
+		}
+			
+
 	}
 }

@@ -1,0 +1,14 @@
+$grp GenericEntity : "{2A283EA7BADDBD28}Prefabs/Drones/FPVBase/FPVBase.et" {
+ {
+  coords 1161.466 1.146 3317.21
+ }
+ {
+  coords 1163.15 1.137 3317.249
+ }
+}
+GameEntity : "{8951045BFE8BC8E4}Prefabs/Characters/HeadGear/FPV_Goggles.et" {
+ coords 1163.859 1.136 3317.309
+}
+GenericEntity : "{E2434ED1318D8476}Prefabs/Characters/Items/DroneController.et" {
+ coords 1163.333 1.125 3318.416
+}

@@ -1,0 +1,8 @@
+GameProject {
+ ID "RealisticDrones"
+ GUID "658B311D0AD02365"
+ TITLE "Realistic Drones"
+ Dependencies {
+  "58D0FB3206B6F859"
+ }
+}

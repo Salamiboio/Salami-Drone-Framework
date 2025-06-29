@@ -1,0 +1,17 @@
+MetaFileClass {
+ Name "{1355402F0AEAFF68}Assets/Drones/FPVs/FPVBase/Data/Plastic015A.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass PS5 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

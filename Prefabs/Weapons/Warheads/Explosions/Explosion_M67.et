@@ -1,0 +1,87 @@
+GenericEntity : "{6BEC092D354A997E}Prefabs/Weapons/Warheads/Explosions/Warhead_Explosion_Base.et" {
+ ID "9D9BE68EA2672F76"
+ components {
+  SignalsManagerComponent "{C572A75F88B55309}" {
+   Enabled 1
+  }
+  SoundComponent "{D092A75ECEFAE456}" {
+   Enabled 1
+   Filenames {
+    "{B9347A5498317F65}Sounds/Particles/Logistics/Explosion/TNT/Particles_Explosions_TNT_Medium.acp"
+   }
+  }
+  TimerTriggerComponent "{55129E81CBAA1390}" {
+   PROJECTILE_EFFECTS {
+    ExplosionDamageContainer "{5D8D1EB3E2893B43}" {
+     ExplosionEffects {
+      BaseExplosionDamage "{5D8D1EB3EF9D02C6}" {
+      }
+      BaseExplosionDamage "{61DAF5E24D9CA168}" {
+      }
+      BaseExplosionDamage "{5D8D1EB3EBB36077}" {
+      }
+      ExplosionImpulseEffect "{5E6D1CEE09A33086}" {
+      }
+      ExplosionFragmentationEffect "{65BACAA7FC8AF4F3}" {
+       DamageValue 16
+       DamageType Fragmentation
+       DamageDistance 25
+       ExplosionEffectSpeed 1000
+       DamageFalloffCurve {
+        0 1 0.05 1 0.55 0.8 1 0
+       }
+       DamageEffect {
+        SCR_FragmentationDamageEffect "{65BACAA7FC8AF4E2}" {
+        }
+       }
+       DamageDistanceCurve {
+        0 1 1 0
+       }
+       DamageFragmentCount 130
+       GurneyShape CYLINDER
+       GurneyConstant 2830
+       CaseWeight 1280
+       FragMassScale 10
+       FragRangeScale 10
+      }
+      ExplosionFragmentationEffect "{567CBC1D7AB652C7}" {
+       DamageValue 16
+       DamageType Fragmentation
+       DamageDistance 25
+       ExplosionEffectSpeed 1000
+       DamageFalloffCurve {
+        0 1 0.05 1 0.55 0.8 1 0
+       }
+       DamageEffect {
+        SCR_FragmentationDamageEffect "{61166385D53A0CDD}" {
+        }
+       }
+       DamageDistanceCurve {
+        0 1 1 0
+       }
+       DamageFragmentCount 400
+       GurneyConstant 2700
+       CaseWeight 220
+       FragMassScale 90
+       FragRangeScale 90
+      }
+     }
+     ChargeWeight 180
+     TntEquivalent 1.33
+    }
+    SpawnDecalEffect "{5E24A9E4AE3FCD64}" {
+     Scale 1
+     Material "{9EC972F6E6DD4842}Assets/Decals/Logistics/Impact/Data/Decal_Logistics_Grenade_01.emat"
+    }
+    SpawnParticleEffect "{5E24A9E49067B7F5}" {
+     ParticleEffect "{5592BC9B67C60D16}Particles/Weapon/Explosion_RGD5.ptc"
+     SoundEvent "SOUND_EXPLOSION"
+    }
+   }
+  }
+  HitEffectComponent "{9D9BE68D6F65A10F}" {
+   Enabled 0
+   ParticleEffect "{5592BC9B67C60D16}Particles/Weapon/Explosion_RGD5.ptc"
+  }
+ }
+}

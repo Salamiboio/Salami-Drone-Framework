@@ -1,0 +1,5 @@
+MatPBRBasic {
+ RoughnessScale 0.609
+ MetalnessScale 3.091
+ BCRMap "{C20D60E13664A530}Assets/Drones/FPVs/Data/Contacts_BCR.edds"
+}

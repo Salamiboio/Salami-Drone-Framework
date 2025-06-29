@@ -1,0 +1,33 @@
+GenericEntity : "{630FB4AD4A735264}Prefabs/Items/Equipment/Canteens/Canteen_US_01.et" {
+ ID "508AB2013EEE1E00"
+ components {
+  InventoryItemComponent "{5222EB4D0C73006B}" {
+   Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
+    ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
+     Name "DJI Battery"
+     Description ""
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{52D4E9E38931C544}" {
+      PreviewPrefab "{EF1E4AA6DCD2D982}Prefabs/Drones/DJIBase/DJIBattery.et"
+     }
+    }
+   }
+  }
+  MeshObject "{508EBD4511104198}" {
+   Object "{420C8D7CB1EDF78E}Assets/Drones/Batteries/DJIBattery.xob"
+  }
+  SAL_BatteryComponent "{65A72413F23C2FEA}" {
+   m_eBatteryType DJI
+  }
+  BaseLoadoutClothComponent "{54E6E41D09667B08}" {
+   WornModel "{420C8D7CB1EDF78E}Assets/Drones/Batteries/DJIBattery.xob"
+   ItemModel "{420C8D7CB1EDF78E}Assets/Drones/Batteries/DJIBattery.xob"
+  }
+  GadgetGamepadEffectsManagerComponent "{61E103D57E322BB5}" {
+   Enabled 0
+  }
+ }
+ coords 125.442 1 127.688
+ angleY -79
+}

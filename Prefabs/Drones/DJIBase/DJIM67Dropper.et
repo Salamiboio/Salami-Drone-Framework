@@ -1,0 +1,39 @@
+GenericEntity : "{FDA92D590B9C633B}Prefabs/Drones/DJIBase/DJIBase.et" {
+ ID "659863D5118F3377"
+ components {
+  SAL_DropperComponent "{65BAAE5223D14B94}" {
+   m_DropperGrenade "{5EF78BA4DB95E87A}Prefabs/Drones/DJIBase/M67GrenadeDropper.et"
+   m_DropperGrenadeReload "{E8F00BF730225B00}Prefabs/Weapons/Grenades/Grenade_M67.et"
+   m_DropperGrenadePlaceholder "{D96AA3EEDEEA60AD}Prefabs/Drones/DJIBase/M67DropperGrenadePlaceHolder.et"
+  }
+  SlotManagerComponent "{659863D7B9C69FEF}" {
+   Slots {
+    EntitySlotInfo GrenadeDropper {
+     Offset 0 -0.0393 0.0244
+     Prefab "{D96AA3EEDEEA60AD}Prefabs/Drones/DJIBase/M67DropperGrenadePlaceHolder.et"
+    }
+   }
+  }
+  ActionsManagerComponent "{659863D77B18E89B}" {
+   additionalActions {
+    SAL_PickUpDroneAction "{65ACFD96778EE500}" {
+     ParentContextList +{
+     }
+     UIInfo UIInfo "{65BB1701693761A9}" {
+      Name "#AR-Inventory_PickUp"
+     }
+     "Sort Priority" 3
+    }
+    SAL_ReloadDrone "{65BAF1444D39E124}" {
+     ParentContextList {
+      "DroneBody"
+     }
+     UIInfo UIInfo "{65BAF1444AC110A0}" {
+      Name "Reload Drone"
+     }
+     "Sort Priority" 2
+    }
+   }
+  }
+ }
+}

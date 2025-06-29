@@ -125,8 +125,10 @@ AudioClass {
    id 5139
    name "Amplitude 5"
    version 5
-   tl 48.626 -216.754
+   tl 48.626 -219.754
    curve "1/r"
+   outerRange 200
+   slopeFactor 7
   }
  }
  frequency {
@@ -134,7 +136,7 @@ AudioClass {
    id 4117
    name "Frequency 4"
    version 5
-   tl 53.626 -140.754
+   tl 54.626 -140.754
    enableDistanceAtt 1
   }
  }

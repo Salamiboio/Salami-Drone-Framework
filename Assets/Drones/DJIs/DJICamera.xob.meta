@@ -2,6 +2,7 @@ MetaFileClass {
  Name "{13B6EF34A5830497}Assets/Drones/DJIs/DJICamera.xob"
  Configurations {
   FBXResourceClass PC {
+   Scale 0.5 0.5 0.5
    Rotate 0 -90 0
    MaterialAssigns {
     MaterialAssignClass "{6598587D8C1D4630}" {

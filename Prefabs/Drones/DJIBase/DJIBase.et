@@ -11,13 +11,46 @@ GenericEntity {
    DistanceManagement 0
    IncludeInactive 1
   }
+  AIKnowledgeComponent "{65B1396D69850481}" {
+  }
+  FactionAffiliationComponent "{65B1396D6DE515C3}" {
+   "faction affiliation" "US"
+  }
+  InventoryItemComponent "{65AB2523310F27D1}" {
+   Attributes SCR_ItemAttributeCollection "{65AB252330249C83}" {
+    ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
+     Name "DJI Drone"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{65ACFD96E4CDB70C}" {
+     Weight 0.8
+     SizeSetupStrategy Manual
+     ItemDimensions 15 15 15
+     ItemVolume 3000
+     DimensionScaler 1
+     RestingAdditiveRotationLS 0 0 0
+     RestingAdditiveOffsetLS 0 0 0
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{52D4E9E38931C544}" {
+      CameraDistanceToItem 0.4
+      PreviewPrefab "{FDA92D590B9C633B}Prefabs/Drones/DJIBase/DJIBase.et"
+     }
+    }
+    m_Size SLOT_2x1
+    m_SlotType SLOT_LOADOUT_STORAGE
+   }
+  }
   MeshObject "{659863D74A35D5DA}" {
    Object "{A49369E24DF84B3F}Assets/Drones/DJIs/DJI.xob"
+   LODFactors {
+    1000
+   }
+   PixelSizeScale 10
   }
   RigidBody "{659863D747DB7DA8}" {
    Active Active
    Mass 0.8
-   LinearDamping 0.2
+   LinearDamping 0.7
    AngularDamping 0.1
    LinearSleepingThreashold 0
    AngularSleepingThreashold 0
@@ -28,6 +61,7 @@ GenericEntity {
    m_iMinZoom 84
   }
   SAL_DroneBatteryComponent "{65AAA9DA6F0BB1F5}" {
+   m_fMaxBattery 1800
    m_eBatteryType DJI
   }
   SAL_DroneControllerComponent "{659863D74259DF47}" {
@@ -36,6 +70,8 @@ GenericEntity {
    m_fYawSensitivity 0.5
    m_DroneStablizerProfile SAL_DroneStablizerProfile "{659C775FE5A6A7EF}" {
     m_fMaxHorizontalSpeed 12
+    m_fBrakeStrength 3
+    m_fMaxTiltDegrees 40
    }
   }
   SAL_DroneHUDComponent "{65A23C4DFE108560}" {
@@ -43,42 +79,99 @@ GenericEntity {
    m_eHudType DJI
   }
   SAL_DroneHealthComponent "{65A29C6C04B54BFD}" {
+   m_fDamagePower 5
    m_sDroneWreckPrefab "{D326D010DF556A79}Prefabs/Drones/DJIBase/DJIWreck.et"
   }
+  SAL_DroneRangeFinderComponent "{65AD4D53172F854B}" {
+  }
   SAL_DroneSignalComponent "{65AAA9DA6B1749D7}" {
+  }
+  SCR_DamageManagerComponent "{65B927D8FC893CFB}" {
+   "Additional hit zones" {
+    SCR_DestructibleHitzone Drone {
+     HZDefault 1
+     m_pDestructionHandler SCR_DestructionBaseHandler "{65B927DF83A8FA39}" {
+      m_sWreckModel ""
+      m_iWreckDelay 1
+     }
+     m_sDestructionParticle "{4A2535F09B63ED5F}Particles/Weapon/Muzzle_PKM.ptc"
+    }
+   }
+   m_iMinimumBurningState NONE
+  }
+  SCR_EditableVehicleComponent "{65AF1B36819DCFB8}" {
+   m_EntityType VEHICLE
+   m_UIInfo SCR_EditableEntityUIInfo "{65AF1B36AFD2EE1C}" {
+    Name "DJI Drone"
+    Icon "{43FEC60974B19651}UI/droneSmallIcon.edds"
+    m_Image "{712805FDBC0D3619}UI/DJIIcon.edds"
+    m_sFaction "US"
+    m_aAuthoredLabels {
+     3 51 37 210
+    }
+    m_aAutoLabels {
+     11 122
+    }
+    m_EntityBudgetCost {
+     SCR_EntityBudgetValue "{6052A79ADDA6C7A8}" {
+     }
+     SCR_EntityBudgetValue "{5EDC86E4AF8908B6}" {
+     }
+     SCR_EntityBudgetValue "{5EE71CA1677C234F}" {
+     }
+     SCR_EntityBudgetValue "{5EF07CE9B4A73374}" {
+      m_BudgetType RANK_SERGEANT
+      m_Value 3
+     }
+    }
+   }
+   m_bAutoRegister ALWAYS
+   m_Flags 5
+  }
+  PerceivableComponent "{65B1396D5F970440}" {
+   "Additional aim points" {
+    AimPoint "{65B1396D54075C71}" {
+     AimPointPosition PointInfo "{5A44DB148C16BF03}" {
+     }
+     AimpointChecked 1
+     VsibilityChecked 1
+     Dimension 0.1
+    }
+   }
+   IlluminationLvPerLight 4
   }
   SlotManagerComponent "{659863D7B9C69FEF}" {
    Slots {
     EntitySlotInfo Rotor1 {
-     Offset -0.205 0.1184 0.195
+     Offset -0.205 0.1184 0.155
      Angles 0 0 -4.5
      Prefab "{E7255C105E20C8C0}Prefabs/Drones/DJIBase/DJIRotor.et"
     }
     EntitySlotInfo Rotor2 {
-     Offset 0.205 0.1184 0.195
+     Offset 0.205 0.1184 0.155
      Angles 0 0 4.5
      Prefab "{E7255C105E20C8C0}Prefabs/Drones/DJIBase/DJIRotor.et"
     }
     EntitySlotInfo Rotor3 {
-     Offset -0.1536 0.0689 -0.1081
+     Offset -0.1536 0.0689 -0.155
      Angles 0 0 -6.5
      Prefab "{E7255C105E20C8C0}Prefabs/Drones/DJIBase/DJIRotor.et"
     }
     EntitySlotInfo Rotor4 {
-     Offset 0.1536 0.0689 -0.1081
+     Offset 0.1536 0.0689 -0.155
      Angles 0 0 6.5
      Prefab "{E7255C105E20C8C0}Prefabs/Drones/DJIBase/DJIRotor.et"
     }
     EntitySlotInfo Camera {
-     Offset -0.0019 0.1143 0.3872
+     Offset -0.0019 0.0326 0.2
      Prefab "{DD1F5C844352D9A7}Prefabs/Drones/DJIBase/CameraEntity.et"
     }
     EntitySlotInfo CameraBody {
-     Offset 0 0.0532 0.1889
+     Offset 0 0.0531 0.1527
      Prefab "{5A605E0B80EC0B21}Prefabs/Drones/DJIBase/DJICamera.et"
     }
     EntitySlotInfo CameraRotator {
-     Offset 0 0.0532 0.1583
+     Offset 0 0.0536 0.1209
      Prefab "{A4F062E36D6517DA}Prefabs/Drones/DJIBase/DJICameraRotator.et"
     }
    }
@@ -100,6 +193,24 @@ GenericEntity {
      UIInfo UIInfo "{659881F9B8D270EF}" {
       Name "Connect to Drone"
      }
+    }
+    SAL_ReplaceBattery "{65ACFD96759B880F}" {
+     ParentContextList {
+      "DroneBody"
+     }
+     UIInfo UIInfo "{65ACFD966F819835}" {
+      Name "Replace Battery"
+     }
+     "Sort Priority" 1
+    }
+    SAL_PickUpDroneAction "{65ACFD96778EE500}" {
+     ParentContextList {
+      "DroneBody"
+     }
+     UIInfo UIInfo "{51EC842E413D3E1D}" {
+      Name "#AR-Inventory_PickUp"
+     }
+     "Sort Priority" 2
     }
    }
   }

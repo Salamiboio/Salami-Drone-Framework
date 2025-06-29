@@ -1,0 +1,12 @@
+GenericEntity : "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et" {
+ ID "658B340BE800639F"
+ components {
+  MeshObject "{658B340BD9325940}" {
+   Object "{9ED37F362D111148}Assets/Drones/FPVs/MunitionsHolder.xob"
+  }
+  RplComponent "{658B340BDAF50D06}" {
+   "Parent Node From Parent Entity" 1
+  }
+ }
+ coords 0 0 0
+}

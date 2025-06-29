@@ -7,6 +7,7 @@ class SAL_DroneExplosionComponent: ScriptComponent
 	const float HIT_FRONT_THRESHOLD = 0.5; // ~45 degrees cone
 	SAL_DroneConnectionManager m_DroneManager;
 	SAL_DroneControllerComponent m_DroneController;
+	bool m_bIsArmed = false;
 	[Attribute(desc: "Explosion effect for destruction", params: "et")] ResourceName m_sExplosionEffect;
 	
 	override void OnPostInit(IEntity owner)
@@ -27,6 +28,9 @@ class SAL_DroneExplosionComponent: ScriptComponent
 		if (!m_DroneManager.IsDronePlayers(owner))
 			return;
 
+		if (!m_bIsArmed)
+			return;
+		
 		vector forward = owner.GetTransformAxis(2); // Z = forward
 		vector impactDir = -contact.Normal.Normalized(); // Impact direction is opposite contact normal
 
@@ -35,10 +39,6 @@ class SAL_DroneExplosionComponent: ScriptComponent
 		if (dot > HIT_FRONT_THRESHOLD)
 		{
 			m_DroneController.m_bIsTriggered = true;
-		}
-		else
-		{
-			//Print("Hit from side or rear, ignoring.");
 		}
 	}
 }

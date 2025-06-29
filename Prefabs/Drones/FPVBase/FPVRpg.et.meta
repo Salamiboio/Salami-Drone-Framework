@@ -1,5 +1,5 @@
 MetaFileClass {
- Name "{77CA4803A4A2B8E3}Prefabs/Drones/FPVBase/FPVRpg.et"
+ Name "{77CA4803A4A2B8E3}Prefabs/Drones/FPVBase/FPVRPG.et"
  Configurations {
   EntityTemplateResourceClass PC {
   }

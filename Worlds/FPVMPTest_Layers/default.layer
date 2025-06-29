@@ -1,67 +1,33 @@
-GenericEntity : "{2A283EA7BADDBD28}Prefabs/Drones/FPVBase/FPVBase.et" {
- coords 126.135 1 127.641
+GenericEntity : "{1602B2595AC224FB}Prefabs/Drones/FPVBase/FPVBattery.et" {
+ coords 125.92 1 127.752
 }
-$grp GenericEntity : "{630FB4AD4A735264}Prefabs/Items/Equipment/Canteens/Canteen_US_01.et" {
- {
-  components {
-   InventoryItemComponent "{5222EB4D0C73006B}" {
-    Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
-     ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
-      Name "DJI Battery"
-      Description ""
-     }
-    }
-   }
-   MeshObject "{508EBD4511104198}" {
-    Object "{420C8D7CB1EDF78E}Assets/Drones/Batteries/DJIBattery.xob"
-   }
-   SAL_BatteryComponent "{65A72413F23C2FEA}" {
-    m_eBatteryType DJI
-   }
-   BaseLoadoutClothComponent "{54E6E41D09667B08}" {
-    WornModel "{420C8D7CB1EDF78E}Assets/Drones/Batteries/DJIBattery.xob"
-    ItemModel "{420C8D7CB1EDF78E}Assets/Drones/Batteries/DJIBattery.xob"
-   }
-   GadgetGamepadEffectsManagerComponent "{61E103D57E322BB5}" {
-    Enabled 0
-   }
+GenericEntity : "{2A283EA7BADDBD28}Prefabs/Drones/FPVBase/FPVBase.et" {
+ coords 124.307 1 129.748
+}
+GenericEntity : "{77CA4803A4A2B8E3}Prefabs/Drones/FPVBase/FPVRPG.et" {
+ components {
+  FactionAffiliationComponent "{65B1396C81A1720D}" {
+   Enabled 0
   }
-  coords 125.442 1 127.688
-  angleY -79
  }
- {
-  components {
-   InventoryItemComponent "{5222EB4D0C73006B}" {
-    Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
-     ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
-      Name "FPV Battery"
-      Description ""
-     }
-    }
-   }
-   MeshObject "{508EBD4511104198}" {
-    Object "{B6565E9EF74BDA56}Assets/Drones/Batteries/FPVBattery.xob"
-   }
-   SAL_BatteryComponent "{65A72413F23C2FEA}" {
-   }
-   BaseLoadoutClothComponent "{54E6E41D09667B08}" {
-    WornModel "{B6565E9EF74BDA56}Assets/Drones/Batteries/FPVBattery.xob"
-    ItemModel "{B6565E9EF74BDA56}Assets/Drones/Batteries/FPVBattery.xob"
-   }
-   GadgetGamepadEffectsManagerComponent "{61E103D57E322BB5}" {
-    Enabled 0
-   }
-  }
-  coords 125.378 1 127.222
-  scale 0.5
- }
+ coords 122.926 1 129.55
 }
 GameEntity : "{8951045BFE8BC8E4}Prefabs/Characters/HeadGear/FPV_Goggles.et" {
  coords 126.36 1 126.991
 }
+Vehicle UAZ452_base1 : "{988A61BA68420AFE}Prefabs/Vehicles/Wheeled/UAZ452/UAZ452_base.et" {
+ coords 124.492 1 122.47
+}
 GenericEntity : "{E2434ED1318D8476}Prefabs/Characters/Items/DroneController.et" {
  coords 126.5 1.001 127.543
 }
+GenericEntity : "{EDE6EC8B05227E3E}Prefabs/Props/Military/Arsenal/ArsenalBoxes/USSR/ArsenalBox_USSR.et" {
+ coords 124.149 1 133.026
+}
+GenericEntity : "{EF1E4AA6DCD2D982}Prefabs/Drones/DJIBase/DJIBattery.et" {
+ coords 125.564 1 127.828
+ angleY 0
+}
 GenericEntity : "{FDA92D590B9C633B}Prefabs/Drones/DJIBase/DJIBase.et" {
- coords 125.713 1 128.405
+ coords 124.429 1 128.481
 }

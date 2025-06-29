@@ -1,3 +1,9 @@
+SCR_AIWorld : "{01DC74137CFDDB6A}Prefabs/AI/SCR_AIWorld_Arland.et" {
+ coords 1402.078 39 2168.704
+}
+PerceptionManager PerceptionManager1 : "{028DAEAD63E056BE}Prefabs/World/Game/PerceptionManager.et" {
+ coords 1651.028 7.356 1999.97
+}
 SCR_GameModeEditor GameMode_Editor_Full1 : "{DA3986AF1B5032B7}Prefabs/MP/Modes/Editor/GameMode_Editor_Full.et" {
  coords 1407.511 39 2162.124
  {
@@ -11,15 +17,42 @@ SCR_GameModeEditor GameMode_Editor_Full1 : "{DA3986AF1B5032B7}Prefabs/MP/Modes/E
   }
  }
 }
-GenericEntity : "{2A283EA7BADDBD28}Prefabs/Drones/FPVBase/FPVBase.et" {
- coords 1411.141 39 2164.865
+GenericEntity : "{45C675ED3CFBBEC5}Prefabs/Props/Military/Compositions/US/ArsenalBox_US.et" {
+ coords 1407.214 39 2165.716
+}
+GenericEntity : "{51AB0E62E80C7249}Prefabs/Drones/DJIBase/DJIM67Dropper.et" {
+ coords 1408.874 39.147 2170.094
 }
 SCR_SpawnPoint : "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoint_US.et" {
  coords 1410.153 39 2166.017
 }
-GameEntity : "{8951045BFE8BC8E4}Prefabs/Characters/HeadGear/FPV_Goggles.et" {
- coords 1410.55 39 2163.337
+GenericEntity : "{5A605E0B80EC0B21}Prefabs/Drones/DJIBase/DJICamera.et" {
+ components {
+  SCR_DamageManagerComponent "{65B9338BF7272132}" {
+   Enabled 0
+  }
+ }
+ coords 1402.875 39 2172.233
 }
-GenericEntity : "{E2434ED1318D8476}Prefabs/Characters/Items/DroneController.et" {
- coords 1409.976 39 2164.471
+GenericEntity : "{6C6D4CF5F88AE48D}Prefabs/Vehicles/Core/Vehicle_AmmoBox_Base.et" {
+ coords 1405.336 39 2172.987
+}
+$grp GameEntity : "{8951045BFE8BC8E4}Prefabs/Characters/HeadGear/FPV_Goggles.et" {
+ {
+  coords 1409.328 39 2165.114
+ }
+ {
+  coords 1408.633 39.01 2167.116
+ }
+}
+$grp GenericEntity : "{E2434ED1318D8476}Prefabs/Characters/Items/DroneController.et" {
+ {
+  coords 1409.749 39 2165.191
+ }
+ {
+  coords 1409.054 39.01 2167.193
+ }
+}
+GenericEntity : "{EDE6EC8B05227E3E}Prefabs/Props/Military/Arsenal/ArsenalBoxes/USSR/ArsenalBox_USSR.et" {
+ coords 1405.245 39 2165.119
 }

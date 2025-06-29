@@ -1,0 +1,35 @@
+GenericEntity : "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et" {
+ ID "658B340BE800639F"
+ components {
+  MeshObject "{658B340BD9325940}" {
+   Object "{A043E13BAC03CF2C}Assets/Weapons/Grenades/M67/Grenade_M67.xob"
+  }
+  SCR_DamageManagerComponent "{65B933884B65AF78}" {
+   Enabled 0
+   "Additional hit zones" {
+    SCR_DestructibleHitzone Rotor {
+     HZDefault 1
+     BaseDamageMultiplier 0
+     DamageReduction 0
+     DamageThreshold 0
+     "Collision multiplier" 0
+     m_aDamagePassRules {
+      SCR_DamagePassRule "{60AAF83A13B1AFB5}" {
+       m_eOutputDamageType TRUE
+       m_fMultiplier 0
+      }
+     }
+     m_pDestructionHandler SCR_DestructionBaseHandler "{65B9338BDB1BB356}" {
+      m_bAllowHideWreck 0
+     }
+     m_vParticleOffset 0 0 0
+    }
+   }
+  }
+  RplComponent "{658B340BDAF50D06}" {
+   "Parent Node From Parent Entity" 1
+  }
+ }
+ coords 0 0 0
+ scale 0.5
+}

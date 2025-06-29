@@ -51,7 +51,6 @@ class SAL_DroneBatteryComponent: ScriptComponent
 		
 		if (m_fCurrentBattery <= 0)
 		{
-			SAL_DroneControllerComponent.Cast(owner.FindComponent(SAL_DroneControllerComponent)).ArmDrone();
 			SCR_PlayerController.Cast(GetGame().GetPlayerController()).DisconnectDrone();
 		}
 	}

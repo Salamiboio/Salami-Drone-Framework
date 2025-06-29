@@ -4,6 +4,8 @@ class SAL_DroneBulletComponentClass: ScriptComponentClass
 
 class SAL_DroneBulletComponent: ScriptComponent
 {
+	
+	bool m_bIsDestroyed = false;
 	override void OnPostInit(IEntity owner)
 	{
 		#ifdef WORKBENCH
@@ -12,7 +14,7 @@ class SAL_DroneBulletComponent: ScriptComponent
 		
 		#else
 		
-		if (RplSession.Mode() != RplMode.Dedicated)
+		if (RplSession.Mode() == RplMode.Client)
 			return;
 		
 		SetEventMask(owner, EntityEvent.FRAME);
@@ -21,7 +23,15 @@ class SAL_DroneBulletComponent: ScriptComponent
 	
 	override void EOnFrame(IEntity owner, float timeSlice)
 	{
-		GetGame().GetWorld().QueryEntitiesBySphere(owner.GetOrigin(), 0.5, FilterDrone, null);
+		if (m_bIsDestroyed)
+			return;
+		
+		if (!GetGame().GetWorld().QueryEntitiesBySphere(owner.GetOrigin(), 0.5, FilterDrone, null))
+		{
+			m_bIsDestroyed = true;
+			ClearEventMask(owner, EntityEvent.FRAME);
+		}
+			
 	}
 	
 	bool FilterDrone(IEntity ent)
@@ -29,9 +39,17 @@ class SAL_DroneBulletComponent: ScriptComponent
 		if (ent == GetOwner())
 			return true;
 		
+		if (m_bIsDestroyed)
+			return true;
+		
 		if (ent.FindComponent(SAL_DroneControllerComponent))
 		{
-			SAL_DroneHealthComponent.Cast(ent.FindComponent(SAL_DroneHealthComponent)).UpdateHealth(0);
+			if (SAL_DroneControllerComponent.Cast(ent.FindComponent(SAL_DroneControllerComponent)).m_bIsDestroyed)
+				return true;
+			
+			SAL_DroneControllerComponent.Cast(ent.FindComponent(SAL_DroneControllerComponent)).m_bIsDestroyed = true;
+			SAL_DroneConnectionManager.GetInstance().DestroyDroneServer(RplComponent.Cast(ent.FindComponent(RplComponent)).Id(), SAL_DroneHealthComponent.Cast(ent.FindComponent(SAL_DroneHealthComponent)).m_sDroneWreckPrefab);
+			return false;
 		}
 		return true;
 	}

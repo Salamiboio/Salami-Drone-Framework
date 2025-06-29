@@ -1,0 +1,32 @@
+GenericEntity : "{630FB4AD4A735264}Prefabs/Items/Equipment/Canteens/Canteen_US_01.et" {
+ ID "508AB2013EEE1E00"
+ components {
+  InventoryItemComponent "{5222EB4D0C73006B}" {
+   Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
+    ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
+     Name "FPV Battery"
+     Description ""
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{52D4E9E38931C544}" {
+      PreviewPrefab "{1602B2595AC224FB}Prefabs/Drones/FPVBase/FPVBattery.et"
+     }
+    }
+   }
+  }
+  MeshObject "{508EBD4511104198}" {
+   Object "{B6565E9EF74BDA56}Assets/Drones/Batteries/FPVBattery.xob"
+  }
+  SAL_BatteryComponent "{65A72413F23C2FEA}" {
+  }
+  BaseLoadoutClothComponent "{54E6E41D09667B08}" {
+   WornModel "{B6565E9EF74BDA56}Assets/Drones/Batteries/FPVBattery.xob"
+   ItemModel "{B6565E9EF74BDA56}Assets/Drones/Batteries/FPVBattery.xob"
+  }
+  GadgetGamepadEffectsManagerComponent "{61E103D57E322BB5}" {
+   Enabled 0
+  }
+ }
+ coords 125.378 1 127.222
+ scale 0.5
+}

@@ -11,13 +11,43 @@ GenericEntity {
    DistanceManagement 0
    IncludeInactive 1
   }
+  AIKnowledgeComponent "{65AE5C09542A3F69}" {
+  }
   ColliderHistoryComponent "{65A5302D07FBBDA4}" {
+  }
+  InventoryItemComponent "{65AB25234576F8FB}" {
+   Attributes SCR_ItemAttributeCollection "{65AB252343D23B3A}" {
+    ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
+     Name "FPV Drone"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{65AB252369BC87C7}" {
+     Weight 0.8
+     SizeSetupStrategy Manual
+     ItemDimensions 15 15 15
+     ItemVolume 2500
+     DimensionScaler 1
+     RestingAdditiveRotationLS 0 0 0
+     RestingAdditiveOffsetLS 0 0 0
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{52D4E9E38931C544}" {
+      CameraOrbitAngles 0 90 0
+      CameraDistanceToItem 0.4
+      PreviewPrefab "{2A283EA7BADDBD28}Prefabs/Drones/FPVBase/FPVBase.et"
+      LodModel 0
+     }
+    }
+    m_SlotType SLOT_LOADOUT_STORAGE
+   }
   }
   MeshObject "{65932E3A1462927F}" {
    Object "{D309E1AC4DE1B212}Assets/Drones/FPVs/FPVBase/FPV.xob"
+   LODFactors {
+    1000
+   }
+   PixelSizeScale 10
   }
   RigidBody "{65932E3A2275FA52}" {
-   LayerPreset "Vehicle"
    Active Active
    Mass 0.8
    LinearDamping 0.4
@@ -26,24 +56,94 @@ GenericEntity {
    AngularSleepingThreashold 0
    ModelGeometry 1
   }
+  SAL_DroneBatteryComponent "{65AAA9DB5A927044}" {
+   m_fMaxBattery 1800
+  }
   SAL_DroneControllerComponent "{65967B50676709BE}" {
    m_iMaxThrustRPM 20000
-   m_fPitchSensitivity 2
-   m_fYawSensitivity 2
-   m_fRollSensitivity 2
+   m_fPitchSensitivity 8
+   m_fYawSensitivity 8
+   m_fRollSensitivity 8
+   m_fHoverMargin 1
   }
   SAL_DroneExplosionComponent "{65A45D68462685BF}" {
+   Enabled 0
    m_sExplosionEffect "{D8888E136766ECE9}Prefabs/Weapons/Warheads/Explosions/Explosion_FPV.et"
   }
   SAL_DroneHUDComponent "{65A136661B17A824}" {
    m_DroneHUDLayout "{3DD4E524949841A7}UI/FPVHud/FPVHudLayout.layout"
   }
   SAL_DroneHealthComponent "{65A29C6C8DC04DAD}" {
-   m_fDamagePower 3
+   Enabled 1
+   m_fDamagePower 5
    m_sDroneWreckPrefab "{713EFC799FE361F6}Prefabs/Drones/FPVBase/FPVWreck.et"
   }
   SAL_DroneSignalComponent "{65A43CD2DD24F455}" {
    m_fDroneRange 2000
+  }
+  SCR_DamageManagerComponent "{65B9338893072F7F}" {
+   "Additional hit zones" {
+    SCR_DestructibleHitzone Drone {
+     ColliderNames {
+      "UBX_drone"
+     }
+     HZDefault 1
+     DamageReduction 0
+     DamageThreshold 0
+     m_pDestructionHandler SCR_DestructionBaseHandler "{65B927DF83A8FA39}" {
+      m_sWreckModel ""
+      m_iWreckDelay 1
+     }
+     m_sDestructionParticle "{4A2535F09B63ED5F}Particles/Weapon/Muzzle_PKM.ptc"
+     m_vParticleOffset 0 0 0
+    }
+   }
+   CollisionVelocityThreshold 5
+   "Heavy damage threshold" 70
+  }
+  SCR_EditableVehicleComponent "{65AF169A26951569}" {
+   m_EntityType VEHICLE
+   m_UIInfo SCR_EditableEntityUIInfo "{65AF169A49E83200}" {
+    Name "FPV Drone"
+    Icon "{43FEC60974B19651}UI/droneSmallIcon.edds"
+    m_Image "{062D42A783238260}UI/FPVIcon.edds"
+    m_sFaction "US"
+    m_aAuthoredLabels {
+     3 51 37 210
+    }
+    m_aAutoLabels {
+     11 122
+    }
+    m_EntityBudgetCost {
+     SCR_EntityBudgetValue "{6052A79ADDA6C7A8}" {
+     }
+     SCR_EntityBudgetValue "{5EDC86E4AF8908B6}" {
+     }
+     SCR_EntityBudgetValue "{5EE71CA1677C234F}" {
+     }
+     SCR_EntityBudgetValue "{5EF07CE9B4A73374}" {
+      m_BudgetType RANK_SERGEANT
+      m_Value 3
+     }
+    }
+   }
+   m_bAutoRegister ALWAYS
+   m_Flags 5
+  }
+  SCR_FactionAffiliationComponent "{65B3334F801EE534}" {
+   "faction affiliation" "US"
+  }
+  PerceivableComponent "{65B1396C6F29110E}" {
+   "Additional aim points" {
+    AimPoint "{65B1396C63256AE1}" {
+     AimPointPosition PointInfo "{5A44DB148C16BF03}" {
+     }
+     AimpointChecked 1
+     VsibilityChecked 1
+     Dimension 0.1
+    }
+   }
+   IlluminationLvPerLight 4
   }
   SlotManagerComponent "{65932E3A16300B2D}" {
    Slots {
@@ -91,12 +191,30 @@ GenericEntity {
       Name "Connect To Drone"
      }
     }
+    SAL_ReplaceBattery "{65ACFD965259DD1D}" {
+     ParentContextList {
+      "DroneBody"
+     }
+     UIInfo UIInfo "{65ACFD966F819835}" {
+      Name "Replace Battery"
+     }
+     "Sort Priority" 1
+    }
+    SAL_PickUpDroneAction "{65ACFD99D0B19895}" {
+     ParentContextList {
+      "DroneBody"
+     }
+     UIInfo UIInfo "{51EC842E413D3E1D}" {
+      Name "#AR-Inventory_PickUp"
+     }
+     "Sort Priority" 2
+    }
    }
   }
   RplComponent "{65932E3A10C5CD87}" {
    "Parent Node From Parent Entity" 0
   }
-  SAL_DroneBatteryComponent "{65AAA9DB5A927044}" {
+  Hierarchy "{65AD715E336FB3AE}" {
   }
  }
  coords 0 0 0.477

@@ -2,10 +2,11 @@ MetaFileClass {
  Name "{66F8323981520082}Assets/Drones/FPVs/FPVBaseRotor/FPVRotor.xob"
  Configurations {
   FBXResourceClass PC {
+   Scale 0.5 0.5 0.5
    MaterialAssigns {
     MaterialAssignClass "{658B340B0DE8A579}" {
      SourceMaterial "DefaultGeneratedMaterial"
-     AssignedMaterial "{612625FBE7184D5E}Assets/Drones/FPVs/FPVBaseRotor/Data/DefaultGeneratedMaterial.emat"
+     AssignedMaterial "{612625FBE7184D5E}Assets/Drones/FPVs/FPVBaseRotor/Data/FPVRotorMat.emat"
     }
    }
    MeshParams {

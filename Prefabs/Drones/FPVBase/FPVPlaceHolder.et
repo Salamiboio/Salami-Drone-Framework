@@ -1,0 +1,47 @@
+GenericEntity {
+ ID "65AD715ED835C290"
+ components {
+  InventoryItemComponent "{65AD715FA2D7B6EF}" {
+   Attributes SCR_ItemAttributeCollection "{65AD715FB51693F1}" {
+    ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
+     Name "FPV Drone"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{65AB252369BC87C7}" {
+     Weight 0.4
+     SizeSetupStrategy Manual
+     ItemDimensions 15 15 15
+     ItemVolume 2500
+     DimensionScaler 1
+     RestingAdditiveRotationLS 0 0 0
+     RestingAdditiveOffsetLS 0 0 0
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{52D4E9E38931C544}" {
+      CameraOrbitAngles 0 90 0
+      CameraDistanceToItem 0.4
+      FOV 60
+      AspectRatio 1
+      PreviewPrefab "{2A283EA7BADDBD28}Prefabs/Drones/FPVBase/FPVBase.et"
+      LodModel 0
+     }
+    }
+    m_SlotType SLOT_LOADOUT_STORAGE
+   }
+  }
+  MeshObject "{65AD715ED835C29C}" {
+   Object "{D309E1AC4DE1B212}Assets/Drones/FPVs/FPVBase/FPV.xob"
+  }
+  RigidBody "{65AD715ED835C28E}" {
+   Active Active
+   Mass 0.8
+   ModelGeometry 1
+  }
+  SAL_DronePlaceHolderComponent "{65AD715FAA7E9849}" {
+   m_sDroneToSpawn "{2A283EA7BADDBD28}Prefabs/Drones/FPVBase/FPVBase.et"
+  }
+  RplComponent "{65AD715ED835C2F1}" {
+   "Parent Node From Parent Entity" 0
+  }
+ }
+ coords 2.703 -0.703 -1.519
+}

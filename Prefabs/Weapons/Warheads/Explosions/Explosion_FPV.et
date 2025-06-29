@@ -13,15 +13,59 @@ GenericEntity : "{6BEC092D354A997E}Prefabs/Weapons/Warheads/Explosions/Warhead_E
   TimerTriggerComponent "{55129E81CBAA1390}" {
    PROJECTILE_EFFECTS {
     ExplosionDamageContainer "{5D8D1EB3E2893B43}" {
-     ChargeWeight 27000
+     ExplosionEffects {
+      BaseExplosionDamage "{5D8D1EB3EF9D02C6}" {
+      }
+      BaseExplosionDamage "{61DAF5E24D9CA168}" {
+      }
+      BaseExplosionDamage "{5D8D1EB3EBB36077}" {
+      }
+      ExplosionImpulseEffect "{5E6D1CEE09A33086}" {
+      }
+      ExplosionFragmentationEffect "{567CBC1D7AB652C7}" {
+       DamageValue 16
+       DamageType Fragmentation
+       DamageDistance 25
+       ExplosionEffectSpeed 1000
+       DamageFalloffCurve {
+        0 1 0.05 1 0.55 0.8 1 0
+       }
+       DamageEffect {
+        SCR_FragmentationDamageEffect "{61166385D53A0CDD}" {
+        }
+       }
+       DamageDistanceCurve {
+        0 1 1 0
+       }
+       DamageFragmentCount 130
+       GurneyShape CYLINDER
+       GurneyConstant 2830
+       CaseWeight 1280
+       FragMassScale 10
+       FragRangeScale 10
+      }
+     }
+     ChargeWeight 4200
+     TntEquivalent 1
     }
     SpawnDecalEffect "{5E24A9E4AE3FCD64}" {
-     Scale 7.5
-     Material "{09F013150D25803F}Assets/Decals/Logistics/Data/Logistics_Explosion_Decal_Medium.emat"
+     Scale 2
+     Material "{2A3A7B73C1EF6936}Assets/Decals/Logistics/Impact/Data/Decal_Logistics_RPG_01.emat"
     }
     SpawnParticleEffect "{5E24A9E49067B7F5}" {
-     ParticleEffect "{001CC9410BE16BE3}Particles/Logistics/Explosion/TNT/Explosion_TNT_Medium.ptc"
+     ParticleEffect "{B6275B6B9E29E9ED}Particles/Weapon/Explosion_RPG7V1.ptc"
      SoundEvent "SOUND_EXPLOSION"
+    }
+    SubmunitionEffect "{65B03AC2D89274E8}" {
+     Prefab "{E6EC1F21E22709F0}Prefabs/Weapons/Ammo/Ammo_Rocket_PG7VM_Penetrator.et"
+     Dispersion 0
+     InitSpeedCoef 1
+    }
+    SubmunitionEffect "{65B03AC2D7A1C5E3}" {
+     Prefab "{7CC1697D08638B5C}Prefabs/Weapons/Ammo/Ammo_Rocket_PG7VM_Spall.et"
+     Count 30
+     Dispersion 60
+     InitSpeedCoef 1
     }
    }
   }

@@ -12,17 +12,20 @@ GenericEntity : "{09D6A1C9543E4A95}Prefabs/Items/Core/Backpack_Base.et" {
   SCR_UniversalInventoryStorageComponent "{5222CB03A40528FA}" {
    Attributes SCR_ItemAttributeCollection "{5222CB039E9715D1}" {
     ItemDisplayName UIInfo "{5222CB03904B414C}" {
-     Name "#AR-Backpack_ALICE_Medium_Name"
-     Description "#AR-Backpack_ALICE_Medium_Description"
+     Name "Jammer Backpack"
+     Description ""
     }
     CustomAttributes {
      PreviewRenderAttributes "{52BCBDD2B54658EC}" {
+      CameraOrbitAngles 0 180 0
       CameraDistanceToItem 4
       FOV 10
-      PreviewModel "{E0BEDFA62478F57F}Assets/Items/Equipment/Backpacks/Backpack_ALICE_Medium/Backpack_ALICE_Medium_combined.xob"
+      PreviewModel "{C31FC70EB14E4D1F}Assets/Drones/JammerBag/JammerBag.xob"
      }
     }
    }
+   CapacityCoefficient 0
+   m_fMaxWeight 0
   }
   BaseLoadoutClothComponent "{511E9C6ADE70F7BB}" {
    Slots {

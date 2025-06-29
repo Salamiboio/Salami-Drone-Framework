@@ -1,0 +1,47 @@
+GenericEntity {
+ ID "65AD7A14A35B82F0"
+ components {
+  InventoryItemComponent "{65AD7A14A35B82F9}" {
+   Attributes SCR_ItemAttributeCollection "{65AD7A14A35B82E5}" {
+    ItemDisplayName UIInfo "{65AD7A14A35B82E9}" {
+     Name "FPV Drone (RPG)"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{65AD7A14A35B82ED}" {
+     Weight 0.4
+     SizeSetupStrategy Manual
+     ItemDimensions 15 15 15
+     ItemVolume 2500
+     DimensionScaler 1
+     RestingAdditiveRotationLS 0 0 0
+     RestingAdditiveOffsetLS 0 0 0
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{65AD7A14A35B82D1}" {
+      CameraOrbitAngles 0 90 0
+      CameraDistanceToItem 0.4
+      FOV 60
+      AspectRatio 1
+      PreviewPrefab "{2A283EA7BADDBD28}Prefabs/Drones/FPVBase/FPVBase.et"
+      LodModel 0
+     }
+    }
+    m_SlotType SLOT_LOADOUT_STORAGE
+   }
+  }
+  MeshObject "{65AD7A14A35B82D9}" {
+   Object "{D309E1AC4DE1B212}Assets/Drones/FPVs/FPVBase/FPV.xob"
+  }
+  RigidBody "{65AD7A14A35B82DC}" {
+   Active Active
+   Mass 0.8
+   ModelGeometry 1
+  }
+  SAL_DronePlaceHolderComponent "{65AD7A14A35B82DF}" {
+   m_sDroneToSpawn "{77CA4803A4A2B8E3}Prefabs/Drones/FPVBase/FPVRPG.et"
+  }
+  RplComponent "{65AD7A14A35B82C1}" {
+   "Parent Node From Parent Entity" 0
+  }
+ }
+ coords 2.703 -0.703 -1.519
+}

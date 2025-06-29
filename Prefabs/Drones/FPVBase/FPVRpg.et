@@ -1,9 +1,38 @@
 GenericEntity : "{2A283EA7BADDBD28}Prefabs/Drones/FPVBase/FPVBase.et" {
  ID "65932E3D2F6C309A"
  components {
+  InventoryItemComponent "{65AB25234576F8FB}" {
+   Attributes SCR_ItemAttributeCollection "{65AB252343D23B3A}" {
+    ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
+     Name "FPV Drone (RPG)"
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{52D4E9E38931C544}" {
+      PreviewPrefab "{77CA4803A4A2B8E3}Prefabs/Drones/FPVBase/FPVRPG.et"
+     }
+    }
+   }
+  }
+  SAL_DroneExplosionComponent "{65A45D68462685BF}" {
+   Enabled 1
+  }
+  SCR_EditableVehicleComponent "{65AF169A26951569}" {
+   m_UIInfo SCR_EditableEntityUIInfo "{65AF169A49E83200}" {
+    Name "FPV Drone (RPG)"
+    m_Image "{BE3A0D7E67AED716}UI/FPVRPGIcon.edds"
+   }
+  }
   SlotManagerComponent "{65932E3A16300B2D}" {
    Slots {
+    EntitySlotInfo WarheadHolder {
+     Prefab "{911DCEC00E3D4C8E}Prefabs/Drones/FPVBase/RoundHolder.et"
+    }
     EntitySlotInfo Warhead {
+     Prefab "{F26421FDD2406AC2}Prefabs/Drones/FPVBase/RPGWarhead.et"
+    }
+    EntitySlotInfo Contacts {
+     Offset 0.0024 -0.0048 0.1536
+     Prefab "{7CED2E8704F6A347}Prefabs/Drones/FPVBase/Contacts.et"
     }
    }
   }

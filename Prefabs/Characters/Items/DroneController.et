@@ -6,8 +6,32 @@ GenericEntity : "{FA5C25BF66A53DCF}Prefabs/Weapons/Rifles/AK74/Rifle_AK74.et" {
   }
   SCR_WeaponAttachmentsStorageComponent "{51F080D5CE45A1A2}" {
    Attributes SCR_ItemAttributeCollection "{51F080D5C64F12C5}" {
+    ItemDisplayName WeaponUIInfo "{5222CB07CFF6712A}" {
+     Name "Drone Controller"
+     Description ""
+     m_MagIndicator SCR_MagazineIndicatorConfiguration "{65AD38A846ED82F7}" {
+      m_sMagazineLayout ""
+      m_sImagesetIcons ""
+      m_sImagesetGlows ""
+      m_sOutline ""
+      m_sBackground ""
+      m_sProgress ""
+      m_sProgressAlphaMask ""
+      m_sEmptyMagazine ""
+     }
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{55349E9229B55E3D}" {
+     Weight 1
+     ItemDimensions 1 1 1
+     ItemVolume 300
+    }
     ItemAnimationAttributes ItemAnimationAttributes "{5284960E1D29F45C}" {
      AnimationIKPose "{103FD9D3DB45BD86}anims/DroneController/p_dronecontroller16_ik.anm"
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{52BAB5E48C906DB8}" {
+      CameraDistanceToItem 0.3
+     }
     }
    }
   }

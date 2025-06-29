@@ -218,5 +218,21 @@ FrameWidgetClass {
     Font "{CD2634D279AB011A}UI/Fonts/Roboto/Roboto_Bold.fnt"
    }
   }
+  ImageWidgetClass "{65AD2DADAE1D3087}" {
+   Name "Armed"
+   Slot FrameWidgetSlot "{65AD2DADAE1D3376}" {
+    PositionX 108.157
+    OffsetLeft 108.157
+    PositionY 23.263
+    OffsetTop 23.263
+    SizeX 250.815
+    OffsetRight -358.972
+    SizeY 234.865
+    OffsetBottom -258.128
+   }
+   "Is Visible" 0
+   Texture "{89196E3BB857AAD8}UI/FPVHud/Data/armed.edds"
+   Size 1024 1024
+  }
  }
 }

@@ -1,0 +1,17 @@
+MetaFileClass {
+ Name "{A0974647B2B36DD0}Assets/Drones/FPVs/FPVBase/Data/Metal030.emat"
+ Configurations {
+  EMATResourceClass PC {
+  }
+  EMATResourceClass XBOX_ONE : PC {
+  }
+  EMATResourceClass XBOX_SERIES : PC {
+  }
+  EMATResourceClass PS4 : PC {
+  }
+  EMATResourceClass PS5 : PC {
+  }
+  EMATResourceClass HEADLESS : PC {
+  }
+ }
+}

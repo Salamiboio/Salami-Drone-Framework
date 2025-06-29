@@ -1,0 +1,39 @@
+MetaFileClass {
+ Name "{9ED37F362D111148}Assets/Drones/FPVs/MunitionsHolder.xob"
+ Configurations {
+  FBXResourceClass PC {
+   MaterialAssigns {
+    MaterialAssignClass "{65ACFD9D1136232D}" {
+     SourceMaterial "DefaultGeneratedMaterial"
+     AssignedMaterial "{810CB22C23A1FB08}Assets/Drones/FPVs/FPVBase/Data/FPVMat.emat"
+    }
+   }
+   MeshParams {
+    MeshParam MunitionsMount {
+    }
+   }
+   Common TXOCommonClass "{65ACFD9D164E554D}" : "{0877E7C4BB2B2C9A}Configs/System/ResourceTypes/PC/MeshObjectCommon.conf" {
+   }
+  }
+  FBXResourceClass XBOX_ONE : PC {
+   Common TXOCommonClass "{65ACFD9D164E3D0A}" : "{9D5B6207F7628CE2}Configs/System/ResourceTypes/XBOX_ONE/MeshObjectCommon.conf" {
+   }
+  }
+  FBXResourceClass XBOX_SERIES : PC {
+   Common TXOCommonClass "{65ACFD9D164E3822}" : "{DD9F02115C764647}Configs/System/ResourceTypes/XBOX_SERIES/MeshObjectCommon.conf" {
+   }
+  }
+  FBXResourceClass PS4 : PC {
+   Common TXOCommonClass "{65ACFD9D164E3AB9}" : "{53EC476BC921D99A}Configs/System/ResourceTypes/PS4/MeshObjectCommon.conf" {
+   }
+  }
+  FBXResourceClass PS5 : PC {
+   Common TXOCommonClass "{65ACFD9D164E2526}" : "{F62AA8E7B8EA9D26}configs/ResourceTypes/PS5/MeshObjectCommon.conf" {
+   }
+  }
+  FBXResourceClass HEADLESS : PC {
+   Common TXOCommonClass "{65ACFD9D164E2711}" : "{3A5B3356978039E8}Configs/System/ResourceTypes/HEADLESS/MeshObjectCommon.conf" {
+   }
+  }
+ }
+}

@@ -1,0 +1,47 @@
+GenericEntity {
+ ID "65BB170CBEEAB499"
+ components {
+  InventoryItemComponent "{65BB170CBEEAB483}" {
+   Attributes SCR_ItemAttributeCollection "{65BB170CBEEAB4F2}" {
+    ItemDisplayName UIInfo "{65BB170CBEEAB4F7}" {
+     Name "DJI Drone Dropper (M67)"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{65BB170CBEEAB4FC}" {
+     Weight 0.4
+     SizeSetupStrategy Manual
+     ItemDimensions 15 15 15
+     ItemVolume 3000
+     DimensionScaler 1
+     RestingAdditiveRotationLS 0 0 0
+     RestingAdditiveOffsetLS 0 0 0
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{65BB170CBEEAB4E2}" {
+      CameraOrbitAngles 0 90 0
+      CameraDistanceToItem 0.4
+      FOV 60
+      AspectRatio 1
+      PreviewPrefab "{FDA92D590B9C633B}Prefabs/Drones/DJIBase/DJIBase.et"
+      LodModel 0
+     }
+    }
+    m_SlotType SLOT_LOADOUT_STORAGE
+   }
+  }
+  MeshObject "{65BB170CBEEAB4EC}" {
+   Object "{A49369E24DF84B3F}Assets/Drones/DJIs/DJI.xob"
+  }
+  RigidBody "{65BB170CBEEAB4D2}" {
+   Active Active
+   Mass 0.8
+   ModelGeometry 1
+  }
+  SAL_DronePlaceHolderComponent "{65BB170CBEEAB4D6}" {
+   m_sDroneToSpawn "{51AB0E62E80C7249}Prefabs/Drones/DJIBase/DJIM67Dropper.et"
+  }
+  RplComponent "{65BB170CBEEAB4D9}" {
+   "Parent Node From Parent Entity" 0
+  }
+ }
+ coords 2.703 -0.703 -1.519
+}

@@ -19,8 +19,14 @@ class SAL_DroneHUDComponent: ScriptComponent
 	SAL_CameraZoomComponent m_CameraZoom;
 	SAL_DroneSignalComponent m_SignalComponent;
 	SAL_DroneBatteryComponent m_BatteryComponent;
+	SAL_DroneExplosionComponent m_ExplosiveComponent;
+	SAL_DroneRangeFinderComponent m_RangeFinderComponent;
+	SAL_DroneControllerComponent m_DroneController;
+	
+	int m_iHeight = 0;
 	
 	Widget m_wOverlayWidget;
+	SCR_MapEntity m_MapEntity;
 	
 	override void OnPostInit(IEntity owner)
 	{
@@ -34,6 +40,9 @@ class SAL_DroneHUDComponent: ScriptComponent
 		m_CameraZoom = SAL_CameraZoomComponent.Cast(owner.FindComponent(SAL_CameraZoomComponent));
 		m_SignalComponent = SAL_DroneSignalComponent.Cast(owner.FindComponent(SAL_DroneSignalComponent));
 		m_BatteryComponent = SAL_DroneBatteryComponent.Cast(owner.FindComponent(SAL_DroneBatteryComponent));
+		m_ExplosiveComponent = SAL_DroneExplosionComponent.Cast(owner.FindComponent(SAL_DroneExplosionComponent));
+		m_RangeFinderComponent = SAL_DroneRangeFinderComponent.Cast(owner.FindComponent(SAL_DroneRangeFinderComponent));
+		m_DroneController = SAL_DroneControllerComponent.Cast(owner.FindComponent(SAL_DroneControllerComponent));
 	};
 	
 	float m_fTimer = 0;
@@ -50,7 +59,12 @@ class SAL_DroneHUDComponent: ScriptComponent
 				ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().SetCameraPostProcessEffect(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().GetCurrentCameraId(), 9, PostProcessEffectType.None, "");
 				ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().SetCameraPostProcessEffect(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().GetCurrentCameraId(), 10, PostProcessEffectType.None, "");
 			}
-			delete m_wOverlayWidget;
+			if (m_MapEntity)
+			{
+				m_MapEntity.CloseMap();
+			}
+			delete m_wOverlayWidget;		
+			GetGame().GetHUDManager().SetVisible(true);				
 		}
 		
 		if (!m_DroneConnectionManager.IsDronePlayers(owner))
@@ -61,10 +75,7 @@ class SAL_DroneHUDComponent: ScriptComponent
 		
 		if (!m_wOverlayWidget)
 		{
-			m_wOverlayWidget = GetGame().GetWorkspace().CreateWidgets(m_DroneHUDLayout);
-			ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().SetCameraPostProcessEffect(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().GetCurrentCameraId(), 9, PostProcessEffectType.ChromAber, "{C245539454FC3F58}UI/Materials/ScreenEffects_ChromAberrPPDrone.emat");
-			ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().SetCameraPostProcessEffect(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().GetCurrentCameraId(), 10, PostProcessEffectType.FilmGrain, "{F5DD5D01C23AD429}UI/Materials/Editor/FilmGrainDrone.emat");
-			
+			m_wOverlayWidget = GetGame().GetWorkspace().CreateWidgets(m_DroneHUDLayout);			
 			switch (m_eHudType)
 			{
 				case SAL_HUDType.FPV:
@@ -72,6 +83,8 @@ class SAL_DroneHUDComponent: ScriptComponent
 					ImageWidget roll = ImageWidget.Cast(m_wOverlayWidget.FindWidget("Dots"));
 					roll.LoadImageTexture(1, "{5021E90D8407E44F}UI/FPVHud/Data/FPV_DOTS_THAT_MOVE.edds");
 					roll.SetImage(1);
+					ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().SetCameraPostProcessEffect(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().GetCurrentCameraId(), 9, PostProcessEffectType.ChromAber, "{C245539454FC3F58}UI/Materials/ScreenEffects_ChromAberrPPDrone.emat");
+					ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().SetCameraPostProcessEffect(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().GetCurrentCameraId(), 10, PostProcessEffectType.FilmGrain, "{F5DD5D01C23AD429}UI/Materials/Editor/FilmGrainDrone.emat");
 					break;
 				}
 				
@@ -80,6 +93,12 @@ class SAL_DroneHUDComponent: ScriptComponent
 					ImageWidget zoomLevel = ImageWidget.Cast(m_wOverlayWidget.FindAnyWidget("ZoomSlider"));
 					zoomLevel.LoadImageTexture(1, "{EC0977F3BECC2866}UI/DJIHud/Data/zoomlevel1.edds");
 					zoomLevel.SetImage(1);
+					
+					if (!m_MapEntity)
+						m_MapEntity = SCR_MapEntity.GetMapInstance();
+					
+					if (m_MapEntity)
+						GetGame().GetCallqueue().Call(OpenMap);
 					break;
 				}
 			}	
@@ -89,6 +108,8 @@ class SAL_DroneHUDComponent: ScriptComponent
 			staticWidget.LoadImageTexture(2, "{3A1849DED1F55B33}UI/Textures/TVSTATIC1.edds");
 			staticWidget.LoadImageTexture(3, "{64F0609D6E78D53C}UI/Textures/TVSTATIC2.edds");
 			staticWidget.LoadImageTexture(4, "{90F8270563A5BD48}UI/Textures/TVSTATIC3.edds");
+			
+			GetGame().GetHUDManager().SetVisible(false);
 		}
 		
 		if (m_fTimer < 0.01)
@@ -168,6 +189,15 @@ class SAL_DroneHUDComponent: ScriptComponent
 							m_fBatteryTimer = 0;
 					}
 					
+					if (m_ExplosiveComponent)
+					{
+						Widget armed = m_wOverlayWidget.FindWidget("Armed");
+						if (m_ExplosiveComponent.m_bIsArmed && !armed.IsVisible())
+							armed.SetVisible(true);
+						else if (!m_ExplosiveComponent.m_bIsArmed && armed.IsVisible())
+							armed.SetVisible(false);
+					}
+					
 					break;
 				}
 				
@@ -218,6 +248,7 @@ class SAL_DroneHUDComponent: ScriptComponent
 					trace.Flags = TraceFlags.WORLD;
 			
 					int height = Math.Round(GetGame().GetWorld().TraceMove(trace, null) * 10000);
+					m_iHeight = height;
 				
 					string heightString = "";
 							
@@ -273,9 +304,43 @@ class SAL_DroneHUDComponent: ScriptComponent
 					//---------------------------------------------------------------------------------------------------------------
 					
 					float batteryPercentage = m_BatteryComponent.m_fCurrentBattery/m_BatteryComponent.m_fCurrentBatteryMax;
-					int currentPercent = 100 * batteryPercentage;
+					int currentPercent = Math.Round(100 * batteryPercentage);
 					TextWidget.Cast(m_wOverlayWidget.FindWidget("BatteryText")).SetText(currentPercent.ToString());
-					ProgressBarWidget.Cast(m_wOverlayWidget.FindWidget("BatteryBar")).SetCurrent(batteryPercentage);
+					ProgressBarWidget.Cast(m_wOverlayWidget.FindWidget("BatteryBar")).SetCurrent(currentPercent);
+					
+					if (m_RangeFinderComponent)
+					{
+						if (m_RangeFinderComponent.m_bHasFired)
+						{
+							TextWidget gridWidget = TextWidget.Cast(m_wOverlayWidget.FindAnyWidget("Grid"));
+							string finalGrid = "GRID: " + m_RangeFinderComponent.m_iGridX.ToString() + " - " +  m_RangeFinderComponent.m_iGridY.ToString();
+							gridWidget.SetText(finalGrid);
+							TextWidget distanceWidget = TextWidget.Cast(m_wOverlayWidget.FindAnyWidget("Distance"));
+							string finalDistance = "DISTANCE: " + Math.Round(m_RangeFinderComponent.m_fHitDistance).ToString() + "m";
+							distanceWidget.SetText(finalDistance);	
+						}
+					}
+					ImageWidget.Cast(m_wOverlayWidget.FindWidget("DroneCursor")).SetRotation(yawInt);
+					if (GetGame().GetMenuManager().GetTopMenu())
+					{
+						if (GetGame().GetMenuManager().GetTopMenu().IsInherited(SCR_InventoryMenuUI) && m_MapEntity)
+							m_MapEntity.CloseMap();
+					}
+					else if (!m_MapEntity.IsOpen())
+						GetGame().GetCallqueue().Call(OpenMap);
+					
+					if (m_MapEntity.IsOpen() && m_MapEntity.GetDelay() <= 0)
+					{
+						OpenMapWrapZoomChange();
+						m_MapEntity.EnableGrid(false);
+						m_MapEntity.EnableLegendPublic(false);
+					}
+						
+					float rollPercentage = m_DroneController.m_fCurrentRollDeg/m_DroneController.m_DroneStablizerProfile.m_fMaxTiltDegrees;
+					float rollRight = -540 - 50 * rollPercentage;
+					float rollLeft = -540 + 50 * rollPercentage;
+					FrameSlot.SetPosY(m_wOverlayWidget.FindWidget("LineRight"), rollRight);
+					FrameSlot.SetPosY(m_wOverlayWidget.FindWidget("LineLeft"), rollLeft);
 				}
 			}
 			
@@ -293,6 +358,58 @@ class SAL_DroneHUDComponent: ScriptComponent
 		}
 	}
 	
+	void OpenMap()
+	{
+		GetGame().GetCallqueue().Call(OpenMapWrap); // Need two frames
+	}
+	
+	/**
+	 * Second step in opening map
+	 */
+	void OpenMapWrap()
+	{
+		BaseGameMode gameMode = GetGame().GetGameMode();
+		if (!gameMode)
+			return;
+		
+		SCR_MapConfigComponent configComp = SCR_MapConfigComponent.Cast(gameMode.FindComponent(SCR_MapConfigComponent));
+		if (!configComp)
+			return;
+		
+		MapConfiguration mapConfigFullscreen = m_MapEntity.SetupMapConfig(
+			EMapEntityMode.FULLSCREEN, 
+			"{1B8AC767E06A0ACD}Configs/Map/MapFullscreen.conf", 
+			m_wOverlayWidget
+		);
+		
+		m_MapEntity.OpenMap(mapConfigFullscreen);
+		GetGame().GetCallqueue().Call(OpenMapWrapZoomChange);
+	}
+	
+	void OpenMapWrapZoomChange()
+	{
+		GetGame().GetCallqueue().Call(OpenMapWrapZoomChangeWrap);
+	}
+	
+	/**
+	 * Final step in opening map (applies zoom) and pans to AO
+	 */
+	void OpenMapWrapZoomChangeWrap()
+	{	
+		vector center = GetOwner().GetOrigin();
+		if (center)
+		{
+			if (m_MapEntity)
+			{
+				if (m_iHeight <= 0)
+					m_MapEntity.ZoomPanSmooth(0, center[0], center[2], 0.001);
+				else
+					m_MapEntity.ZoomPanSmooth(200/m_iHeight, center[0], center[2], 0.001);
+			}
+				
+		}
+	}
+	
 	void ~SAL_DroneHUDComponent()
 	{
 		if (!GetGame().GetWorld())
@@ -304,6 +421,10 @@ class SAL_DroneHUDComponent: ScriptComponent
 			{
 				ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().SetCameraPostProcessEffect(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().GetCurrentCameraId(), 9, PostProcessEffectType.None, "");
 				ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().SetCameraPostProcessEffect(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().GetCurrentCameraId(), 10, PostProcessEffectType.None, "");
+			}
+			if (m_MapEntity)
+			{
+				m_MapEntity.CloseMap();
 			}
 			delete m_wOverlayWidget;
 		}

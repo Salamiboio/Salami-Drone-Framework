@@ -2,6 +2,7 @@ MetaFileClass {
  Name "{B54CB68DF5B150BE}Assets/Drones/DJIs/DJI_Rotor.xob"
  Configurations {
   FBXResourceClass PC {
+   Scale 0.5 0.5 0.5
    MaterialAssigns {
     MaterialAssignClass "{65967B74EB6DA35A}" {
      SourceMaterial "FinalDJI"

@@ -4,18 +4,17 @@ GameEntity : "{17F335BF60DD2550}Prefabs/Characters/Core/Headgear_Base.et" {
   InventoryItemComponent "{5244E4431E28A759}" {
    Attributes SCR_ItemAttributeCollection "{659F1EAD965D8094}" {
     ItemDisplayName UIInfo "{659F1EAD965D8084}" {
-     Name "#AR-Headgear_BoonieHat_Name"
-     Description "#AR-Headgear_BoonieHat_Description"
+     Name "FPV Goggles"
     }
     ItemPhysAttributes ItemPhysicalAttributes "{659F1EAD965D808A}" {
-     Weight 0.17
+     Weight 1
      SizeSetupStrategy Volume
      ItemVolume 300
     }
     CustomAttributes {
      PreviewRenderAttributes "{659F1EAD965D80F0}" {
-      CameraOrbitAngles -25 25 0
-      CameraDistanceToItem 2
+      CameraOrbitAngles 0 0 0
+      CameraDistanceToItem 0.7
       FOV 10
      }
     }

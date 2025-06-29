@@ -16,8 +16,9 @@ class SAL_DroneJammerComponent: ScriptComponent
 		#ifdef WORKBENCH
 		GetGame().GetCallqueue().CallLater(RegisterJammer, 100, false, owner);
 		#else
-		if (RplSession.Mode() != RplMode.Dedicated)
+		if (RplSession.Mode() == RplMode.Client)
 			return;
+		
 		GetGame().GetCallqueue().CallLater(RegisterJammer, 100, false, owner);
 		#endif
 	}
@@ -38,7 +39,7 @@ class SAL_DroneJammerComponent: ScriptComponent
 		if(SAL_DroneConnectionManager.GetInstance())
 			SAL_DroneConnectionManager.GetInstance().UnregisterJammer(RplComponent.Cast(GetOwner().FindComponent(RplComponent)).Id());
 		#else
-		if (RplSession.Mode() != RplMode.Dedicated)
+		if (RplSession.Mode() == RplMode.Client)
 			return;
 		
 		if (!GetGame().GetWorld())
