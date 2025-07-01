@@ -427,6 +427,7 @@ class SAL_DroneHUDComponent: ScriptComponent
 				m_MapEntity.CloseMap();
 			}
 			delete m_wOverlayWidget;
+			GetGame().GetHUDManager().SetVisible(true);		
 		}
 			
 	}
