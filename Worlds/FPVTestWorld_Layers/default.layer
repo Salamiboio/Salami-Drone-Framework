@@ -17,11 +17,27 @@ SCR_GameModeEditor GameMode_Editor_Full1 : "{DA3986AF1B5032B7}Prefabs/MP/Modes/E
   }
  }
 }
+$grp GenericEntity : "{33CBDE73AB48172A}Prefabs/Weapons/Explosives/DemoBlock_M112/DemoBlock_M112.et" {
+ {
+  coords 1410.111 39 2172.004
+ }
+ {
+  coords 1401.048 39 2162.101
+ }
+ {
+  coords 1412.764 39 2163.814
+ }
+}
 GenericEntity : "{45C675ED3CFBBEC5}Prefabs/Props/Military/Compositions/US/ArsenalBox_US.et" {
  coords 1407.214 39 2165.716
 }
-GenericEntity : "{51AB0E62E80C7249}Prefabs/Drones/DJIBase/DJIM67Dropper.et" {
- coords 1408.874 39.147 2170.094
+$grp GenericEntity : "{51AB0E62E80C7249}Prefabs/Drones/DJIBase/DJIM67Dropper.et" {
+ {
+  coords 1408.874 39.147 2170.094
+ }
+ {
+  coords 1408.549 39 2162.934
+ }
 }
 SCR_SpawnPoint : "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoint_US.et" {
  coords 1410.153 39 2166.017
@@ -36,6 +52,9 @@ GenericEntity : "{5A605E0B80EC0B21}Prefabs/Drones/DJIBase/DJICamera.et" {
 }
 GenericEntity : "{6C6D4CF5F88AE48D}Prefabs/Vehicles/Core/Vehicle_AmmoBox_Base.et" {
  coords 1405.336 39 2172.987
+}
+GenericEntity : "{77CA4803A4A2B8E3}Prefabs/Drones/FPVBase/FPVRPG.et" {
+ coords 1410.812 39 2163.686
 }
 $grp GameEntity : "{8951045BFE8BC8E4}Prefabs/Characters/HeadGear/FPV_Goggles.et" {
  {

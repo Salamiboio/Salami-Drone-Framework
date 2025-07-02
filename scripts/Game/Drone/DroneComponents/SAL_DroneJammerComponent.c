@@ -37,7 +37,8 @@ class SAL_DroneJammerComponent: ScriptComponent
 			return;
 		
 		if(SAL_DroneConnectionManager.GetInstance())
-			SAL_DroneConnectionManager.GetInstance().UnregisterJammer(RplComponent.Cast(GetOwner().FindComponent(RplComponent)).Id());
+			if (GetOwner().FindComponent(RplComponent))
+				SAL_DroneConnectionManager.GetInstance().UnregisterJammer(RplComponent.Cast(GetOwner().FindComponent(RplComponent)).Id());
 		#else
 		if (RplSession.Mode() == RplMode.Client)
 			return;
@@ -46,7 +47,8 @@ class SAL_DroneJammerComponent: ScriptComponent
 			return;
 		
 		if(SAL_DroneConnectionManager.GetInstance())
-			SAL_DroneConnectionManager.GetInstance().UnregisterJammer(RplComponent.Cast(GetOwner().FindComponent(RplComponent)).Id());
+			if (GetOwner().FindComponent(RplComponent))
+				SAL_DroneConnectionManager.GetInstance().UnregisterJammer(RplComponent.Cast(GetOwner().FindComponent(RplComponent)).Id());
 		#endif
 	}
 }

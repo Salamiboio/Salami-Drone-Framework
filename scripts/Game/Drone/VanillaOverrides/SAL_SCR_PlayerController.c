@@ -85,13 +85,17 @@ modded class SCR_PlayerController
 		GetGame().GetEngineUserSettings().GetModule("AudioSettings").Get("VolumeSfx", volume);
 		AudioSystem.SetMasterVolume(AudioSystem.SFX, volume);
 		
-		if (droneCamera.GetPrefabData().GetPrefabName() != "{D10C3C304FC29655}Prefabs/Editor/Camera/DroneCamera.et")
-			return;
+		if (droneCamera)
+			if (droneCamera.GetPrefabData().GetPrefabName() != "{D10C3C304FC29655}Prefabs/Editor/Camera/DroneCamera.et")
+				return;
 		
 		GetGame().GetInputManager().ActivateContext("DroneContext");
 		
-		GetGame().GetCameraManager().SetCamera(m_eOldCamera);
-		SCR_EntityHelper.DeleteEntityAndChildren(droneCamera);
+		if (m_eOldCamera)
+			GetGame().GetCameraManager().SetCamera(m_eOldCamera);
+		
+		if (droneCamera)
+			SCR_EntityHelper.DeleteEntityAndChildren(droneCamera);
 	}
 	
 	void DisconnectDrone()
@@ -195,20 +199,7 @@ modded class SCR_PlayerController
 	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
 	void RpcDo_ExplodeDrone(SAL_DroneNetworkPacket packet)
 	{
-		if (!Replication.FindItem(packet.GetDrone()))
-			return;
-		
-		IEntity drone = RplComponent.Cast(Replication.FindItem(packet.GetDrone())).GetEntity();
-		if (!drone)
-			return;
-		
-		vector transform[4];
-		packet.GetTransform(transform);
-		EntitySpawnParams params = new EntitySpawnParams();
-		params.Transform = transform;
-		GetGame().SpawnEntityPrefab(Resource.Load(packet.GetExplosion()), GetGame().GetWorld(), params);
-		
-		SCR_EntityHelper.DeleteEntityAndChildren(drone);
+		SAL_DroneConnectionManager.GetInstance().ExplodeDrone(packet);
 	}
 	
 	void DisarmDrone(SAL_DroneNetworkPacket packet)

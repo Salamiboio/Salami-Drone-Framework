@@ -11,6 +11,7 @@ GenericEntity : "{6BEC092D354A997E}Prefabs/Weapons/Warheads/Explosions/Warhead_E
    }
   }
   TimerTriggerComponent "{55129E81CBAA1390}" {
+   Enabled 0
    PROJECTILE_EFFECTS {
     ExplosionDamageContainer "{5D8D1EB3E2893B43}" {
      ExplosionEffects {
@@ -71,6 +72,144 @@ GenericEntity : "{6BEC092D354A997E}Prefabs/Weapons/Warheads/Explosions/Warhead_E
   }
   HitEffectComponent "{9D9BE68D6F65A10F}" {
    ParticleEffect "{B6275B6B9E29E9ED}Particles/Weapon/Explosion_RPG7V1.ptc"
+  }
+  SCR_ExplosiveChargeComponent "{65C34354E7609DC9}" {
+  }
+  SCR_ExplosiveTriggerComponent "{65C34356741AE8C8}" {
+   PROJECTILE_EFFECTS {
+    ExplosionEffect "{65C3434B19399FDB}" {
+     EffectPrefab "{B9B99B77D84EDD3C}Prefabs/Weapons/Warheads/Explosions/Warhead_FPV.et"
+     SoundEvent "SOUND_EXPLOSION"
+    }
+    AIExplosionEffect "{65C3434BC6D35415}" {
+    }
+    ExplosionDamageContainer "{65C3434A13AC6302}" {
+     TriggerOnce 1
+     Enabled 0
+     ExplosionEffects {
+      BaseExplosionDamage "{5D8D1EB3EF9D02C6}" {
+       DamageValue 1000
+       DamageDistance 10
+       ExplosionEffectSpeed 343
+       DamageFalloffCurve {
+        0 1 0.1 1 0.4 0.4 1 0
+       }
+       DamageEffect {
+        SCR_ExplosionDamageEffect "{611492CC3EF790B4}" {
+        }
+       }
+       ExplosionDamagePower 0.64
+       DamageDistanceCurve {
+        0 1 1 0
+       }
+      }
+      BaseExplosionDamage "{61DAF5E24D9CA168}" {
+       DamageValue 333.333
+       PerformTraces 0
+       DamageDistance 1.5
+       ExplosionEffectSpeed 343
+       DamageFalloffCurve {
+        0 1 0.1 1 0.4 0.4 1 0
+       }
+       DamageEffect {
+        SCR_ExplosionDamageEffect "{611492CC3EF790B4}" {
+        }
+       }
+       ExplosionDamagePower 0.64
+       DamageDistanceCurve {
+        0 1 1 0
+       }
+      }
+      BaseExplosionDamage "{5D8D1EB3EBB36077}" {
+       DamageValue 30
+       DamageType Incendiary
+       DamageDistance 8
+       ExplosionEffectSpeed 0
+       DamageFalloffCurve {
+        0 1 0.125 1 0.4 0.3 1 0
+       }
+       DamageEffect {
+        SCR_IncendiaryDamageEffect "{61166384345F9BA7}" {
+        }
+       }
+       ExplosionDamagePower 0.8
+       DamageDistanceCurve {
+        0 1 1 0
+       }
+      }
+      ExplosionImpulseEffect "{5E6D1CEE09A33086}" {
+       DamageValue 1
+       PerformTraces 0
+       DamageDistance 10
+       ExplosionEffectSpeed 343
+       DamageFalloffCurve {
+        0 1 0.1 1 0.4 0.4 1 0
+       }
+       DamageEffect {
+        SCR_BlastForceDamageEffect "{611492CC3EF790B4}" {
+        }
+       }
+       ExplosionDamagePower 0.64
+       DamageDistanceCurve {
+        0 1 1 0
+       }
+       ExplosionImpulseMultiplier 1000
+      }
+      ExplosionFragmentationEffect "{567CBC1D7AB652C7}" {
+       DamageValue 16
+       DamageType Fragmentation
+       DamageDistance 25
+       ExplosionEffectSpeed 1000
+       DamageFalloffCurve {
+        0 1 0.05 1 0.55 0.8 1 0
+       }
+       DamageEffect {
+        SCR_FragmentationDamageEffect "{61166385D53A0CDD}" {
+        }
+       }
+       DamageDistanceCurve {
+        0 1 1 0
+       }
+       DamageFragmentCount 130
+       GurneyShape CYLINDER
+       GurneyConstant 2830
+       CaseWeight 1280
+       FragMassScale 10
+       FragRangeScale 10
+      }
+     }
+     ChargeWeight 4200
+     LayerPreset "Projectile"
+    }
+    SpawnDecalEffect "{65C3434A2DC3F5A9}" {
+     Enabled 0
+     Scale 2
+     Material "{2A3A7B73C1EF6936}Assets/Decals/Logistics/Impact/Data/Decal_Logistics_RPG_01.emat"
+    }
+    SpawnParticleEffect "{65C3434A2C86FF96}" {
+     Enabled 0
+     UseFrameEvent 1
+     ParticleEffect "{B6275B6B9E29E9ED}Particles/Weapon/Explosion_RPG7V1.ptc"
+     SoundEvent "SOUND_EXPLOSION"
+    }
+    SubmunitionEffect "{65C3434A2F58336D}" {
+     Enabled 0
+     Prefab "{E6EC1F21E22709F0}Prefabs/Weapons/Ammo/Ammo_Rocket_PG7VM_Penetrator.et"
+     Dispersion 0
+     InitSpeedCoef 1
+    }
+    SubmunitionEffect "{65C3434A2E41A3DF}" {
+     Enabled 0
+     Prefab "{7CC1697D08638B5C}Prefabs/Weapons/Ammo/Ammo_Rocket_PG7VM_Spall.et"
+     Count 30
+     Dispersion 60
+     InitSpeedCoef 1
+    }
+   }
+   TRIGGER_ALIVE 1
+   m_bLive 0
+  }
+  Hierarchy "{65C4DB5DBE95A0ED}" {
   }
  }
 }

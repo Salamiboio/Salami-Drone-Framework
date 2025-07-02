@@ -13,9 +13,10 @@ GenericEntity : "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et" {
    AngularSleepingThreashold 0
    SimState Simulation
    ModelGeometry 1
-   CCDRadius 0.1
+   CCDRadius 0.3
   }
   SAL_DropperGrenadeComponent "{65BAF14265A43AF5}" {
+   m_bImpactFuze 0
    m_Explosion "{AC89BF1A29385E9C}Prefabs/Weapons/Warheads/Explosions/Explosion_M67.et"
   }
   SCR_DamageManagerComponent "{65B933884B65AF78}" {
@@ -37,6 +38,13 @@ GenericEntity : "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et" {
       m_bAllowHideWreck 0
      }
      m_vParticleOffset 0 0 0
+    }
+   }
+  }
+  SlotManagerComponent "{65C4DB52C4E408A9}" {
+   Slots {
+    EntitySlotInfo Explosion {
+     Prefab "{AC89BF1A29385E9C}Prefabs/Weapons/Warheads/Explosions/Explosion_M67.et"
     }
    }
   }

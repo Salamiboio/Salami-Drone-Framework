@@ -40,7 +40,7 @@ class SAL_DroneHealthComponent: ScriptComponent
 			m_bIsDestroyed = true;
 			if (m_DroneManager.GetDronesOwner(GetOwner()) != -1)
 				AwardXPForKill();
-			m_DroneManager.DestroyDroneServer(RplComponent.Cast(owner.FindComponent(RplComponent)).Id(), m_sDroneWreckPrefab);
+			m_DroneManager.DestroyDroneServer(RplComponent.Cast(owner.FindComponent(RplComponent)).Id(), m_sDroneWreckPrefab, m_DamageManager.GetInstigator());
 		}
 		#else
 		if (RplSession.Mode() != RplMode.Client)
@@ -50,7 +50,7 @@ class SAL_DroneHealthComponent: ScriptComponent
 				m_bIsDestroyed = true;
 				if (m_DroneManager.GetDronesOwner(GetOwner()) != -1)
 					AwardXPForKill();
-				m_DroneManager.DestroyDroneServer(RplComponent.Cast(owner.FindComponent(RplComponent)).Id(), m_sDroneWreckPrefab);
+				m_DroneManager.DestroyDroneServer(RplComponent.Cast(owner.FindComponent(RplComponent)).Id(), m_sDroneWreckPrefab, m_DamageManager.GetInstigator());
 			}
 		}
 		#endif
@@ -132,10 +132,8 @@ class SAL_DroneHealthComponent: ScriptComponent
 			
 			int killerId = m_DamageManager.GetInstigator().GetInstigatorPlayerID();
 			
-			if (WasFriendlyFire())
-				compXP.AwardXP(killerId, SCR_EXPRewards.FRIENDLY_KILL, 1);
-			else
-				compXP.AwardXP(killerId, SCR_EXPRewards.ENEMY_KILL, 1);
+			if (!WasFriendlyFire())
+				compXP.AwardXP(killerId, SCR_EXPRewards.ENEMY_KILL, 1);		
 		}
 			
 	}

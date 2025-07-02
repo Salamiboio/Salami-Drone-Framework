@@ -168,6 +168,8 @@ GenericEntity {
      Angles 25 0 0
      Prefab "{B9E77330D570CF99}Prefabs/Drones/FPVBase/CameraEntityFPV.et"
     }
+    EntitySlotInfo Explosion {
+    }
    }
   }
   ActionsManagerComponent "{65932E3A3F9915A0}" {

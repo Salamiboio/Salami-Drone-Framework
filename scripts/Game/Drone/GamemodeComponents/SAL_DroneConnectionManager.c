@@ -92,8 +92,26 @@ class SAL_DroneConnectionManager: ScriptComponent
 			RplIdentity rplIdentity = GetGame().GetPlayerManager().GetPlayerController(playerId).GetRplIdentity();
 			rplComp.EnableStreamingConNode(rplIdentity, true);
 		}
-		
 		Replication.BumpMe();
+		
+		if (!Replication.FindItem(droneId))
+			return;
+		
+		IEntity drone = RplComponent.Cast(Replication.FindItem(droneId)).GetEntity();
+		if (!drone)
+			return;
+		
+		SlotManagerComponent slotComp = SlotManagerComponent.Cast(drone.FindComponent(SlotManagerComponent));
+		if (!slotComp.GetSlotByName("Explosion"))
+			return;
+		
+		IEntity explosion = slotComp.GetSlotByName("Explosion").GetAttachedEntity();
+		if (!explosion)
+			return;
+		
+		SCR_ExplosiveTriggerComponent explComp = SCR_ExplosiveTriggerComponent.Cast(explosion.FindComponent(SCR_ExplosiveTriggerComponent));
+		if (GetDronesOwner(drone) != -1)
+			explComp.GetInstigator().SetInstigatorByPlayerID(GetDronesOwner(drone));
 	}
 	
 	void DisconnectDrone(RplId droneId)
@@ -114,21 +132,32 @@ class SAL_DroneConnectionManager: ScriptComponent
 		Replication.BumpMe();
 	}
 	
-	void ExplodeDroneServer(SAL_DroneNetworkPacket packet)
+	void ExplodeDrone(SAL_DroneNetworkPacket packet)
 	{
 		if (!Replication.FindItem(packet.GetDrone()))
 			return;
 		
 		IEntity drone = RplComponent.Cast(Replication.FindItem(packet.GetDrone())).GetEntity();
+		if (!drone)
+			return;
 		
-		vector transform[4];
-		packet.GetTransform(transform);
-		EntitySpawnParams params = new EntitySpawnParams();
-		params.Transform = transform;
-		GetGame().SpawnEntityPrefab(Resource.Load(packet.GetExplosion()), GetGame().GetWorld(), params);
+		SlotManagerComponent slotComp = SlotManagerComponent.Cast(drone.FindComponent(SlotManagerComponent));
+		if (!slotComp.GetSlotByName("Explosion"))
+			return;
 		
+		IEntity explosion = slotComp.GetSlotByName("Explosion").GetAttachedEntity();
+		if (!explosion)
+			return;
+		
+		SCR_ExplosiveTriggerComponent explComp = SCR_ExplosiveTriggerComponent.Cast(explosion.FindComponent(SCR_ExplosiveTriggerComponent));
+		explComp.UseTrigger();
+		//SCR_EntityHelper.DeleteEntityAndChildren(drone);
+	}
+	
+	void ExplodeDroneServer(SAL_DroneNetworkPacket packet)
+	{	
+		ExplodeDrone(packet);
 		DisconnectDrone(packet.GetDrone());
-		SCR_EntityHelper.DeleteEntityAndChildren(drone);
 	}
 	
 	
@@ -136,8 +165,8 @@ class SAL_DroneConnectionManager: ScriptComponent
 	{
 		Rpc(RpcDo_ReplicateTransform, packet);
 	}
+
 	
-	// === SERVER → ALL CLIENTS ===
 	[RplRpc(RplChannel.Unreliable, RplRcver.Broadcast)]
 	void RpcDo_ReplicateTransform(SAL_DroneNetworkPacket packet)
 	{
@@ -292,7 +321,7 @@ class SAL_DroneConnectionManager: ScriptComponent
 		SCR_EntityHelper.DeleteEntityAndChildren(oldDrone);
 	}
 	
-	void DestroyDroneServer(RplId droneId, ResourceName droneWreckPrefab)
+	void DestroyDroneServer(RplId droneId, ResourceName droneWreckPrefab, Instigator instagator)
 	{
 		if (!Replication.FindItem(droneId))
 			return;
@@ -303,13 +332,13 @@ class SAL_DroneConnectionManager: ScriptComponent
 		
 		if (drone.FindComponent(SAL_DroneExplosionComponent))
 		{
-			SAL_DroneExplosionComponent explComp = SAL_DroneExplosionComponent.Cast(drone.FindComponent(SAL_DroneExplosionComponent));
-			string explosion = explComp.m_sExplosionEffect;
-			vector transform[4];
-			drone.GetTransform(transform);
-			EntitySpawnParams params = new EntitySpawnParams();
-			params.Transform = transform;
-			GetGame().SpawnEntityPrefab(Resource.Load(explosion), GetGame().GetWorld(), params);
+			SlotManagerComponent slotComp = SlotManagerComponent.Cast(drone.FindComponent(SlotManagerComponent));
+			IEntity explosion = slotComp.GetSlotByName("Explosion").GetAttachedEntity();
+			SCR_ExplosiveTriggerComponent explComp = SCR_ExplosiveTriggerComponent.Cast(explosion.FindComponent(SCR_ExplosiveTriggerComponent));
+			explComp.GetInstigator().SetInstigatorByPlayerID(instagator.GetInstigatorPlayerID());
+			SAL_DroneNetworkPacket packet = new SAL_DroneNetworkPacket();
+			packet.SetDrone(droneId);
+			ExplodeDrone(packet);
 			
 			Rpc(RpcDo_DestroyDroneServer, droneId);
 			GetGame().GetCallqueue().CallLater(SCR_EntityHelper.DeleteEntityAndChildren, 200, false, drone);

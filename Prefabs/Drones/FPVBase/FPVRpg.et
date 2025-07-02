@@ -24,6 +24,9 @@ GenericEntity : "{2A283EA7BADDBD28}Prefabs/Drones/FPVBase/FPVBase.et" {
   }
   SlotManagerComponent "{65932E3A16300B2D}" {
    Slots {
+    EntitySlotInfo Explosion {
+     Prefab "{D8888E136766ECE9}Prefabs/Weapons/Warheads/Explosions/Explosion_FPV.et"
+    }
     EntitySlotInfo WarheadHolder {
      Prefab "{911DCEC00E3D4C8E}Prefabs/Drones/FPVBase/RoundHolder.et"
     }
