@@ -26,11 +26,22 @@ GenericEntity : "{FA5C25BF66A53DCF}Prefabs/Weapons/Rifles/AK74/Rifle_AK74.et" {
      ItemVolume 300
     }
     ItemAnimationAttributes ItemAnimationAttributes "{5284960E1D29F45C}" {
+     AnimInstanceBlendDuration 0
      AnimationIKPose "{103FD9D3DB45BD86}anims/DroneController/p_dronecontroller16_ik.anm"
+     AnimIKPoseStandOverride "{103FD9D3DB45BD86}anims/DroneController/p_dronecontroller16_ik.anm"
+     AnimIKPoseCrouchOverride "{103FD9D3DB45BD86}anims/DroneController/p_dronecontroller16_ik.anm"
+     AnimIKPoseProneOverride "{103FD9D3DB45BD86}anims/DroneController/p_dronecontroller16_ik.anm"
+     OverrideDefaultIkBonesBlend 1
+     AnimIkposeBlendDuration 0
+     AllowInspection 0
     }
     CustomAttributes {
      PreviewRenderAttributes "{52BAB5E48C906DB8}" {
       CameraDistanceToItem 0.3
+     }
+     CharacterModifierAttributes "{563E0E51FE60CD4D}" {
+      AllowGadgetUse 0
+      AllowReloadingWithRoll 0
      }
     }
    }
@@ -67,9 +78,24 @@ GenericEntity : "{FA5C25BF66A53DCF}Prefabs/Weapons/Rifles/AK74/Rifle_AK74.et" {
      }
     }
     WeaponAnimationComponent "{60B4EA76EB15F6E0}" {
-     Enabled 0
+     Enabled 1
+     AnimGraph "{872626E6D0FE0B27}anims/DroneController/dronecontroller.agr"
+     AnimInstance "{25C437EE6584D0F1}anims/DroneController/dronecontroller_weapon.asi"
+     AnimIkpose "{103FD9D3DB45BD86}anims/DroneController/p_dronecontroller16_ik.anm"
+     AlwaysActive 1
+     AnimInjection AnimationAttachmentInfo "{55349E9229B55D8A}" {
+      AnimGraph "{872626E6D0FE0B27}anims/DroneController/dronecontroller.agr"
+      AnimInstance "{25C437EE6584D0F1}anims/DroneController/dronecontroller_weapon.asi"
+     }
+     AutoVariablesBind 1
+     AnimVariablesToBind {
+     }
+     ResetOnDeactivation 1
+     DeactivationDelay 0
     }
    }
+   useAimingType None
+   WeaponType None
    AllowedRaise "Only raised"
    UIInfo WeaponUIInfo "{CC3BA6A2C42F09F4}" {
     Name "Drone Controller"
@@ -87,6 +113,36 @@ GenericEntity : "{FA5C25BF66A53DCF}Prefabs/Weapons/Rifles/AK74/Rifle_AK74.et" {
     }
    }
    CanBeOnSling 0
+  }
+  ActionsManagerComponent "{A29AE67FF4D82B0F}" {
+   additionalActions {
+    SCR_EquipWeaponAction "{51ECFC668352E6C8}" {
+    }
+    SCR_EquipWeaponHolsterAction "{589291C195FC57CB}" {
+     ParentContextList {
+     }
+    }
+    SCR_PickUpItemAction "{51EC842F84AD2146}" {
+     ParentContextList {
+     }
+    }
+    SCR_WeaponAction "{5956E32B11AEE106}" {
+     ParentContextList {
+     }
+    }
+    SCR_ToggleSafetyUserAction "{5A1E58F79FF7125E}" {
+     ParentContextList {
+     }
+    }
+    SCR_DetachMagazineUserAction "{5A1E58F790AF821D}" {
+     ParentContextList {
+     }
+    }
+    SCR_FireModeSwitchUserAction "{5A1E74156C2DB00D}" {
+     ParentContextList {
+     }
+    }
+   }
   }
  }
  coords 121.311 1 136.047

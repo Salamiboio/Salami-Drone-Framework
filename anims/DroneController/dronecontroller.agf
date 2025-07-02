@@ -628,7 +628,7 @@ AnimSrcGraphFile {
      Time "0"
     }
     AnimSrcNodeBlend "Blend 2" {
-     EditorPos -13.8 4.3
+     EditorPos -13.8 4.4
      Child0 "IK2 24038"
      Child1 "Queue 1"
      Optimization "Always eval both"
@@ -974,7 +974,7 @@ AnimSrcGraphFile {
      Optimization "Skip blended out"
     }
     AnimSrcNodeIK2 "IK2 24038" {
-     EditorPos -20.974 -8.917
+     EditorPos -20.9 -9
      Child "Blend T 28564"
      Chains {
       AnimSrcIkBinding "{65A09CDEA63C0457}" {

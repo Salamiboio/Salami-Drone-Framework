@@ -1,4 +1,4 @@
-AnimSetInstanceSource "{65A09CDEA66B60E3}" {
+AnimSetInstanceSource "{65C51A1803264B1F}" {
  Template "{95D440E6E73BDFD4}anims/DroneController/dronecontroller.ast"
  Lines {
   AnimSetInstanceSource_Line "Reload.Erc.IKOffset" {
@@ -6,6 +6,102 @@ AnimSetInstanceSource "{65A09CDEA66B60E3}" {
   }
   AnimSetInstanceSource_Line "Reload.Pne.IKOffset" {
    Resource "{B44E170C2B01AEA4}anims/DroneController/f_dronecontroller_offset.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Erc.Idle" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Pne.Idle" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Erc.Safety" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Pne.Safety" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Erc.Reload_InsertMag" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Pne.Reload_InsertMag" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Pne.Reload_RemoveMag" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Erc.Reload_RemoveMag" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Erc.ReloadActionBolt" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Pne.ReloadActionBolt" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Erc.Idle_finger" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Pne.Idle_finger" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Pne.Fire" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Erc.Fire" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Erc.Finger_trigger_out" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Pne.Finger_trigger_out" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Pne.Finger_trigger_in" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Erc.Finger_trigger_in" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Erc.BoltPose" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Pne.BoltPose" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Pne.Sight" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Erc.Sight" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Erc.Switch_Mode_Dep_Off" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Pne.Switch_Mode_Dep_Off" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Pne.Switch_Mode_Dep_On" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Erc.Switch_Mode_Dep_On" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Erc.Switch_Mode_Off" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Pne.Switch_Mode_Off" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Pne.Switch_Mode_On" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Erc.Switch_Mode_On" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Erc.Trigger" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
+  }
+  AnimSetInstanceSource_Line "Reload.Pne.Trigger" {
+   Resource "{9C784DD1B460F964}anims/DroneController/f_dronecontroller_safety.anm"
   }
  }
  RBF AnimSetInstanceSourceRBFArray "{65A09CDEA633B6FA}" {

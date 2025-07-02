@@ -3,7 +3,6 @@ MetaFileClass {
  Configurations {
   FBXResourceClass PC {
    ExportSkinning 1
-   Rotate 0 210 0
    MaterialAssigns {
     MaterialAssignClass "{659F492F56E2E8D7}" {
      SourceMaterial "ry"
