@@ -355,6 +355,24 @@ class SAL_DroneHUDComponent: ScriptComponent
 				case 4: {staticWidget.SetImage(4); break;}
 			}
 			staticWidget.SetColor(Color.FromRGBA(255, 255, 255, m_SignalComponent.m_fSignalStrength));
+			
+			BaseWeaponManagerComponent weaponMan = BaseWeaponManagerComponent.Cast(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).FindComponent(BaseWeaponManagerComponent));
+			if (!weaponMan)
+				return;
+			
+			if (!weaponMan.GetCurrentWeapon())
+			{
+				m_wOverlayWidget.FindWidget("ControllerWarning").SetVisible(true);
+				return;
+			}
+			
+			if (weaponMan.GetCurrentWeapon().GetOwner().GetPrefabData().GetPrefabName() != "{E2434ED1318D8476}Prefabs/Characters/Items/DroneController.et")
+			{
+				m_wOverlayWidget.FindWidget("ControllerWarning").SetVisible(true);
+				return;
+			}
+			else
+				m_wOverlayWidget.FindWidget("ControllerWarning").SetVisible(false);
 		}
 	}
 	

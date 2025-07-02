@@ -4,6 +4,7 @@ class SAL_ConnectToDrone : SCR_InventoryAction
 	IEntity m_ePlayer;
 	IEntity m_eDrone;
 	SAL_DroneConnectionManager m_DroneManager;
+	string m_outName;
 	
 	override void PerformAction(IEntity pOwnerEntity, IEntity pUserEntity) 
 	{
@@ -37,7 +38,7 @@ class SAL_ConnectToDrone : SCR_InventoryAction
 //		return false;
 //	}
 	
-	override bool CanBeShownScript(IEntity user)
+	override bool CanBePerformedScript(IEntity user)
 	{
 		if (!SCR_PlayerController.GetLocalControlledEntity())
 			return false;
@@ -47,9 +48,24 @@ class SAL_ConnectToDrone : SCR_InventoryAction
 			return false;
 
 		if (!weaponMan.GetCurrentWeapon())
+		{
+			m_outName = "Controller is not in your hands";
 			return false;
+		}
 		
 		if (weaponMan.GetCurrentWeapon().GetOwner().GetPrefabData().GetPrefabName() != "{E2434ED1318D8476}Prefabs/Characters/Items/DroneController.et")
+		{
+			m_outName = "Controller is not in your hands";
+			return false;
+		}
+
+		m_outName = "Connect to Drone";
+		return true;
+	}
+	
+	override bool CanBeShownScript(IEntity user)
+	{
+		if (!SCR_PlayerController.GetLocalControlledEntity())
 			return false;
 
 		if (m_DroneManager.GetConnectedDrones().Find(RplComponent.Cast(m_eDrone.FindComponent(RplComponent)).Id()) != -1)
@@ -58,6 +74,12 @@ class SAL_ConnectToDrone : SCR_InventoryAction
 		if (m_DroneManager.IsPlayerDroneOwner(SCR_PlayerController.GetLocalPlayerId()))
 			return false;
 		
+		return true;
+	}
+	
+	override bool GetActionNameScript(out string outName)
+	{
+		outName = m_outName;
 		return true;
 	}
 	

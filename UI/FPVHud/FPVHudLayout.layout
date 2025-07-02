@@ -234,5 +234,25 @@ FrameWidgetClass {
    Texture "{89196E3BB857AAD8}UI/FPVHud/Data/armed.edds"
    Size 1024 1024
   }
+  TextWidgetClass "{65C508A6134C2EDB}" {
+   Name "ControllerWarning"
+   Slot FrameWidgetSlot "{65C508A6134C2904}" {
+    PositionX 0
+    OffsetLeft 0
+    PositionY 657.161
+    OffsetTop 657.161
+    SizeX 1922.13
+    OffsetRight -1922.13
+    SizeY 179.355
+    OffsetBottom -836.516
+   }
+   "Z Order" 999
+   "Is Visible" 0
+   Color 1 0 0 1
+   Text "CONTROLLER NOT IN HANDS || INPUT WILL NOT BE REGISTERED"
+   "Font Size" 39
+   "Horizontal Alignment" Center
+   "Vertical Alignment" Center
+  }
  }
 }
