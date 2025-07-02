@@ -56,13 +56,14 @@ modded class SCR_MapEntity
 		
 		if (m_ActiveMapCfg.MapEntityMode == EMapEntityMode.FULLSCREEN)
 		{
-			if (GetGame().GetCameraManager().CurrentCamera())
-			{
-				if (GetGame().GetCameraManager().CurrentCamera().GetPrefabData().GetPrefabName() != "{D10C3C304FC29655}Prefabs/Editor/Camera/DroneCamera.et")
+			if (GetGame().GetCameraManager())
+				if (GetGame().GetCameraManager().CurrentCamera())
+				{
+					if (GetGame().GetCameraManager().CurrentCamera().GetPrefabData().GetPrefabName() != "{D10C3C304FC29655}Prefabs/Editor/Camera/DroneCamera.et")
+						SCR_UISoundEntity.SoundEvent(SCR_SoundEvent.SOUND_HUD_MAP_CLOSE);
+				}
+				else
 					SCR_UISoundEntity.SoundEvent(SCR_SoundEvent.SOUND_HUD_MAP_CLOSE);
-			}
-			else
-				SCR_UISoundEntity.SoundEvent(SCR_SoundEvent.SOUND_HUD_MAP_CLOSE);
 			
 			PlayerController controller = GetGame().GetPlayerController();
 			if (controller)
