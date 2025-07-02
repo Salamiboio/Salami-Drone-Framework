@@ -26,13 +26,13 @@ GenericEntity : "{FA5C25BF66A53DCF}Prefabs/Weapons/Rifles/AK74/Rifle_AK74.et" {
      ItemVolume 300
     }
     ItemAnimationAttributes ItemAnimationAttributes "{5284960E1D29F45C}" {
-     AnimInstanceBlendDuration 0
+     AnimInstanceBlendDuration 0.3
      AnimationIKPose "{103FD9D3DB45BD86}anims/DroneController/p_dronecontroller16_ik.anm"
      AnimIKPoseStandOverride "{103FD9D3DB45BD86}anims/DroneController/p_dronecontroller16_ik.anm"
      AnimIKPoseCrouchOverride "{103FD9D3DB45BD86}anims/DroneController/p_dronecontroller16_ik.anm"
      AnimIKPoseProneOverride "{103FD9D3DB45BD86}anims/DroneController/p_dronecontroller16_ik.anm"
      OverrideDefaultIkBonesBlend 1
-     AnimIkposeBlendDuration 0
+     AnimIkposeBlendDuration 0.06
      AllowInspection 0
     }
     CustomAttributes {
@@ -50,9 +50,15 @@ GenericEntity : "{FA5C25BF66A53DCF}Prefabs/Weapons/Rifles/AK74/Rifle_AK74.et" {
    components {
     AttachmentSlotComponent "{51F6738D2EC74BE1}" {
      Enabled 0
+     AttachmentSlot InventoryStorageSlot underbarrel {
+      Enabled 0
+     }
     }
     AttachmentSlotComponent "{5F189C826D592450}" {
      Enabled 0
+     AttachmentSlot InventoryStorageSlot BayonetSlot {
+      Enabled 0
+     }
     }
     SightsComponent "{BB23A637957CFFF8}" {
      Enabled 0
@@ -81,17 +87,17 @@ GenericEntity : "{FA5C25BF66A53DCF}Prefabs/Weapons/Rifles/AK74/Rifle_AK74.et" {
      Enabled 1
      AnimGraph "{872626E6D0FE0B27}anims/DroneController/dronecontroller.agr"
      AnimInstance "{25C437EE6584D0F1}anims/DroneController/dronecontroller_weapon.asi"
-     AnimIkpose "{103FD9D3DB45BD86}anims/DroneController/p_dronecontroller16_ik.anm"
+     AnimIkpose ""
      AlwaysActive 1
      AnimInjection AnimationAttachmentInfo "{55349E9229B55D8A}" {
       AnimGraph "{872626E6D0FE0B27}anims/DroneController/dronecontroller.agr"
-      AnimInstance "{25C437EE6584D0F1}anims/DroneController/dronecontroller_weapon.asi"
+      AnimInstance "{DE9AA6DFFD85B41D}anims/DroneController/dronecontroller_player.asi"
      }
-     AutoVariablesBind 1
+     AutoVariablesBind 0
      AnimVariablesToBind {
      }
-     ResetOnDeactivation 1
-     DeactivationDelay 0
+     ResetOnDeactivation 0
+     DeactivationDelay 2
     }
    }
    useAimingType None

@@ -1,37 +1,4 @@
 GenericEntity : "{E2434ED1318D8476}Prefabs/Characters/Items/DroneController.et" {
- components {
-  SCR_WeaponAttachmentsStorageComponent "{51F080D5CE45A1A2}" {
-   Attributes SCR_ItemAttributeCollection "{51F080D5C64F12C5}" {
-    ItemAnimationAttributes ItemAnimationAttributes "{5284960E1D29F45C}" {
-     AnimInstanceBlendDuration 0.3
-     AnimIkposeBlendDuration 0.06
-    }
-   }
-  }
-  WeaponComponent "{CFBAA4B706BA66E8}" {
-   components {
-    AttachmentSlotComponent "{51F6738D2EC74BE1}" {
-     AttachmentSlot InventoryStorageSlot underbarrel {
-      Enabled 0
-     }
-    }
-    AttachmentSlotComponent "{5F189C826D592450}" {
-     AttachmentSlot InventoryStorageSlot BayonetSlot {
-      Enabled 0
-     }
-    }
-    WeaponAnimationComponent "{60B4EA76EB15F6E0}" {
-     AnimIkpose ""
-     AnimInjection AnimationAttachmentInfo "{55349E9229B55D8A}" {
-      AnimInstance "{DE9AA6DFFD85B41D}anims/DroneController/dronecontroller_player.asi"
-     }
-     AutoVariablesBind 0
-     ResetOnDeactivation 0
-     DeactivationDelay 2
-    }
-   }
-  }
- }
  coords 126.5 1.001 127.543
 }
 GenericEntity : "{FA5C25BF66A53DCF}Prefabs/Weapons/Rifles/AK74/Rifle_AK74.et" {

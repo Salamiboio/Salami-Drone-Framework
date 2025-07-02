@@ -4,6 +4,7 @@ modded class SCR_MapCursorModule
 	override void Update(float timeSlice)
 	{
 		if(GetGame().GetCameraManager().CurrentCamera())
+		{
 			if (GetGame().GetCameraManager().CurrentCamera().GetPrefabData().GetPrefabName() == "{D10C3C304FC29655}Prefabs/Editor/Camera/DroneCamera.et")
 			{
 				m_CustomCursor.GetCursor().SetVisible(false);
@@ -15,6 +16,12 @@ modded class SCR_MapCursorModule
 				m_wCrossGrid.SetVisible(true);		
 				m_CustomCursor.GetCursor().SetVisible(true);
 			}
+		}
+		else
+		{
+			m_wCrossGrid.SetVisible(true);		
+			m_CustomCursor.GetCursor().SetVisible(true);
+		}
 				
 		
 		if (m_bIsDisabled)
