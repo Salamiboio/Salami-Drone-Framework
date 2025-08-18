@@ -3,21 +3,25 @@ GenericEntity : "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et" {
  components {
   MeshObject "{658B340BD9325940}" {
    Object "{A043E13BAC03CF2C}Assets/Weapons/Grenades/M67/Grenade_M67.xob"
+   LODFactors {
+    1000 1 1 1 1
+   }
+   PixelSizeScale 10
   }
   RigidBody "{658B340BDB337EC0}" {
+   LayerPreset "Projectile"
    Active Active
    Mass 0.397
    LinearDamping 0.4
    AngularDamping 0.6
-   LinearSleepingThreashold 0
-   AngularSleepingThreashold 0
+   LinearSleepingThreashold 0.1
+   AngularSleepingThreashold 0.1
    SimState Simulation
    ModelGeometry 1
    CCDRadius 0.3
   }
   SAL_DropperGrenadeComponent "{65BAF14265A43AF5}" {
    m_bImpactFuze 0
-   m_Explosion "{AC89BF1A29385E9C}Prefabs/Weapons/Warheads/Explosions/Explosion_M67.et"
   }
   SCR_DamageManagerComponent "{65B933884B65AF78}" {
    Enabled 0
@@ -51,7 +55,24 @@ GenericEntity : "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et" {
   RplComponent "{658B340BDAF50D06}" {
    "Parent Node From Parent Entity" 1
   }
+  SignalsManagerComponent "{662493C6B78A0C12}" {
+  }
+  SoundComponent "{662493C6B5846B83}" {
+  }
+  SCR_ExplosiveChargeComponent "{662493C6B2B344B4}" {
+  }
+  SCR_ExplosiveTriggerComponent "{662493C6B18A7465}" {
+   PROJECTILE_EFFECTS {
+    ExplosionEffect "{662493C6A396BDAF}" {
+     EffectPrefab "{9C7B7B7ECDC3A596}Prefabs/Weapons/Warheads/Warhead_Grenade_M67.et"
+     ParticleEffect "{5592BC9B67C60D16}Particles/Weapon/Explosion_RGD5.ptc"
+     SoundEvent "SOUND_EXPLOSION"
+    }
+    AIExplosionEffect "{662493C6997840A4}" {
+    }
+   }
+   HAS_VALID_DIRECTION 0
+  }
  }
  coords 0 0 0
- scale 0.5
 }

@@ -1,0 +1,94 @@
+GenericEntity : "{6BEC092D354A997E}Prefabs/Weapons/Warheads/Explosions/Warhead_Explosion_Base.et" {
+ ID "9D9BE68EA2672F76"
+ components {
+  SignalsManagerComponent "{C572A75F88B55309}" {
+   Enabled 1
+  }
+  SoundComponent "{D092A75ECEFAE456}" {
+   Enabled 1
+   Filenames {
+    "{B9347A5498317F65}Sounds/Particles/Logistics/Explosion/TNT/Particles_Explosions_TNT_Medium.acp"
+   }
+  }
+  TimerTriggerComponent "{55129E81CBAA1390}" {
+   Enabled 0
+   PROJECTILE_EFFECTS {
+    ExplosionDamageContainer "{5D8D1EB3E2893B43}" {
+     ExplosionEffects {
+      BaseExplosionDamage "{5D8D1EB3EF9D02C6}" {
+      }
+      BaseExplosionDamage "{61DAF5E24D9CA168}" {
+      }
+      BaseExplosionDamage "{5D8D1EB3EBB36077}" {
+      }
+      ExplosionImpulseEffect "{5E6D1CEE09A33086}" {
+      }
+      ExplosionFragmentationEffect "{662493DD596EA6BF}" {
+       DamageValue 16
+       DamageType Fragmentation
+       DamageDistance 25
+       ExplosionEffectSpeed 1000
+       DamageFalloffCurve {
+        0 1 0.05 1 0.55 0.8 1 0
+       }
+       DamageEffect {
+        SCR_FragmentationDamageEffect "{662493DD596EA6A6}" {
+        }
+       }
+       DamageDistanceCurve {
+        0 1 1 0
+       }
+       DamageFragmentCount 130
+       GurneyShape CYLINDER
+       GurneyConstant 2830
+       CaseWeight 1280
+       FragMassScale 10
+       FragRangeScale 10
+      }
+     }
+     ChargeWeight 4200
+     TntEquivalent 1
+    }
+    SpawnDecalEffect "{5E24A9E4AE3FCD64}" {
+     Scale 2
+     Material "{2A3A7B73C1EF6936}Assets/Decals/Logistics/Impact/Data/Decal_Logistics_RPG_01.emat"
+    }
+    SpawnParticleEffect "{5E24A9E49067B7F5}" {
+     ParticleEffect "{B6275B6B9E29E9ED}Particles/Weapon/Explosion_RPG7V1.ptc"
+     SoundEvent "SOUND_EXPLOSION"
+    }
+    SubmunitionEffect "{662493DD596EA6D7}" {
+     Prefab "{E6EC1F21E22709F0}Prefabs/Weapons/Ammo/Ammo_Rocket_PG7VM_Penetrator.et"
+     Dispersion 0
+     InitSpeedCoef 1
+    }
+    SubmunitionEffect "{662493DD596EA6DA}" {
+     Prefab "{7CC1697D08638B5C}Prefabs/Weapons/Ammo/Ammo_Rocket_PG7VM_Spall.et"
+     Count 30
+     Dispersion 60
+     InitSpeedCoef 1
+    }
+   }
+  }
+  HitEffectComponent "{9D9BE68D6F65A10F}" {
+   ParticleEffect "{B6275B6B9E29E9ED}Particles/Weapon/Explosion_RPG7V1.ptc"
+  }
+  SCR_ExplosiveChargeComponent "{662493DD596EA6DE}" {
+  }
+  SCR_ExplosiveTriggerComponent "{662493DD596EA6DC}" {
+   PROJECTILE_EFFECTS {
+    ExplosionEffect "{662493DD596EA6C2}" {
+     EffectPrefab "{F5D96D52DC3251F6}Prefabs/Weapons/Warheads/Warhead_Shell_HE_O832DU.et"
+     ParticleEffect "{318510C6FB1633D9}Particles/Weapon/Explosion_Mortar_Base.ptc"
+     SoundEvent "SOUND_EXPLOSION"
+    }
+    AIExplosionEffect "{662493DD596EA6C5}" {
+    }
+   }
+   TRIGGER_ALIVE 1
+   m_bLive 0
+  }
+  Hierarchy "{662493DD596EA6CA}" {
+  }
+ }
+}

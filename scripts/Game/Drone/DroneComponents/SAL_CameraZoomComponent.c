@@ -11,6 +11,9 @@ class SAL_CameraZoomComponent: ScriptComponent
 	InputManager m_InputManager;
 	SAL_DroneConnectionManager m_DroneConnectionManager;
 	CameraManager m_CameraManager;
+	SAL_DroneControllerComponent m_DroneController;
+	RplId m_Id;
+	RplComponent m_RplComp;
 	
 	override void OnPostInit(IEntity owner)
 	{
@@ -22,11 +25,21 @@ class SAL_CameraZoomComponent: ScriptComponent
 		m_InputManager = GetGame().GetInputManager();
 		m_DroneConnectionManager = SAL_DroneConnectionManager.GetInstance();
 		m_CameraManager = GetGame().GetCameraManager();
+		m_DroneController = SAL_DroneControllerComponent.Cast(owner.FindComponent(SAL_DroneControllerComponent));
+		m_Id = SCR_PlayerController.GetRplId(owner);
+		if (!m_RplComp)
+			m_RplComp = RplComponent.Cast(owner.FindComponent(RplComponent));
 	}
 	
 	override void EOnFixedFrame(IEntity owner, float timeSlice)
 	{
-		if (!m_DroneConnectionManager.IsDronePlayers(owner))
+		if (System.IsConsoleApp())
+			return;
+		
+		if (m_Id == -1)
+			m_Id = RplComponent.Cast(owner.FindComponent(RplComponent)).Id();
+		
+		if (m_DroneController.m_iOwner != SCR_PlayerController.GetLocalPlayerId() || !m_DroneConnectionManager.m_aActiveDrones.Contains(m_Id))
 			return;
 		
 		if (!m_CameraManager.CurrentCamera())

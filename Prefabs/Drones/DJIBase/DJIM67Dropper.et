@@ -1,6 +1,16 @@
 GenericEntity : "{FDA92D590B9C633B}Prefabs/Drones/DJIBase/DJIBase.et" {
  ID "659863D5118F3377"
  components {
+  InventoryItemComponent "{65AB2523310F27D1}" {
+   Attributes SCR_ItemAttributeCollection "{65AB252330249C83}" {
+    ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
+     Name "#DJI_Drone_M67"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{65ACFD96E4CDB70C}" {
+     Weight 2
+    }
+   }
+  }
   SAL_DropperComponent "{65BAAE5223D14B94}" {
    m_DropperGrenade "{5EF78BA4DB95E87A}Prefabs/Drones/DJIBase/M67GrenadeDropper.et"
    m_DropperGrenadeReload "{E8F00BF730225B00}Prefabs/Weapons/Grenades/Grenade_M67.et"
@@ -29,7 +39,7 @@ GenericEntity : "{FDA92D590B9C633B}Prefabs/Drones/DJIBase/DJIBase.et" {
       "DroneBody"
      }
      UIInfo UIInfo "{65BAF1444AC110A0}" {
-      Name "Reload Drone"
+      Name "#Reload_Drone"
      }
      "Sort Priority" 2
     }

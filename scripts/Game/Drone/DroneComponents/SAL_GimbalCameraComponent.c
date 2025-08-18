@@ -19,6 +19,10 @@ class SAL_GimbalCameraComponent: ScriptComponent
 	SAL_CameraZoomComponent m_CameraZoom;
 	SCR_PlayerController m_PC;
 	RplId m_DroneId;
+	SAL_DroneControllerComponent m_DroneController;
+	EntitySlotInfo m_CameraSlot;
+	RplId m_Id;
+	RplComponent m_RplComp;
 	
 	InputManager m_InputManager;
 
@@ -26,7 +30,7 @@ class SAL_GimbalCameraComponent: ScriptComponent
 	
 	override void OnPostInit(IEntity owner)
 	{
-		SetEventMask(owner, EntityEvent.FRAME | EntityEvent.INIT);
+		SetEventMask(owner, EntityEvent.POSTFRAME | EntityEvent.INIT);
 	}
 	
 	override void EOnInit(IEntity owner)
@@ -37,24 +41,50 @@ class SAL_GimbalCameraComponent: ScriptComponent
 		m_CameraManager = GetGame().GetCameraManager();
 		m_DroneConnectionManager = SAL_DroneConnectionManager.GetInstance();
 		if (m_Parent)
+		{
+			SlotManagerComponent slotMan = SlotManagerComponent.Cast(m_Parent.FindComponent(SlotManagerComponent));
+			m_CameraSlot = slotMan.GetSlotByName("CameraBody");
 			m_CameraZoom = SAL_CameraZoomComponent.Cast(m_Parent.FindComponent(SAL_CameraZoomComponent));
+			m_DroneController = SAL_DroneControllerComponent.Cast(m_Parent.FindComponent(SAL_DroneControllerComponent));
+			m_Id = SCR_PlayerController.GetRplId(owner);
+			if (!m_RplComp)
+				m_RplComp = RplComponent.Cast(m_Parent.FindComponent(RplComponent));
+		
+		}
 	}
 
-	override void EOnFrame(IEntity owner, float timeSlice)
+	override void EOnPostFrame(IEntity owner, float timeSlice)
 	{
+		if (m_Id == -1)
+			m_Id = RplComponent.Cast(owner.FindComponent(RplComponent)).Id();
+		
 		if (m_Parent == null)
 		{
 			m_Parent = owner.GetParent();
 			if (m_Parent)
+			{
+				SlotManagerComponent slotMan = SlotManagerComponent.Cast(m_Parent.FindComponent(SlotManagerComponent));
+				m_CameraSlot = slotMan.GetSlotByName("CameraBody");
 				m_CameraZoom = SAL_CameraZoomComponent.Cast(m_Parent.FindComponent(SAL_CameraZoomComponent));
+				m_DroneController = SAL_DroneControllerComponent.Cast(m_Parent.FindComponent(SAL_DroneControllerComponent));
+				m_Id = SCR_PlayerController.GetRplId(owner);
+				if (!m_RplComp)
+					m_RplComp = RplComponent.Cast(m_Parent.FindComponent(RplComponent));
+			}
 			return;
 		}
+		
+		if (System.IsConsoleApp())
+			return;
 			
 		
 		if (!m_CameraManager.CurrentCamera())
 			return;
 		
-		if (m_DroneConnectionManager.IsDronePlayers(m_Parent))
+		if (!m_DroneController.m_bIsActive)
+			return;
+		
+		if (m_DroneController.m_iOwner != SCR_PlayerController.GetLocalPlayerId() || !m_DroneConnectionManager.m_aActiveDrones.Contains(m_Id))
 		{	
 			float pitchCommand = m_InputManager.GetActionValue("CameraPitch");
 			if (pitchCommand != 0)
@@ -68,7 +98,7 @@ class SAL_GimbalCameraComponent: ScriptComponent
 					m_fPitchOffset += pitchCommand;
 			
 				m_fPitchOffset = Math.Clamp(m_fPitchOffset, -89.5, 35);	
-				SCR_PlayerController.Cast(GetGame().GetPlayerController()).SetCameraYaw(m_fPitchOffset, RplComponent.Cast(owner.FindComponent(RplComponent)).Id());
+				SCR_PlayerController.Cast(GetGame().GetPlayerController()).SetCameraYaw(m_fPitchOffset, m_Id);
 			}
 		}
 		
@@ -102,19 +132,30 @@ class SAL_GimbalCameraComponent: ScriptComponent
 		
 		if (targetAngles[0] != 0)
 			targetAngles[0] = 0;
-	
-		// Smooth interpolation
-		float smoothing = Math.Min(timeSlice * 60.0, 1.0);  // Clamp to avoid overshoot
-	
-		vector smoothedAngles;
-		smoothedAngles[0] = targetAngles[0];  // Pitch
-		smoothedAngles[1] = SCR_Math.LerpAngle(cameraAngles[1], targetAngles[1], smoothing);  // Yaw
-		smoothedAngles[2] = SCR_Math.LerpAngle(cameraAngles[2], targetAngles[2], smoothing);  // Roll
 		
-		if (smoothedAngles[1] < 270 && smoothedAngles[1] > 100)
-			smoothedAngles[1] = 270;
+		if (targetAngles[1] < 270 && targetAngles[1] > 100)
+			targetAngles[1] = 270;
 	
-		m_CameraEntity.SetYawPitchRoll(smoothedAngles);
+	
+		m_CameraEntity.SetYawPitchRoll(targetAngles);
+		
+		if (!m_CameraSlot)
+		{
+			SlotManagerComponent slotMan = SlotManagerComponent.Cast(m_Parent.FindComponent(SlotManagerComponent));
+			m_CameraSlot = slotMan.GetSlotByName("CameraBody");
+			return;
+		}
+		vector cameraTransform[4];
+		if (owner.GetPrefabData().GetPrefabName() == "{DD1F5C844352D9A7}Prefabs/Drones/DJIBase/CameraEntity.et")
+		{
+			if (!m_CameraSlot.GetAttachedEntity())
+				return;
+			m_CameraSlot.GetAttachedEntity().GetTransform(cameraTransform);
+			cameraTransform[3] = cameraTransform[3] + (cameraTransform[2] * 0.1);
+			m_CameraEntity.SetTransform(cameraTransform);
+			m_CameraEntity.Update();
+			GenericEntity.Cast(m_CameraEntity).OnTransformReset();
+		}
 	}
 	
 	override bool RplSave(ScriptBitWriter writer)

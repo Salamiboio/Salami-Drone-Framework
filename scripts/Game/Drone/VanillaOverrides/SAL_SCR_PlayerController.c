@@ -2,7 +2,6 @@ modded class SCR_PlayerController
 {
 	CameraBase m_eOldCamera;
 	float m_fMasterVolume;
-
 	static RplId GetRplId(IEntity entity)
 	{
 		if (!entity)
@@ -20,22 +19,82 @@ modded class SCR_PlayerController
 		
 		inputManager.AddActionListener("DisconnectDrone", EActionTrigger.DOWN, DisconnectDrone);
 		inputManager.AddActionListener("ArmDroneWarhead", EActionTrigger.DOWN, ArmDroneWarhead);
+		inputManager.AddActionListener("SwitchDrone", EActionTrigger.DOWN, SwitchDrone);
+		inputManager.AddActionListener("SwitchDroneDown", EActionTrigger.DOWN, SwitchDroneDown);
+	}
+	
+	void SwitchDroneDown()
+	{
+		SwitchDrone(-1);
+	}
+	
+	void SwitchDrone(float value)
+	{
+		SAL_DroneConnectionManager droneManager = SAL_DroneConnectionManager.GetInstance();
+		if (droneManager.GetPlayersCommandStation(GetPlayerId()) == null)
+			return;
+		
+		if (droneManager.GetPlayersDrone(GetPlayerId()) == null)
+			return;
+		
+		if (!GetGame().GetCameraManager().CurrentCamera().GetParent())
+			return;
+		
+		if (!GetGame().GetCameraManager().CurrentCamera().GetParent().GetParent())
+			return;
+		
+		IEntity currentDrone = GetGame().GetCameraManager().CurrentCamera().GetParent().GetParent();
+		RplId currentDroneId = GetRplId(currentDrone);
+		ref array<RplId> droneRplIds = droneManager.GetPlayersDrones(GetPlayerId());
+		int newIndex;
+		foreach(RplId droneId: droneRplIds)
+		{
+			if (droneId != currentDroneId)
+				continue;
+			
+			int index = droneRplIds.Find(droneId);
+			newIndex = index + value;
+			
+			if (newIndex > 2)
+				newIndex = 0;
+			if (newIndex < 0)
+				newIndex = 2;
+		}
+		
+		while (droneRplIds.Get(newIndex) == RplId.Invalid())
+		{
+			newIndex += value;
+			if (newIndex > 2)
+				newIndex = 0;
+			if (newIndex < 0)
+				newIndex = 2;
+		}
+		
+		ExitDrone();
+		EnterDrone(droneRplIds.Get(newIndex));
 	}
 	
 	
-	void EnterDrone()
+	void EnterDrone(RplId droneId)
 	{
 		SAL_DroneConnectionManager droneManager = SAL_DroneConnectionManager.GetInstance();
 		
 		if (droneManager.GetPlayersDrone(GetPlayerId()) == null)
 			return;
 		
-		IEntity drone = droneManager.GetPlayersDrone(GetPlayerId());
+		if (!Replication.FindItem(droneId))
+		{
+			DisconnectSpecificDrone(droneId);
+			return;
+		}
+		
+		IEntity drone = RplComponent.Cast(Replication.FindItem(droneId)).GetEntity();
 		
 		if (drone.GetParent() != null)
 			return;
 		
 		GetGame().GetInputManager().ActivateContext("DroneContext", 999999);
+		AddActiveDrone(droneId);
 		
 		SlotManagerComponent slotManager = SlotManagerComponent.Cast(drone.FindComponent(SlotManagerComponent));
 		
@@ -80,6 +139,8 @@ modded class SCR_PlayerController
 	void ExitDrone()
 	{
 		CameraBase droneCamera = GetGame().GetCameraManager().CurrentCamera();
+		RplId oldDroneId = SAL_DroneConnectionManager.GetInstance().GetPlayersActiveDroneRplId(SCR_PlayerController.GetLocalPlayerId());
+		RemoveActiveDrone(oldDroneId);
 		
 		float volume;
 		GetGame().GetEngineUserSettings().GetModule("AudioSettings").Get("VolumeSfx", volume);
@@ -101,17 +162,62 @@ modded class SCR_PlayerController
 	void DisconnectDrone()
 	{
 		SAL_DroneConnectionManager droneManager = SAL_DroneConnectionManager.GetInstance();
-		
 		if (!droneManager.IsPlayerDroneOwner(GetPlayerId()))
 			return;
 		
-		if (droneManager.GetPlayersDrone(GetPlayerId()) != null)
-			if (SAL_DroneControllerComponent.Cast(droneManager.GetPlayersDrone(GetPlayerId()).FindComponent(SAL_DroneControllerComponent)).m_bIsArmed)
-				SAL_DroneControllerComponent.Cast(droneManager.GetPlayersDrone(GetPlayerId()).FindComponent(SAL_DroneControllerComponent)).ArmDrone();
-		
-		Rpc(RpcDo_DisconnectDrone, droneManager.GetPlayersDroneRplId(GetPlayerId()));
-		
+		if (droneManager.GetPlayersActiveDrone(GetPlayerId()) != null)
+			if (SAL_DroneControllerComponent.Cast(droneManager.GetPlayersActiveDrone(GetPlayerId()).FindComponent(SAL_DroneControllerComponent)).m_bIsArmed)
+				SAL_DroneControllerComponent.Cast(droneManager.GetPlayersActiveDrone(GetPlayerId()).FindComponent(SAL_DroneControllerComponent)).ArmDrone();
+			
+		if (droneManager.DoesPlayerHaveActiveDrone(GetPlayerId()))
+			GetGame().GetCallqueue().CallLater(NewDroneCheck, 150, false, droneManager.GetPlayersActiveDroneRplId(GetPlayerId()));
+		if (droneManager.DoesPlayerHaveActiveDrone(GetPlayerId()))
+			GetGame().GetCallqueue().CallLater(DisconnectDroneDelay, 150, false, droneManager.GetPlayersActiveDroneRplId(GetPlayerId()), GetPlayerId());
+		else
+			GetGame().GetCallqueue().CallLater(DisconnectDroneDelay, 150, false, droneManager.GetPlayersDroneRplId(GetPlayerId()), GetPlayerId());
 		GetGame().GetCallqueue().CallLater(ExitDrone, 100, false);
+	}
+	
+	void DisconnectDroneDelay(RplId droneId, int playerId)
+	{
+		Rpc(RpcDo_DisconnectDrone, droneId, playerId);
+	}
+	
+	void DisconnectSpecificDrone(RplId droneId)
+	{
+		SAL_DroneConnectionManager droneManager = SAL_DroneConnectionManager.GetInstance();
+		RplId activeDroneId = droneManager.GetPlayersActiveDroneRplId(GetPlayerId());
+		if (activeDroneId == droneId)
+			GetGame().GetCallqueue().CallLater(NewDroneCheck, 130, false, activeDroneId);	
+		
+		GetGame().GetCallqueue().CallLater(DisconnectDroneDelay, 150, false, droneId, GetPlayerId());
+		if (activeDroneId == droneId)
+			GetGame().GetCallqueue().CallLater(ExitDrone, 100, false);
+		
+	}
+	
+	void NewDroneCheck(RplId oldDrone)
+	{
+		SAL_DroneConnectionManager droneManager = SAL_DroneConnectionManager.GetInstance();
+		
+		if (!droneManager.GetPlayersCommandStation(GetPlayerId()))
+			return;
+		
+		if (!droneManager.IsPlayerDroneOwner(GetPlayerId()))
+			return;
+	
+		ref array<RplId> droneRplIds = droneManager.GetPlayersDrones(GetPlayerId());
+		foreach (RplId droneId: droneRplIds)
+		{
+			if (droneId == RplId.Invalid())
+				continue;
+			
+			if (droneId == oldDrone)
+				continue;
+			
+			EnterDrone(droneId);
+			return;
+		}
 	}
 	
 	void ArmDroneWarhead()
@@ -121,7 +227,7 @@ modded class SCR_PlayerController
 		if (!droneManager.IsPlayerDroneOwner(GetPlayerId()))
 			return;
 		
-		SAL_DroneExplosionComponent expComp = SAL_DroneExplosionComponent.Cast(droneManager.GetPlayersDrone(GetPlayerId()).FindComponent(SAL_DroneExplosionComponent));
+		SAL_DroneExplosionComponent expComp = SAL_DroneExplosionComponent.Cast(droneManager.GetPlayersActiveDrone(GetPlayerId()).FindComponent(SAL_DroneExplosionComponent));
 		if (!expComp)
 			return;
 		
@@ -129,9 +235,9 @@ modded class SCR_PlayerController
 	}
 	
 	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
-	void RpcDo_DisconnectDrone(RplId drone)
+	void RpcDo_DisconnectDrone(RplId drone, int playerId)
 	{
-		SAL_DroneConnectionManager.GetInstance().DisconnectDrone(drone);
+		SAL_DroneConnectionManager.GetInstance().DisconnectDrone(drone, playerId);
 	}
 	
 	void ConnectPlayerToDrone(IEntity drone)
@@ -145,15 +251,13 @@ modded class SCR_PlayerController
 	{
 		if (SCR_CharacterInventoryStorageComponent.Cast(GetLocalControlledEntity().FindComponent(SCR_CharacterInventoryStorageComponent)).Get(0))
 			if (SCR_CharacterInventoryStorageComponent.Cast(GetLocalControlledEntity().FindComponent(SCR_CharacterInventoryStorageComponent)).Get(0).GetPrefabData().GetPrefabName() == "{8951045BFE8BC8E4}Prefabs/Characters/HeadGear/FPV_Goggles.et")
-				EnterDrone();
+				EnterDrone(SAL_DroneConnectionManager.GetInstance().GetPlayersDroneRplId(SCR_PlayerController.GetLocalPlayerId()));
 	}
 	
 	
 	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
 	void RpcDo_ConnectPlayerToDrone(RplId droneId, int playerId)
 	{
-		if ( SAL_DroneConnectionManager.GetInstance().m_aDrones.Contains(droneId) )
-			return;
 		SAL_DroneConnectionManager.GetInstance().ConnectToDrone(droneId, playerId);
 	}
 	
@@ -173,26 +277,30 @@ modded class SCR_PlayerController
 		vector transform[4];
 		packet.GetTransform(transform);
 		
+		if (vector.Distance(drone.GetOrigin(), transform[3]) > 10)
+		{
+			SAL_DroneConnectionManager.GetInstance().TeleportDroneBack(packet.GetDrone(), transform);
+			return;
+		}
+		
 		GenericEntity droneEntity = GenericEntity.Cast(drone);
 		droneEntity.SetTransform(transform);
 		droneEntity.Update();
 		droneEntity.OnTransformReset();
 		
-		float rotorRPMs[4];
-		packet.GetRotorRPMs(rotorRPMs);
-		float averageRPM = (rotorRPMs[0] + rotorRPMs[1] + rotorRPMs[2] + rotorRPMs[3]) / 4;
+		SAL_DroneControllerComponent droneController = SAL_DroneControllerComponent.Cast(drone.FindComponent(SAL_DroneControllerComponent));
 		
 		SAL_DroneBatteryComponent.Cast(droneEntity.FindComponent(SAL_DroneBatteryComponent)).m_fCurrentBattery = packet.GetBatteryLevel();
-		SAL_DroneControllerComponent.Cast(drone.FindComponent(SAL_DroneControllerComponent)).m_vLastBroadcastedPosition1 = transform[0];
-		SAL_DroneControllerComponent.Cast(drone.FindComponent(SAL_DroneControllerComponent)).m_vLastBroadcastedPosition2 = transform[1];
-		SAL_DroneControllerComponent.Cast(drone.FindComponent(SAL_DroneControllerComponent)).m_vLastBroadcastedPosition3 = transform[2];
-		SAL_DroneControllerComponent.Cast(drone.FindComponent(SAL_DroneControllerComponent)).m_vLastBroadcastedPosition4 = transform[3];
+		droneController.m_vLastBroadcastedPosition1 = transform[0];
+		droneController.m_vLastBroadcastedPosition2 = transform[1];
+		droneController.m_vLastBroadcastedPosition3 = transform[2];
+		droneController.m_vLastBroadcastedPosition4 = transform[3];
+		droneController.m_vCurrentVelocity = packet.GetCurrentVelocity();
 		SAL_DroneConnectionManager.GetInstance().ReplicateTransform(packet);
 	}
 	
 	void ExplodeDrone(SAL_DroneNetworkPacket packet)
 	{
-		DisconnectDrone();
 		Rpc(RpcDo_ExplodeDrone, packet);
 	}
 
@@ -262,70 +370,6 @@ modded class SCR_PlayerController
 		
 		battComp.m_fCurrentBattery = packet.GetBatteryLevel();
 		battComp.m_fCurrentBatteryMax = packet.GetBatteryLevel();
-	}
-	
-	void DestroyDrone(RplId droneId, ResourceName droneWreckPrefab)
-	{
-		Rpc(RpcDo_DestroyDrone, droneId, droneWreckPrefab);
-	}
-	
-	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
-	void RpcDo_DestroyDrone(RplId droneId, ResourceName droneWreckPrefab)
-	{
-		if (!Replication.FindItem(droneId))
-			return;
-		
-		IEntity drone = RplComponent.Cast(Replication.FindItem(droneId)).GetEntity();
-		if (!drone)
-			return;
-		
-		if (drone.FindComponent(SAL_DroneExplosionComponent))
-		{
-			SAL_DroneExplosionComponent explComp = SAL_DroneExplosionComponent.Cast(drone.FindComponent(SAL_DroneExplosionComponent));
-			string explosion = explComp.m_sExplosionEffect;
-			vector transform[4];
-			drone.GetTransform(transform);
-			EntitySpawnParams params = new EntitySpawnParams();
-			params.Transform = transform;
-			GetGame().SpawnEntityPrefab(Resource.Load(explosion), GetGame().GetWorld(), params);
-			
-			SCR_EntityHelper.DeleteEntityAndChildren(drone);
-		}
-		else
-		{
-			vector transform[4];
-			drone.GetTransform(transform);
-			EntitySpawnParams params = new EntitySpawnParams();
-			params.Transform = transform;
-			IEntity newDrone = GetGame().SpawnEntityPrefab(Resource.Load(droneWreckPrefab), GetGame().GetWorld(), params);	
-			
-			SAL_DroneConnectionManager connectionManager = SAL_DroneConnectionManager.GetInstance();
-		
-			GetGame().GetCallqueue().CallLater(SAL_DroneConnectionManager.GetInstance().DeleteDrone, 200, false, drone.GetPhysics().GetVelocity(), newDrone, drone);
-		}
-	}
-	
-	void UpdateDroneHealth(SAL_DroneNetworkPacket packet)
-	{
-		Rpc(RpcDo_UpdateDroneHeatlh, packet);
-	}
-	
-	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
-	void RpcDo_UpdateDroneHeatlh(SAL_DroneNetworkPacket packet)
-	{
-		if (!Replication.FindItem(packet.GetDrone()))
-			return;
-		
-		IEntity drone = RplComponent.Cast(Replication.FindItem(packet.GetDrone())).GetEntity();
-		if (!drone)
-			return;
-		
-		SAL_DroneHealthComponent healthComp = SAL_DroneHealthComponent.Cast(drone.FindComponent(SAL_DroneHealthComponent));
-		if (!healthComp)
-			return;
-		
-		healthComp.m_fRplDroneHealth = packet.GetHealth();
-		SAL_DroneConnectionManager.GetInstance().BroadcastHealthUpdate(packet);
 	}
 	
 	void SetCameraYaw(float input, RplId droneId)
@@ -465,5 +509,193 @@ modded class SCR_PlayerController
 		
 		SAL_DroneConnectionManager.GetInstance().ReloadGrenadeBroadcast(droneId);
 		SCR_EntityHelper.DeleteEntityAndChildren(grenade);
+	}
+	
+		
+		
+	void UpdateDroneHealth(SAL_DroneNetworkPacket packet)
+	{
+		Rpc(RpcDo_UpdateDroneHeatlh, packet);
+	}
+	
+	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
+	void RpcDo_UpdateDroneHeatlh(SAL_DroneNetworkPacket packet)
+	{
+		if (!Replication.FindItem(packet.GetDrone()))
+			return;
+		
+		IEntity drone = RplComponent.Cast(Replication.FindItem(packet.GetDrone())).GetEntity();
+		if (!drone)
+			return;
+		
+		SAL_DroneHealthComponent healthComp = SAL_DroneHealthComponent.Cast(drone.FindComponent(SAL_DroneHealthComponent));
+		if (!healthComp)
+			return;
+		
+		healthComp.m_fRplDroneHealth = packet.GetHealth();
+		SAL_DroneConnectionManager.GetInstance().BroadcastHealthUpdate(packet);
+	}
+			
+	void DestroyDroneClient(RplId droneId, ResourceName droneWreckPrefab, int playerId)
+	{
+		Rpc(RpcDo_DestroyDroneClient, droneId, droneWreckPrefab, playerId);
+	}
+	
+	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
+	void RpcDo_DestroyDroneClient(RplId droneId, ResourceName droneWreckPrefab, int playerId)
+	{
+		SAL_DroneConnectionManager.GetInstance().DestroyDroneHealth(droneId, droneWreckPrefab, playerId);
+	}
+	
+	void ConnectPlayerToAntenna(IEntity antenna)
+	{
+		Rpc(RpcDo_ConnectPlayerToAntenna, GetRplId(antenna), GetPlayerId());
+	}
+	
+	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
+	void RpcDo_ConnectPlayerToAntenna(RplId antennaId, int playerId)
+	{
+		if (SAL_DroneConnectionManager.GetInstance().IsAntennaConnected(antennaId))
+			return;
+		SAL_DroneConnectionManager.GetInstance().ConnectAntenna(antennaId, playerId);
+	}
+	
+	void DisconnectPlayerToAntenna(IEntity antenna)
+	{
+		Rpc(RpcDo_DisconnectPlayerToAntenna, GetRplId(antenna));
+	}
+	
+	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
+	void RpcDo_DisconnectPlayerToAntenna(RplId antennaId)
+	{
+		SAL_DroneConnectionManager.GetInstance().DisconnectAntenna(antennaId);
+	}
+	
+	void ConnectPlayerToCommand(IEntity antenna)
+	{
+		Rpc(RpcDo_ConnectPlayerToCommand, GetRplId(antenna), GetPlayerId());
+	}
+	
+	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
+	void RpcDo_ConnectPlayerToCommand(RplId antennaId, int playerId)
+	{
+		if (SAL_DroneConnectionManager.GetInstance().IsCommandStationConnected(antennaId))
+			return;
+		SAL_DroneConnectionManager.GetInstance().ConnectDroneCommandStation(antennaId, playerId);
+	}
+	
+	void DisconnectPlayerToCommand(IEntity antenna)
+	{
+		Rpc(RpcDo_DisconnectPlayerToCommand, GetRplId(antenna));
+	}
+	
+	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
+	void RpcDo_DisconnectPlayerToCommand(RplId antennaId)
+	{
+		SAL_DroneConnectionManager.GetInstance().DisconnectDroneCommandStation(antennaId);
+	}
+	
+	void ToggleJammer(RplId jammerId)
+	{
+		Rpc(RpcDo_ToggleJammer, jammerId);
+	}
+	
+	[RplRpc(RplChannel.Reliable, RplRcver.Server)]
+	void RpcDo_ToggleJammer(RplId jammerId)
+	{
+		if (SAL_DroneConnectionManager.GetInstance().m_aJammers.Contains(jammerId))
+			SAL_DroneConnectionManager.GetInstance().UnregisterJammer(jammerId);
+		else
+			SAL_DroneConnectionManager.GetInstance().RegisterJammer(jammerId);
+	}
+	
+	void AddOrRemoveItem(RplId caseId, RplId itemId, string slotName)
+	{
+		Rpc(RpcDo_AddOrRemoveItem, caseId, itemId, slotName, GetPlayerId());
+	}
+	
+	[RplRpc(RplChannel.Reliable, RplRcver.Server)]	
+	void RpcDo_AddOrRemoveItem(RplId caseId, RplId itemId, string slotName, int playerId)
+	{
+		if (!Replication.FindItem(caseId) || !Replication.FindItem(itemId))
+			return;
+		
+		IEntity caseObject = RplComponent.Cast(Replication.FindItem(caseId)).GetEntity();
+		if (!caseObject)
+			return;
+		
+		IEntity itemObject = RplComponent.Cast(Replication.FindItem(itemId)).GetEntity();
+		if (!itemObject)
+			return;
+		
+		SlotManagerComponent slotComp = SlotManagerComponent.Cast(caseObject.FindComponent(SlotManagerComponent));
+		if (!slotComp)
+			return;
+		
+		EntitySlotInfo slot = slotComp.GetSlotByName(slotName);
+		if (!slot)
+			return;
+		
+		if (slot.GetAttachedEntity())
+		{
+			IEntity player = GetGame().GetPlayerManager().GetPlayerControlledEntity(playerId);
+			
+			SCR_InventoryStorageManagerComponent storageComp = SCR_InventoryStorageManagerComponent.Cast(player.FindComponent(SCR_InventoryStorageManagerComponent));
+			if (!storageComp)
+				return;
+
+			string itemPrefab = itemObject.GetPrefabData().GetPrefabName();
+			EntitySpawnParams spawnParams = new EntitySpawnParams();
+			vector transform[4];
+			itemObject.GetTransform(transform);
+			spawnParams.Transform = transform;
+			IEntity newItem = GetGame().SpawnEntityPrefab(Resource.Load(itemPrefab), GetGame().GetWorld(), spawnParams);
+			SCR_EntityHelper.DeleteEntityAndChildren(itemObject);
+			
+			BaseInventoryStorageComponent baseStorageComp = BaseInventoryStorageComponent.Cast(player.FindComponent(BaseInventoryStorageComponent));
+			
+			GetGame().GetCallqueue().CallLater(SAL_DroneConnectionManager.GetInstance().TryInsertItemToInventory, 200, false, newItem, baseStorageComp, storageComp);
+		}
+		else
+		{
+			IEntity player = GetGame().GetPlayerManager().GetPlayerControlledEntity(playerId);
+			
+			SCR_InventoryStorageManagerComponent storageComp = SCR_InventoryStorageManagerComponent.Cast(player.FindComponent(SCR_InventoryStorageManagerComponent));
+			if (!storageComp)
+				return;
+			
+			string itemPrefab = itemObject.GetPrefabData().GetPrefabName();
+			EntitySpawnParams spawnParams = new EntitySpawnParams();
+			vector transform[4];
+			itemObject.GetTransform(transform);
+			spawnParams.Transform = transform;
+			IEntity newItem = GetGame().SpawnEntityPrefab(Resource.Load(itemPrefab), GetGame().GetWorld(), spawnParams);
+			SCR_EntityHelper.DeleteEntityAndChildren(itemObject);
+			
+			slot.AttachEntity(newItem);
+			GetGame().GetCallqueue().CallLater(SAL_DroneConnectionManager.GetInstance().BroadcastSlotAttachment, 500, false, caseObject, slotName, newItem);
+		}
+	}
+	
+	void AddActiveDrone(RplId droneId)
+	{
+		Rpc(RpcDo_AddActiveDrone, droneId);
+	}
+	
+	[RplRpc(RplChannel.Reliable, RplRcver.Server)]	
+	void RpcDo_AddActiveDrone(RplId droneId)
+	{
+		SAL_DroneConnectionManager.GetInstance().AddActiveDrone(droneId);
+	}
+	
+	void RemoveActiveDrone(RplId droneId)
+	{
+		Rpc(RpcDo_RemoveActiveDrone, droneId);
+	}
+	
+	[RplRpc(RplChannel.Reliable, RplRcver.Server)]	
+	void RpcDo_RemoveActiveDrone(RplId droneId)
+	{
+		SAL_DroneConnectionManager.GetInstance().RemoveActiveDrone(droneId);
 	}
 }

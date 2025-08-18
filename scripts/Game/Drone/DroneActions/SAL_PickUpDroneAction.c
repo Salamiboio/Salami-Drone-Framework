@@ -25,6 +25,9 @@ class SAL_PickUpDroneAction : SCR_PickUpItemAction
 		if (m_DroneManager.IsDronePlayers(m_drone))
 			return false;
 		
+		if (m_DroneManager.IsDroneConnected(SCR_PlayerController.GetRplId(m_drone)))
+			return false;
+		
 		if ( !super.CanBePerformedScript( user ) )
 			return false;
 		

@@ -1,0 +1,81 @@
+GenericEntity : "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et" {
+ ID "658B340BE800639F"
+ components {
+  SignalsManagerComponent "{662493C44E34DBD7}" {
+  }
+  SoundComponent "{662493C45EEB7AD9}" {
+  }
+  MeshObject "{658B340BD9325940}" {
+   Object "{F977B12D68012E95}Assets/Weapons/Ammo/Shells/82mm_Mortar_2B14/Shell_82mm_HE_O832DU.xob"
+   LODFactors {
+    1000 1 1 1
+   }
+   PixelSizeScale 10
+  }
+  RigidBody "{658B340BDB337EC0}" {
+   LayerPreset "Projectile"
+   Active Active
+   Mass 3.1
+   CenterOfMass 0 0 0.055
+   LinearDamping 0.01
+   AngularDamping 0.01
+   LinearSleepingThreashold 0.1
+   AngularSleepingThreashold 0.1
+   SimState Simulation
+   ModelGeometry 1
+   CCDRadius 1
+  }
+  SAL_DropperGrenadeComponent "{662493DD7DFF6579}" {
+   m_fFuzeTime 0
+   m_bImpactFuze 1
+  }
+  SCR_DamageManagerComponent "{65B933884B65AF78}" {
+   Enabled 0
+   "Additional hit zones" {
+    SCR_DestructibleHitzone Rotor {
+     HZDefault 1
+     BaseDamageMultiplier 0
+     DamageReduction 0
+     DamageThreshold 0
+     "Collision multiplier" 0
+     m_aDamagePassRules {
+      SCR_DamagePassRule "{60AAF83A13B1AFB5}" {
+       m_eOutputDamageType TRUE
+       m_fMultiplier 0
+      }
+     }
+     m_pDestructionHandler SCR_DestructionBaseHandler "{65B9338BDB1BB356}" {
+      m_bAllowHideWreck 0
+     }
+     m_vParticleOffset 0 0 0
+    }
+   }
+  }
+  SCR_ExplosiveChargeComponent "{662493C454E36AD4}" {
+  }
+  SCR_ExplosiveTriggerComponent "{662493C456C45CB6}" {
+   PROJECTILE_EFFECTS {
+    ExplosionEffect "{662493C44177B8DB}" {
+     EffectPrefab "{F5D96D52DC3251F6}Prefabs/Weapons/Warheads/Warhead_Shell_HE_O832DU.et"
+     ParticleEffect "{318510C6FB1633D9}Particles/Weapon/Explosion_Mortar_Base.ptc"
+     SoundEvent "SOUND_EXPLOSION"
+    }
+    AIExplosionEffect "{662493C443BE4515}" {
+    }
+   }
+   TRIGGER_ALIVE 0
+   HAS_VALID_DIRECTION 0
+  }
+  SlotManagerComponent "{662493DD7DFF656C}" {
+   Slots {
+    EntitySlotInfo Explosion {
+     Prefab "{AC89BF1A29385E9C}Prefabs/Weapons/Warheads/Explosions/Explosion_M67.et"
+    }
+   }
+  }
+  RplComponent "{658B340BDAF50D06}" {
+   "Parent Node From Parent Entity" 1
+  }
+ }
+ coords 0 0 0
+}

@@ -2,7 +2,7 @@ GenericEntity {
  ID "658B340BE800639F"
  components {
   MeshObject "{658B340BD9325940}" {
-   Object "{66F8323981520082}Assets/Drones/FPVs/FPVBaseRotor/FPVRotor.xob"
+   Object "{BB924B3D1F753AE3}Assets/Drones/FPVs/NewFPV/FPVNewRotor.xob"
   }
   RigidBody "{658B340BDB337EC0}" {
   }

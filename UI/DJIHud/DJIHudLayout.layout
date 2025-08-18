@@ -32,16 +32,32 @@ FrameWidgetClass {
    }
    Color 0 0 0 1
   }
+  ImageWidgetClass "{65CB45B92B2F8CED}" {
+   Name "Grenade"
+   Slot FrameWidgetSlot "{65CB45B92B2F8F0E}" {
+    PositionX 19.938
+    OffsetLeft 19.938
+    PositionY -15.783
+    OffsetTop -15.783
+    SizeX 167.791
+    OffsetRight -187.729
+    SizeY 113.742
+    OffsetBottom -97.958
+   }
+   "Is Visible" 0
+   Texture "{366BCC61F7E25D8C}UI/DJIHud/Data/grenadeHUD.edds"
+   Size 1024 1024
+  }
   ProgressBarWidgetClass "{65AAA9DD0839087B}" {
    Name "BatteryBar"
    Slot FrameWidgetSlot "{65AAA9DD0839085E}" {
     Anchor 1 0 1 0
-    PositionX -106.62
-    OffsetLeft -106.62
+    PositionX -706.102
+    OffsetLeft -706.102
     PositionY 17.2
     OffsetTop 17.2
     SizeX 75.81
-    OffsetRight 30.81
+    OffsetRight 630.292
     SizeY 46.239
     OffsetBottom -63.439
    }
@@ -52,12 +68,12 @@ FrameWidgetClass {
    Name "BatteryText"
    Slot FrameWidgetSlot "{65AAA9DD3F5CD0C1}" {
     Anchor 1 0 1 0
-    PositionX -95.71
-    OffsetLeft -95.71
+    PositionX -695.192
+    OffsetLeft -695.192
     PositionY 26.775
     OffsetTop 26.775
     SizeX 53.89
-    OffsetRight 41.82
+    OffsetRight 641.302
     SizeY 30
     OffsetBottom -56.775
    }
@@ -73,17 +89,35 @@ FrameWidgetClass {
    Name "Battery"
    Slot FrameWidgetSlot "{65AAA9DAD6660167}" {
     Anchor 1 0 1 0
-    PositionX -118.99
-    OffsetLeft -118.99
+    PositionX -718.472
+    OffsetLeft -718.472
     PositionY 2.182
     OffsetTop 2.182
     SizeX 109.73
-    OffsetRight 9.26
+    OffsetRight 608.742
     SizeY 78.316
     OffsetBottom -80.498
    }
    Texture "{035EBE5D66614837}UI/DJIHud/Data/DJIBattery.edds"
    Size 112 64
+  }
+  TextWidgetClass "{65E8CA3332C97CF0}" {
+   Name "BatteryTime"
+   Slot FrameWidgetSlot "{65AAA9DD3F5CD0C1}" {
+    Anchor 1 0 1 0
+    PositionX -594.17
+    OffsetLeft -594.17
+    PositionY -6.456
+    OffsetTop -6.456
+    SizeX 130.985
+    OffsetRight 463.185
+    SizeY 93.803
+    OffsetBottom -87.347
+   }
+   Text "00' 00\""
+   "Font Size" 44
+   "Horizontal Alignment" Center
+   "Vertical Alignment" Center
   }
   TextWidgetClass "{62C92C1EEDA42999}" {
    Name "Bearing"
@@ -303,12 +337,12 @@ FrameWidgetClass {
    Name "Signal"
    Slot FrameWidgetSlot "{65A548E11B6E9E21}" {
     Anchor 1 0 1 0
-    PositionX -316.28
-    OffsetLeft -316.28
+    PositionX -204.625
+    OffsetLeft -204.625
     PositionY 11.993
     OffsetTop 11.993
     SizeX 76.05
-    OffsetRight 240.23
+    OffsetRight 128.575
     SizeY 56.126
     OffsetBottom -68.119
    }
@@ -319,12 +353,12 @@ FrameWidgetClass {
    Name "SignalText"
    Slot FrameWidgetSlot "{65A548E1526A9A62}" {
     Anchor 1 0 1 0
-    PositionX -239.03
-    OffsetLeft -239.03
+    PositionX -127.375
+    OffsetLeft -127.375
     PositionY 7.078
     OffsetTop 7.078
     SizeX 118.62
-    OffsetRight 120.41
+    OffsetRight 8.755
     SizeY 63.617
     OffsetBottom -70.695
    }
@@ -341,12 +375,12 @@ FrameWidgetClass {
    Name "LQText"
    Slot FrameWidgetSlot "{65A548E1526A9A62}" {
     Anchor 1 0 1 0
-    PositionX -542.77
-    OffsetLeft -542.77
+    PositionX -431.115
+    OffsetLeft -431.115
     PositionY 8.964
     OffsetTop 8.964
     SizeX 202.41
-    OffsetRight 340.36
+    OffsetRight 228.705
     SizeY 63.616
     OffsetBottom -72.58
    }
@@ -784,7 +818,7 @@ FrameWidgetClass {
    "Z Order" 999
    "Is Visible" 0
    Color 1 0 0 1
-   Text "CONTROLLER NOT IN HANDS || INPUT WILL NOT BE REGISTERED"
+   Text "#controller_error_gui"
    "Font Size" 39
    "Horizontal Alignment" Center
    "Vertical Alignment" Center

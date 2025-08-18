@@ -1,0 +1,23 @@
+SCR_ChimeraCharacter {
+ ID "520EC961A090B1EE"
+ components {
+  ActionsManagerComponent "{520EA1D2F659CE02}" {
+   ActionContexts {
+    UserActionContext "{65E2E2B8999AF7CF}" {
+     ContextName "Back"
+     Position PointInfo "{65E2E2B891C140B4}" {
+      PivotID "Spine5"
+      Offset 0 0.1276 -0.3737
+     }
+    }
+   }
+   additionalActions {
+    SAL_ToggleJammerCharacter "{65E2E2B8A067FCF8}" {
+     ParentContextList {
+      "Back"
+     }
+    }
+   }
+  }
+ }
+}

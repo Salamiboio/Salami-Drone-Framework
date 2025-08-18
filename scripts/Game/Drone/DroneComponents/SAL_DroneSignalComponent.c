@@ -12,6 +12,9 @@ class SAL_DroneSignalComponent: ScriptComponent
 	float m_fLQ = 0;
 	
 	SAL_DroneConnectionManager m_DroneManager;
+	SAL_DroneControllerComponent m_DroneController;
+	RplId m_Id;
+	RplComponent m_RplComp;
 	
 	float m_fObstructionPenaltySmoothed = 0.0;
 	
@@ -23,13 +26,29 @@ class SAL_DroneSignalComponent: ScriptComponent
 	override void EOnInit(IEntity owner)
 	{
 		m_DroneManager = SAL_DroneConnectionManager.GetInstance();
+		m_DroneController = SAL_DroneControllerComponent.Cast(owner.FindComponent(SAL_DroneControllerComponent));
+		m_Id = SCR_PlayerController.GetRplId(owner);
+		if (!m_RplComp)
+			m_RplComp = RplComponent.Cast(owner.FindComponent(RplComponent));
 	}
 	
 	float m_fTimer = 0;
 	override void EOnFixedFrame(IEntity owner, float timeSlice)
 	{
-		if (!m_DroneManager.IsDronePlayers(owner))
+		if (System.IsConsoleApp())
 			return;
+		
+		if (m_Id == -1)
+			m_Id = RplComponent.Cast(owner.FindComponent(RplComponent)).Id();
+		
+		if (m_DroneController.m_iOwner != SCR_PlayerController.GetLocalPlayerId()  || !m_DroneManager.m_aActiveDrones.Contains(m_Id))
+			return;
+		
+		int antennaMultiplier = 1;
+		if (m_DroneManager.IsPlayerAntennaOwner(SCR_PlayerController.GetLocalPlayerId()))
+		{
+			antennaMultiplier = SAL_DroneAntennaComponent.Cast(m_DroneManager.GetPlayersAntenna(SCR_PlayerController.GetLocalPlayerId()).FindComponent(SAL_DroneAntennaComponent)).m_iAntennaRangeMultiplier;
+		}
 		
 		if (m_fTimer < 0.01)
 		{
@@ -43,7 +62,7 @@ class SAL_DroneSignalComponent: ScriptComponent
 		vector droneOrigin = owner.GetOrigin();
 		
 		int distanceFrom = vector.Distance(playerOrigin, droneOrigin);
-		float distancePercentage = distanceFrom/m_fDroneRange;
+		float distancePercentage = distanceFrom/ (m_fDroneRange * antennaMultiplier);
 		float signalLoss = Math.Pow(distancePercentage, 2.2);  // tuned exponent
 		
 		vector droneSignal = droneOrigin;

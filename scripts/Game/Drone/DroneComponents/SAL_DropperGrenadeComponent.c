@@ -6,36 +6,38 @@ class SAL_DropperGrenadeComponent: ScriptComponent
 {
 	[Attribute("5.0")] float m_fFuzeTime;
 	[Attribute("0")] bool m_bImpactFuze;
-	[Attribute("", UIWidgets.ResourceNamePicker, "Explosion", "et")] ResourceName m_Explosion;
 	
 	float m_fCurrentFuze = m_fFuzeTime;
+	float m_fLastHeight = 10000;
 	Instigator m_Instagator;
 	IEntity m_eDrone;
+	float m_fDropperBuffer = 0;
 	
 	override void OnPostInit(IEntity owner)
 	{
 		#ifdef WORKBENCH
-		SetEventMask(owner, EntityEvent.FRAME);
+		if (!m_bImpactFuze)
+			SetEventMask(owner, EntityEvent.FRAME);
+		else
+			SetEventMask(owner, EntityEvent.FRAME | EntityEvent.CONTACT);
 		#else
 		if (RplSession.Mode() == RplMode.Client)
 			return;
 		
-		SetEventMask(owner, EntityEvent.FRAME);
+		if (!m_bImpactFuze)
+			SetEventMask(owner, EntityEvent.FRAME);
+		else
+			SetEventMask(owner, EntityEvent.FRAME | EntityEvent.CONTACT);
 		#endif
 		
 	}
 	
 	override void EOnFrame(IEntity owner, float timeSlice)
 	{
-		if (owner.GetParent() != null && owner.GetPhysics().GetSimulationState() != 0)
-			owner.GetPhysics().ChangeSimulationState(SimulationState.NONE);
-		
+
 		if (owner.GetParent() != null)
-			return;
-		
-		if (owner.GetPhysics().GetSimulationState() == 0)
-			owner.GetPhysics().ChangeSimulationState(SimulationState.SIMULATION);
-		
+			return;	
+
 		if (!m_Instagator)
 		{
 			if (!m_eDrone)
@@ -51,27 +53,31 @@ class SAL_DropperGrenadeComponent: ScriptComponent
 					return;
 			
 				SCR_ExplosiveTriggerComponent explComp = SCR_ExplosiveTriggerComponent.Cast(explosion.FindComponent(SCR_ExplosiveTriggerComponent));
-				explComp.GetInstigator().SetInstigatorByPlayerID(SAL_DroneConnectionManager.GetInstance().GetDronesOwner(m_eDrone));
+				explComp.GetInstigator().SetInstigatorByPlayerID(SCR_PlayerController.GetLocalPlayerId());
 				m_Instagator = explComp.GetInstigator();
 			}
 		}
-		
+
 		if (m_bImpactFuze)
 		{
-			if (IsOnGround(owner))
-				ExplodeGrenade(owner);
-			
+			m_fDropperBuffer += timeSlice;
 			return;
 		}
-		else
-		{
-			m_fCurrentFuze -= timeSlice;
 		
-			if (m_fCurrentFuze >= 0)
-				return;
+		m_fCurrentFuze -= timeSlice;
 		
-			ExplodeGrenade(owner);
-		}
+		if (m_fCurrentFuze >= 0)
+			return;
+		
+		ExplodeGrenade(owner);
+	}
+	
+	override void EOnContact(IEntity owner, IEntity other, Contact contact)
+	{
+		if (m_fDropperBuffer <= 0.5)
+			return;
+		
+		ExplodeGrenade(owner);
 	}
 	
 	bool FilterDrone(IEntity ent)
@@ -84,33 +90,13 @@ class SAL_DropperGrenadeComponent: ScriptComponent
 		return true;
 	}
 	
-	bool IsOnGround(IEntity owner)
-	{
-		vector origin = owner.GetOrigin();
-		vector end = origin + Vector(0, -1, 0) * 1000.0; // cast 1000 meters down
-			
-		TraceParam trace = new TraceParam();
-		trace.Start = origin;
-		trace.End = end;
-		trace.Exclude = owner; // prevent hitting self
-		trace.Flags = TraceFlags.WORLD;
-			
-		float height = GetGame().GetWorld().TraceMove(trace, null) * 10000;
-		return height <= 1.015;
-	}
-	
 	void ExplodeGrenade(IEntity owner)
 	{
-		SlotManagerComponent slotComp = SlotManagerComponent.Cast(owner.FindComponent(SlotManagerComponent));
-		if (!slotComp.GetSlotByName("Explosion"))
+		if (!owner)
 			return;
-		
-		IEntity explosion = slotComp.GetSlotByName("Explosion").GetAttachedEntity();
-		if (!explosion)
-			return;
-			
-		SCR_ExplosiveTriggerComponent explComp = SCR_ExplosiveTriggerComponent.Cast(explosion.FindComponent(SCR_ExplosiveTriggerComponent));
-		explComp.UseTrigger();
+		SCR_ExplosiveTriggerComponent explComp = SCR_ExplosiveTriggerComponent.Cast(owner.FindComponent(SCR_ExplosiveTriggerComponent));
+		if (explComp)
+			explComp.UseTrigger();
 		GetGame().GetCallqueue().CallLater(SCR_EntityHelper.DeleteEntityAndChildren, 1000, false, owner);
 	}
 }

@@ -1,0 +1,226 @@
+GenericEntity : "{F09518802063A355}Prefabs/Items/Equipment/DroneAntenna/DroneAntenna.et" {
+ ID "658B340BE800639F"
+ components {
+  InventoryItemComponent "{65E2E24052491BFC}" {
+   Attributes SCR_ItemAttributeCollection "{65E2E2406F6BD3E2}" {
+    ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
+     Name "#Drone_Command_Station"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{65E2E24060936C9D}" {
+     Weight 10
+     SizeSetupStrategy Manual
+     ItemDimensions 15 15 15
+     ItemVolume 8000
+     DimensionScaler 1
+     RestingAdditiveRotationLS 0 0 0
+     RestingAdditiveOffsetLS 0 0 0
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{52D4E9E38931C544}" {
+      CameraPreset Back
+      CameraOrbitAngles 25 15 180
+      CameraDistanceToItem 5
+      FOV 10
+      AspectRatio 1
+      PreviewModel "{8E58994DF56BC4A1}Assets/Drones/DroneCommandStation/DroneCommandStation.xob"
+     }
+    }
+    m_Size SLOT_3x3
+    m_SlotType SLOT_LOADOUT_STORAGE
+   }
+  }
+  InventoryItemComponent "{65E2E240DADA1D82}" {
+   Enabled 0
+  }
+  MeshObject "{658B340BD9325940}" {
+   Object "{8E58994DF56BC4A1}Assets/Drones/DroneCommandStation/DroneCommandStation.xob"
+  }
+  SAL_DroneAntennaComponent "{65D6B8BC8812D2C4}" {
+   Enabled 0
+  }
+  SAL_DroneCommandStationComponent "{65E2E25EF1D27F12}" {
+  }
+  SlotManagerComponent "{65E2E2B5393C29F1}" {
+   Slots {
+    EntitySlotInfo Goggles {
+     Offset 0.1177 -0.0086 0.1367
+     Prefab "{8951045BFE8BC8E4}Prefabs/Characters/HeadGear/FPV_Goggles.et"
+     UpdateReplicationParent 0
+    }
+    EntitySlotInfo Controller {
+     Offset -0.1296 -0.022 0.2056
+     Prefab "{E2434ED1318D8476}Prefabs/Characters/Items/DroneController.et"
+     UpdateReplicationParent 0
+    }
+    EntitySlotInfo DJIBattery1 {
+     Offset -0.1804 0.0463 0.0451
+     Prefab "{EF1E4AA6DCD2D982}Prefabs/Drones/DJIBase/DJIBattery.et"
+     UpdateReplicationParent 0
+    }
+    EntitySlotInfo DJIBattery2 {
+     Offset -0.1046 0.0463 0.045
+     Prefab "{EF1E4AA6DCD2D982}Prefabs/Drones/DJIBase/DJIBattery.et"
+     UpdateReplicationParent 0
+    }
+    EntitySlotInfo DJIBattery3 {
+     Offset -0.0284 0.0463 0.0451
+     Prefab "{EF1E4AA6DCD2D982}Prefabs/Drones/DJIBase/DJIBattery.et"
+     UpdateReplicationParent 0
+    }
+    EntitySlotInfo FPVBattery1 {
+     Offset -0.0855 0.0115 -0.2227
+     Prefab "{1602B2595AC224FB}Prefabs/Drones/FPVBase/FPVBattery.et"
+     UpdateReplicationParent 0
+    }
+    EntitySlotInfo FPVBattery2 {
+     Offset -0.0857 0.0115 -0.1428
+     Prefab "{1602B2595AC224FB}Prefabs/Drones/FPVBase/FPVBattery.et"
+     UpdateReplicationParent 0
+    }
+    EntitySlotInfo FPVBattery3 {
+     Offset -0.0858 0.0115 -0.0614
+     Prefab "{1602B2595AC224FB}Prefabs/Drones/FPVBase/FPVBattery.et"
+     UpdateReplicationParent 0
+    }
+   }
+  }
+  ActionsManagerComponent "{65D6B86C5DE252A0}" {
+   ActionContexts {
+    UserActionContext "{65D6B86C5CCB738A}" {
+     ContextName "default"
+     Position PointInfo "{65D6B86C5B84810E}" {
+      Offset -0.2809 0.3898 0.0001
+     }
+    }
+    UserActionContext "{65E2E2B57C804071}" {
+     ContextName "Goggles"
+     Position PointInfo "{65E2E2B575E9F5AE}" {
+      Offset 0.1156 0.0644 0.1383
+     }
+    }
+    UserActionContext "{65E2E249405BDC2A}" {
+     ContextName "Controller"
+     Position PointInfo "{65E2E249546E0A7A}" {
+      Offset -0.1374 0.0083 0.2144
+     }
+    }
+    UserActionContext "{65E2E2499EDCD1D1}" {
+     ContextName "DJIBattery1"
+     Position PointInfo "{65E2E2499EDCD01F}" {
+      Offset -0.1828 0.0817 0.0472
+     }
+    }
+    UserActionContext "{65E2E2499255CB65}" {
+     ContextName "DJIBattery2"
+     Position PointInfo "{65E2E2499255CBAD}" {
+      Offset -0.1004 0.0817 0.047
+     }
+    }
+    UserActionContext "{65E2E249ABEA24CA}" {
+     ContextName "DJIBattery3"
+     Position PointInfo "{65E2E249ABEA2772}" {
+      Offset -0.0256 0.0817 0.0471
+     }
+    }
+    UserActionContext "{65E2E249A0BFD459}" {
+     ContextName "FPVBattery1"
+     Position PointInfo "{65E2E249A0BFD49B}" {
+      Offset -0.079 0.1 -0.2196
+     }
+    }
+    UserActionContext "{65E2E249BAEC7603}" {
+     ContextName "FPVBattery2"
+     Position PointInfo "{65E2E249BAEC76D5}" {
+      Offset -0.079 0.1 -0.144
+     }
+    }
+    UserActionContext "{65E2E249B0CF5F7F}" {
+     ContextName "FPVBattery3"
+     Position PointInfo "{65E2E249B0CF5FAC}" {
+      Offset -0.079 0.1 -0.0575
+     }
+    }
+   }
+   additionalActions {
+    SAL_ConnectToCommandStation "{65D6B86C5392FFC8}" {
+     ParentContextList {
+      "default"
+     }
+     "Sort Priority" 1
+    }
+    SAL_AddSlotItem "{65E2E2B588D04824}" {
+     ParentContextList {
+      "Goggles"
+     }
+     m_sItem "{8951045BFE8BC8E4}Prefabs/Characters/HeadGear/FPV_Goggles.et"
+     m_sSlotName "Goggles"
+    }
+    SAL_AddSlotItem "{65E2E2481EB53614}" {
+     ParentContextList {
+      "Controller"
+     }
+     m_sItem "{E2434ED1318D8476}Prefabs/Characters/Items/DroneController.et"
+     m_sSlotName "Controller"
+    }
+    SAL_AddSlotItem "{65E2E249D453A3C3}" {
+     ParentContextList {
+      "DJIBattery1"
+     }
+     m_sItem "{EF1E4AA6DCD2D982}Prefabs/Drones/DJIBase/DJIBattery.et"
+     m_sSlotName "DJIBattery1"
+    }
+    SAL_AddSlotItem "{65E2E249EB22F5CA}" {
+     ParentContextList {
+      "DJIBattery2"
+     }
+     m_sItem "{EF1E4AA6DCD2D982}Prefabs/Drones/DJIBase/DJIBattery.et"
+     m_sSlotName "DJIBattery2"
+    }
+    SAL_AddSlotItem "{65E2E249E60C3B58}" {
+     ParentContextList {
+      "DJIBattery3"
+     }
+     m_sItem "{EF1E4AA6DCD2D982}Prefabs/Drones/DJIBase/DJIBattery.et"
+     m_sSlotName "DJIBattery3"
+    }
+    SAL_AddSlotItem "{65E2E249FE769681}" {
+     ParentContextList {
+      "FPVBattery1"
+     }
+     m_sItem "{1602B2595AC224FB}Prefabs/Drones/FPVBase/FPVBattery.et"
+     m_sSlotName "FPVBattery1"
+    }
+    SAL_AddSlotItem "{65E2E249F1C7E360}" {
+     ParentContextList {
+      "FPVBattery2"
+     }
+     m_sItem "{1602B2595AC224FB}Prefabs/Drones/FPVBase/FPVBattery.et"
+     m_sSlotName "FPVBattery2"
+    }
+    SAL_AddSlotItem "{65E2E24A0E0DC2EE}" {
+     ParentContextList {
+      "FPVBattery3"
+     }
+     m_sItem "{1602B2595AC224FB}Prefabs/Drones/FPVBase/FPVBattery.et"
+     m_sSlotName "FPVBattery3"
+    }
+    SAL_DistanceActionCommandStation "{65E2E25EE7C39978}" {
+     ParentContextList {
+      "default"
+     }
+    }
+   }
+  }
+  ActionsManagerComponent "{65D6B8BCB5AF1A47}" {
+   Enabled 0
+  }
+  RplComponent "{658B340BDAF50D06}" {
+   "Rpl State Override" None
+   "Parent Node From Parent Entity" 0
+  }
+ }
+ coords 1414.124 39.084 2165.835
+ angleX -0.387
+ angleY 117.174
+ angleZ -1.205
+}

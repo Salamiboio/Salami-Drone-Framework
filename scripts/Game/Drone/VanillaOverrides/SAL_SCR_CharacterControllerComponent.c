@@ -22,26 +22,19 @@ modded class SCR_CharacterControllerComponent
 		if (GetOwner() != SCR_PlayerController.GetLocalControlledEntity())
 			return;
 		
+		SAL_DroneConnectionManager droneManager = SAL_DroneConnectionManager.GetInstance();
+		
 		if (newLifeState == ECharacterLifeState.INCAPACITATED)
 		{
-		
-			CameraBase camera = GetGame().GetCameraManager().CurrentCamera();
-			
-			if (!camera)
-				return;
-			
-			if (camera.GetPrefabData().GetPrefabName() == "{D10C3C304FC29655}Prefabs/Editor/Camera/DroneCamera.et")
-				SCR_PlayerController.Cast(GetGame().GetPlayerController()).ExitDrone();
+			SCR_PlayerController.Cast(GetGame().GetPlayerController()).ExitDrone();
 		}
 		else if (newLifeState == ECharacterLifeState.DEAD)
 		{
-			CameraBase camera = GetGame().GetCameraManager().CurrentCamera();
-		
-			if (!camera)
-				return;
-			
-			if (SAL_DroneConnectionManager.GetInstance().IsPlayerDroneOwner(SCR_PlayerController.GetLocalPlayerId()))
-				SCR_PlayerController.Cast(GetGame().GetPlayerController()).DisconnectDrone();
+			SCR_PlayerController.Cast(GetGame().GetPlayerController()).DisconnectDrone();
+			if (droneManager.IsPlayerAntennaOwner(SCR_PlayerController.GetLocalPlayerId()))
+				SCR_PlayerController.Cast(GetGame().GetPlayerController()).DisconnectPlayerToAntenna(droneManager.GetPlayersAntenna(SCR_PlayerController.GetLocalPlayerId()));
+			if (droneManager.IsPlayerCommandStationOwner(SCR_PlayerController.GetLocalPlayerId()))
+				SCR_PlayerController.Cast(GetGame().GetPlayerController()).DisconnectPlayerToCommand(droneManager.GetPlayersCommandStation(SCR_PlayerController.GetLocalPlayerId()));
 		}
 	}
 }

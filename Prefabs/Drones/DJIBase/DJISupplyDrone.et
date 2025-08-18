@@ -1,0 +1,24 @@
+GenericEntity : "{FDA92D590B9C633B}Prefabs/Drones/DJIBase/DJIBase.et" {
+ ID "659863D5118F3377"
+ components {
+  InventoryItemComponent "{65AB2523310F27D1}" {
+   Attributes SCR_ItemAttributeCollection "{65AB252330249C83}" {
+    ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
+     Name "#DJI_Supply_Drone"
+    }
+   }
+  }
+  SlotManagerComponent "{659863D7B9C69FEF}" {
+   Slots {
+    EntitySlotInfo Storage {
+     Offset 0 -0.1757 0
+     Angles 0 90 0
+     Prefab "{8395A2F307CC0C0A}Prefabs/Drones/DJIBase/DJISupplyCrate.et"
+     DisablePhysicsInteraction 1
+     UpdateReplicationParent 1
+    }
+   }
+  }
+ }
+ coords 1413.925 39 2163.507
+}

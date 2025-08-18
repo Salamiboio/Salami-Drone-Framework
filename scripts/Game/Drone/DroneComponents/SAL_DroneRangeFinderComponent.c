@@ -13,6 +13,8 @@ class SAL_DroneRangeFinderComponent: ScriptComponent
 	
 	InputManager m_InputManager;
 	SAL_DroneConnectionManager m_DroneManager;
+	SAL_DroneControllerComponent m_DroneController;
+	RplComponent m_RplComp;
 	
 	override void OnPostInit(IEntity owner)
 	{
@@ -23,11 +25,17 @@ class SAL_DroneRangeFinderComponent: ScriptComponent
 	{
 		m_InputManager = GetGame().GetInputManager();
 		m_DroneManager = SAL_DroneConnectionManager.GetInstance();
+		m_DroneController = SAL_DroneControllerComponent.Cast(owner.FindComponent(SAL_DroneControllerComponent));
+		if (!m_RplComp)
+			m_RplComp = RplComponent.Cast(owner.FindComponent(RplComponent));
 	}
 	
 	override void EOnFrame(IEntity owner, float timeSlice)
 	{
-		if (!m_DroneManager.IsDronePlayers(owner))
+		if (System.IsConsoleApp())
+			return;
+		
+		if (m_DroneController.m_iOwner != SCR_PlayerController.GetLocalPlayerId())
 			return;
 		
 		if (m_InputManager.GetActionValue("DroneLaser") > 0)

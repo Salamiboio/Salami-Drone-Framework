@@ -4,10 +4,10 @@ GenericEntity {
   InventoryItemComponent "{65AD7A14C5E879A8}" {
    Attributes SCR_ItemAttributeCollection "{65AD7A14C5E87992}" {
     ItemDisplayName UIInfo "{65AD7A14C5E87995}" {
-     Name "DJI Drone"
+     Name "#DJI_Drone"
     }
     ItemPhysAttributes ItemPhysicalAttributes "{65AD7A14C5E87998}" {
-     Weight 0.4
+     Weight 0.8
      SizeSetupStrategy Manual
      ItemDimensions 15 15 15
      ItemVolume 3000
@@ -29,7 +29,7 @@ GenericEntity {
    }
   }
   MeshObject "{65AD7A14C5E87982}" {
-   Object "{A49369E24DF84B3F}Assets/Drones/DJIs/DJI.xob"
+   Object "{B85053A44A84C6D7}Assets/Drones/DJIs/NewDJI.xob"
   }
   RigidBody "{65AD7A14C5E87984}" {
    Active Active

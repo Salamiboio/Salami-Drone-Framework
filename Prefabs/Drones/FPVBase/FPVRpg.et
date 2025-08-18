@@ -4,7 +4,10 @@ GenericEntity : "{2A283EA7BADDBD28}Prefabs/Drones/FPVBase/FPVBase.et" {
   InventoryItemComponent "{65AB25234576F8FB}" {
    Attributes SCR_ItemAttributeCollection "{65AB252343D23B3A}" {
     ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
-     Name "FPV Drone (RPG)"
+     Name "#FPV_Drone_RPG"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{65AB252369BC87C7}" {
+     Weight 3
     }
     CustomAttributes {
      PreviewRenderAttributes "{52D4E9E38931C544}" {
@@ -16,6 +19,16 @@ GenericEntity : "{2A283EA7BADDBD28}Prefabs/Drones/FPVBase/FPVBase.et" {
   SAL_DroneExplosionComponent "{65A45D68462685BF}" {
    Enabled 1
   }
+  SCR_DamageManagerComponent "{65B9338893072F7F}" {
+   "Additional hit zones" {
+    SCR_DestructibleHitzone Drone {
+     m_pDestructionHandler SCR_DestructionBaseHandler "{65B927DF83A8FA39}" {
+      m_iWreckDelay 500
+      m_fDefaultWreckMass 3
+     }
+    }
+   }
+  }
   SCR_EditableVehicleComponent "{65AF169A26951569}" {
    m_UIInfo SCR_EditableEntityUIInfo "{65AF169A49E83200}" {
     Name "FPV Drone (RPG)"
@@ -24,20 +37,35 @@ GenericEntity : "{2A283EA7BADDBD28}Prefabs/Drones/FPVBase/FPVBase.et" {
   }
   SlotManagerComponent "{65932E3A16300B2D}" {
    Slots {
-    EntitySlotInfo Explosion {
-     Prefab "{D8888E136766ECE9}Prefabs/Weapons/Warheads/Explosions/Explosion_FPV.et"
+    EntitySlotInfo Camera {
+     Offset -0.0009 0.0154 0.1723
     }
     EntitySlotInfo WarheadHolder {
+     Offset 0 -0.0161 0.0867
      Prefab "{911DCEC00E3D4C8E}Prefabs/Drones/FPVBase/RoundHolder.et"
     }
     EntitySlotInfo Warhead {
+     Offset 0 -0.0161 0.0867
      Prefab "{F26421FDD2406AC2}Prefabs/Drones/FPVBase/RPGWarhead.et"
     }
     EntitySlotInfo Contacts {
-     Offset 0.0024 -0.0048 0.1536
+     Offset -0.0048 -0.029 0.1997
      Prefab "{7CED2E8704F6A347}Prefabs/Drones/FPVBase/Contacts.et"
     }
    }
+  }
+  SCR_ExplosiveChargeComponent "{65CA060FB12784C7}" {
+  }
+  SCR_ExplosiveTriggerComponent "{65CA060FB3785B1E}" {
+   PROJECTILE_EFFECTS {
+    AIExplosionEffect "{65CA060FC85C7B9F}" {
+    }
+    ExplosionEffect "{65CA060FCB92CFC6}" {
+     EffectPrefab "{B9B99B77D84EDD3C}Prefabs/Weapons/Warheads/Explosions/Warhead_FPV.et"
+     SoundEvent "SOUND_EXPLOSION"
+    }
+   }
+   TRIGGER_ALIVE 1
   }
  }
 }

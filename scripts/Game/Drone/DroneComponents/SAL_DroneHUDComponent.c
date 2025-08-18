@@ -22,6 +22,8 @@ class SAL_DroneHUDComponent: ScriptComponent
 	SAL_DroneExplosionComponent m_ExplosiveComponent;
 	SAL_DroneRangeFinderComponent m_RangeFinderComponent;
 	SAL_DroneControllerComponent m_DroneController;
+	RplComponent m_RplComp;
+	RplId m_Id;
 	
 	int m_iHeight = 0;
 	
@@ -30,7 +32,7 @@ class SAL_DroneHUDComponent: ScriptComponent
 	
 	override void OnPostInit(IEntity owner)
 	{
-		SetEventMask(owner, EntityEvent.FIXEDFRAME | EntityEvent.INIT);
+		SetEventMask(owner, EntityEvent.FRAME | EntityEvent.INIT);
 	}
 	
 	override void EOnInit(IEntity owner)
@@ -43,31 +45,44 @@ class SAL_DroneHUDComponent: ScriptComponent
 		m_ExplosiveComponent = SAL_DroneExplosionComponent.Cast(owner.FindComponent(SAL_DroneExplosionComponent));
 		m_RangeFinderComponent = SAL_DroneRangeFinderComponent.Cast(owner.FindComponent(SAL_DroneRangeFinderComponent));
 		m_DroneController = SAL_DroneControllerComponent.Cast(owner.FindComponent(SAL_DroneControllerComponent));
+		m_Id = SCR_PlayerController.GetRplId(owner);
+		if (!m_RplComp)
+			m_RplComp = RplComponent.Cast(owner.FindComponent(RplComponent));
 	};
+	
+	void CloseHud()
+	{
+		if (SCR_PlayerController.GetLocalControlledEntity())
+		{
+			ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().SetCameraPostProcessEffect(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().GetCurrentCameraId(), 9, PostProcessEffectType.None, "");
+			ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().SetCameraPostProcessEffect(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().GetCurrentCameraId(), 10, PostProcessEffectType.None, "");
+		}
+		if (m_MapEntity)
+		{
+			m_MapEntity.CloseMap();
+		}
+		delete m_wOverlayWidget;		
+		GetGame().GetHUDManager().SetVisible(true);		
+	}
 	
 	float m_fTimer = 0;
 	float m_fBatteryTimer = 0;
-	override void EOnFixedFrame(IEntity owner, float timeSlice)
+	float m_fBatteryCheck = 0;
+	override void EOnFrame(IEntity owner, float timeSlice)
 	{
+		if (System.IsConsoleApp())
+			return;
+		
+		if (m_Id == -1)
+			m_Id = RplComponent.Cast(owner.FindComponent(RplComponent)).Id();
+		
 		if (!m_CameraManager.CurrentCamera())
 			return;
 		
-		if (m_CameraManager.CurrentCamera().GetPrefabData().GetPrefabName() != "{D10C3C304FC29655}Prefabs/Editor/Camera/DroneCamera.et" && m_wOverlayWidget)
-		{
-			if (SCR_PlayerController.GetLocalControlledEntity())
-			{
-				ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().SetCameraPostProcessEffect(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().GetCurrentCameraId(), 9, PostProcessEffectType.None, "");
-				ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().SetCameraPostProcessEffect(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().GetCurrentCameraId(), 10, PostProcessEffectType.None, "");
-			}
-			if (m_MapEntity)
-			{
-				m_MapEntity.CloseMap();
-			}
-			delete m_wOverlayWidget;		
-			GetGame().GetHUDManager().SetVisible(true);				
-		}
+		if (m_wOverlayWidget && !m_DroneConnectionManager.m_aActiveDrones.Contains(m_Id))
+			CloseHud();
 		
-		if (!m_DroneConnectionManager.IsDronePlayers(owner))
+		if (m_DroneController.m_iOwner != SCR_PlayerController.GetLocalPlayerId() || !m_DroneConnectionManager.m_aActiveDrones.Contains(m_Id))
 			return;
 		
 		if (m_CameraManager.CurrentCamera().GetPrefabData().GetPrefabName() != "{D10C3C304FC29655}Prefabs/Editor/Camera/DroneCamera.et")
@@ -308,6 +323,23 @@ class SAL_DroneHUDComponent: ScriptComponent
 					TextWidget.Cast(m_wOverlayWidget.FindWidget("BatteryText")).SetText(currentPercent.ToString());
 					ProgressBarWidget.Cast(m_wOverlayWidget.FindWidget("BatteryBar")).SetCurrent(currentPercent);
 					
+					if (m_fBatteryCheck > 1.5)
+					{
+						m_fBatteryCheck = 0;
+						if (m_DroneController.m_iThrottle > 0)
+						{
+							float timeLeft = m_BatteryComponent.m_fCurrentBattery/ (60 * (m_DroneController.m_iThrottle + Math.AbsFloat(m_DroneController.m_iPitch) + Math.AbsFloat(m_DroneController.m_iRoll)));
+							float timeLeftLeftover = timeLeft - Math.Floor(timeLeft);
+							float secondsLeft = timeLeftLeftover * 60;
+							string timeLeftString = Math.Floor(timeLeft).ToString() + "'" + Math.Round(secondsLeft).ToString() + "\"";
+							TextWidget.Cast(m_wOverlayWidget.FindWidget("BatteryTime")).SetText(timeLeftString);
+						}
+						else
+							TextWidget.Cast(m_wOverlayWidget.FindWidget("BatteryTime")).SetText("00'00\"");
+					}
+					else
+						m_fBatteryCheck += timeSlice;
+					
 					if (m_RangeFinderComponent)
 					{
 						if (m_RangeFinderComponent.m_bHasFired)
@@ -341,6 +373,19 @@ class SAL_DroneHUDComponent: ScriptComponent
 					float rollLeft = -540 + 50 * rollPercentage;
 					FrameSlot.SetPosY(m_wOverlayWidget.FindWidget("LineRight"), rollRight);
 					FrameSlot.SetPosY(m_wOverlayWidget.FindWidget("LineLeft"), rollLeft);
+					
+					SlotManagerComponent slotMan = SlotManagerComponent.Cast(owner.FindComponent(SlotManagerComponent));
+					if (!slotMan)
+						break;
+					
+					EntitySlotInfo grenadeSlot = slotMan.GetSlotByName("GrenadeDropper");
+					if (!grenadeSlot)
+						break;
+					
+					if (grenadeSlot.GetAttachedEntity() == null)
+						m_wOverlayWidget.FindWidget("Grenade").SetVisible(false);
+					else
+						m_wOverlayWidget.FindWidget("Grenade").SetVisible(true);
 				}
 			}
 			
@@ -434,19 +479,7 @@ class SAL_DroneHUDComponent: ScriptComponent
 			return;
 		
 		if (m_wOverlayWidget)
-		{
-			if (SCR_PlayerController.GetLocalControlledEntity())
-			{
-				ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().SetCameraPostProcessEffect(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().GetCurrentCameraId(), 9, PostProcessEffectType.None, "");
-				ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().SetCameraPostProcessEffect(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().GetCurrentCameraId(), 10, PostProcessEffectType.None, "");
-			}
-			if (m_MapEntity)
-			{
-				m_MapEntity.CloseMap();
-			}
-			delete m_wOverlayWidget;
-			GetGame().GetHUDManager().SetVisible(true);		
-		}
+			CloseHud();
 			
 	}
 }

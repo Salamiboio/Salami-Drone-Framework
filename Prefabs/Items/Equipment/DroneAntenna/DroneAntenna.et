@@ -1,0 +1,70 @@
+GenericEntity : "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et" {
+ ID "658B340BE800639F"
+ components {
+  InventoryItemComponent "{65E2E240DADA1D82}" {
+   Attributes SCR_ItemAttributeCollection "{65E2E240D7D3DF15}" {
+    ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
+     Name "#Drone_Antenna"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{65E2E24060936C9D}" {
+     Weight 5
+     SizeSetupStrategy Manual
+     ItemDimensions 15 15 15
+     ItemVolume 5000
+     DimensionScaler 1
+     RestingAdditiveRotationLS 0 0 0
+     RestingAdditiveOffsetLS 0 0 0
+    }
+    CustomAttributes {
+     PreviewRenderAttributes "{52D4E9E38931C544}" {
+      CameraPreset Back
+      CameraOrbitAngles 25 15 180
+      CameraDistanceToItem 5
+      FOV 10
+      AspectRatio 1
+      PreviewModel "{5AD2B85EEAC81D6B}Assets/Drones/TripodAntenna/TripodAntenna.xob"
+     }
+    }
+    m_Size SLOT_3x3
+    m_SlotType SLOT_LOADOUT_STORAGE
+   }
+  }
+  MeshObject "{658B340BD9325940}" {
+   Object "{5AD2B85EEAC81D6B}Assets/Drones/TripodAntenna/TripodAntenna.xob"
+  }
+  SAL_DroneAntennaComponent "{65D6B8BC8812D2C4}" {
+  }
+  SAL_DroneCleanUpComponent "{65EA1CA22D8FB35E}" {
+  }
+  SCR_DamageManagerComponent "{65B933884B65AF78}" {
+   Enabled 0
+  }
+  ActionsManagerComponent "{65D6B8BCB5AF1A47}" {
+   ActionContexts {
+    UserActionContext "{65D6B8BCB4523A98}" {
+     ContextName "default"
+     Position PointInfo "{65D6B8BCB326F270}" {
+      Offset 0 1.3088 0
+     }
+    }
+   }
+   additionalActions {
+    SAL_ConnectToAntenna "{65D6B8BCC5B237D2}" {
+     ParentContextList {
+      "default"
+     }
+     "Sort Priority" 1
+    }
+    SAL_DistanceActionAntenna "{65E2E243EC3D82FB}" {
+     ParentContextList {
+      "default"
+     }
+    }
+   }
+  }
+  RplComponent "{658B340BDAF50D06}" {
+   "Parent Node From Parent Entity" 0
+  }
+ }
+ coords 0 0 0
+}

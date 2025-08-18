@@ -14,7 +14,7 @@ modded class SCR_CharacterInventoryStorageComponent
 		{
 			if (LoadoutSlotInfo.Cast(storageOwner.FindItemSlot(item)))
 			{
-				SCR_PlayerController.Cast(GetGame().GetPlayerController()).EnterDrone();
+				SCR_PlayerController.Cast(GetGame().GetPlayerController()).EnterDrone(SAL_DroneConnectionManager.GetInstance().GetPlayersDroneRplId(SCR_PlayerController.GetLocalPlayerId()));
 			}
 			else
 				SCR_PlayerController.Cast(GetGame().GetPlayerController()).ExitDrone();
@@ -58,7 +58,7 @@ modded class SCR_CharacterInventoryStorageComponent
 			if (SAL_DroneConnectionManager.GetInstance().IsDronePlayers(item))
 				if(SCR_CharacterInventoryStorageComponent.Cast(SCR_PlayerController.GetLocalControlledEntity().FindComponent(SCR_CharacterInventoryStorageComponent)).Get(0))
 					if (SCR_CharacterInventoryStorageComponent.Cast(SCR_PlayerController.GetLocalControlledEntity().FindComponent(SCR_CharacterInventoryStorageComponent)).Get(0).GetPrefabData().GetPrefabName() == "{8951045BFE8BC8E4}Prefabs/Characters/HeadGear/FPV_Goggles.et")
-							SCR_PlayerController.Cast(GetGame().GetPlayerController()).EnterDrone();
+							SCR_PlayerController.Cast(GetGame().GetPlayerController()).EnterDrone(SAL_DroneConnectionManager.GetInstance().GetPlayersDroneRplId(SCR_PlayerController.GetLocalPlayerId()));
 		}
 			
 

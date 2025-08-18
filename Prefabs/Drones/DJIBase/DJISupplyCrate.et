@@ -1,0 +1,26 @@
+GenericEntity : "{E521AEA6D14589B1}Prefabs/Props/Military/AmmoBoxes/AmmoBox_545x39_2160rnd.et" {
+ ID "F0DBA538AC2A0552"
+ components {
+  SCR_UniversalInventoryStorageComponent "{5476A2F100DF4EFF}" {
+   Attributes SCR_ItemAttributeCollection "{5476CDB2EAD8225E}" {
+    ItemPhysAttributes ItemPhysicalAttributes "{65E8CA3E1B705384}" {
+     Weight 1.5
+     ItemDimensions 10 10 10
+     ItemVolume 1000
+     DimensionScaler 1
+     RestingAdditiveRotationLS 0 0 0
+     RestingAdditiveOffsetLS 0 0 0
+    }
+    m_Size SLOT_2x2
+   }
+   UseCapacityCoefficient 0
+   MaxCumulativeVolume 6000
+   MaxItemSize 15 15 15
+   m_fMaxWeight 7
+  }
+  RplComponent "{5476B36C54387F41}" {
+   "Parent Node From Parent Entity" 1
+  }
+ }
+ coords 1414.522 38.992 2162.104
+}

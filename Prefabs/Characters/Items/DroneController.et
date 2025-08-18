@@ -2,12 +2,12 @@ GenericEntity : "{FA5C25BF66A53DCF}Prefabs/Weapons/Rifles/AK74/Rifle_AK74.et" {
  ID "CFBAA4B725411E45"
  components {
   MeshObject "{CFBAA4B701F95D69}" {
-   Object "{93AF3C8F28474791}Assets/Drones/FPVController/DroneController.xob"
+   Object "{C3C86F22946EAE28}Assets/Drones/FPVController/DroneControllerNew.xob"
   }
   SCR_WeaponAttachmentsStorageComponent "{51F080D5CE45A1A2}" {
    Attributes SCR_ItemAttributeCollection "{51F080D5C64F12C5}" {
     ItemDisplayName WeaponUIInfo "{5222CB07CFF6712A}" {
-     Name "Drone Controller"
+     Name "#Drone_Controller"
      Description ""
      m_MagIndicator SCR_MagazineIndicatorConfiguration "{65AD38A846ED82F7}" {
       m_sMagazineLayout ""
@@ -104,7 +104,7 @@ GenericEntity : "{FA5C25BF66A53DCF}Prefabs/Weapons/Rifles/AK74/Rifle_AK74.et" {
    WeaponType None
    AllowedRaise "Only raised"
    UIInfo WeaponUIInfo "{CC3BA6A2C42F09F4}" {
-    Name "Drone Controller"
+    Name "#Drone_Controller"
     Description ""
     m_MagIndicator SCR_MagazineIndicatorConfiguration "{565ECA2FE3F0F3FB}" {
      m_sMagazineLayout ""
@@ -122,7 +122,7 @@ GenericEntity : "{FA5C25BF66A53DCF}Prefabs/Weapons/Rifles/AK74/Rifle_AK74.et" {
   }
   ActionsManagerComponent "{A29AE67FF4D82B0F}" {
    additionalActions {
-    SCR_EquipWeaponAction "{51ECFC668352E6C8}" {
+    SAL_CaseEquipItem "{51ECFC668352E6C8}" {
     }
     SCR_EquipWeaponHolsterAction "{589291C195FC57CB}" {
      ParentContextList {
@@ -149,6 +149,10 @@ GenericEntity : "{FA5C25BF66A53DCF}Prefabs/Weapons/Rifles/AK74/Rifle_AK74.et" {
      }
     }
    }
+  }
+  RplComponent "{E052E71DCB007AF2}" {
+   "Rpl State Override" None
+   "Parent Node From Parent Entity" 1
   }
  }
  coords 121.311 1 136.047

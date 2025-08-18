@@ -1,6 +1,15 @@
-GenericEntity : "{E2434ED1318D8476}Prefabs/Characters/Items/DroneController.et" {
- coords 126.5 1.001 127.543
+GenericEntity : "{2A283EA7BADDBD28}Prefabs/Drones/FPVBase/FPVBase.et" {
+ coords 125.633 1 128.506
 }
-GenericEntity : "{FA5C25BF66A53DCF}Prefabs/Weapons/Rifles/AK74/Rifle_AK74.et" {
- coords 127.422 1 127.513
+GenericEntity : "{77CA4803A4A2B8E3}Prefabs/Drones/FPVBase/FPVRPG.et" {
+ coords 125.496 1 127.254
+}
+GameEntity : "{8951045BFE8BC8E4}Prefabs/Characters/HeadGear/FPV_Goggles.et" {
+ coords 125.913 1 129.928
+}
+GenericEntity : "{E2434ED1318D8476}Prefabs/Characters/Items/DroneController.et" {
+ coords 125.78 1 129.497
+}
+GenericEntity : "{FDA92D590B9C633B}Prefabs/Drones/DJIBase/DJIBase.et" {
+ coords 124.511 1 128.581
 }

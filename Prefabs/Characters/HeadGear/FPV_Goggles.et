@@ -4,7 +4,7 @@ GameEntity : "{17F335BF60DD2550}Prefabs/Characters/Core/Headgear_Base.et" {
   InventoryItemComponent "{5244E4431E28A759}" {
    Attributes SCR_ItemAttributeCollection "{659F1EAD965D8094}" {
     ItemDisplayName UIInfo "{659F1EAD965D8084}" {
-     Name "FPV Goggles"
+     Name "#Drone_Goggles"
     }
     ItemPhysAttributes ItemPhysicalAttributes "{659F1EAD965D808A}" {
      Weight 1
@@ -21,7 +21,7 @@ GameEntity : "{17F335BF60DD2550}Prefabs/Characters/Core/Headgear_Base.et" {
    }
   }
   MeshObject "{5112706CD4157AE0}" {
-   Object "{A53DDA3AE84CA676}Assets/Drones/FPVGoggles/FPVGoggles.xob"
+   Object "{A73C7751D0035A24}Assets/Drones/FPVGoggles/NewFPVGogglesItem.xob"
   }
   SCR_ItemOutfitFactionComponent "{659F1EAD965D80F8}" {
    m_OutfitDataHolder SCR_OutfitFactionDataHolder "{659F1EAD965D80E1}" {
@@ -36,8 +36,8 @@ GameEntity : "{17F335BF60DD2550}Prefabs/Characters/Core/Headgear_Base.et" {
   BaseLoadoutClothComponent "{5112706CD4157AF8}" {
    AreaType LoadoutHeadCoverArea "{659F1EAD965D80EB}" {
    }
-   WornModel "{A53DDA3AE84CA676}Assets/Drones/FPVGoggles/FPVGoggles.xob"
-   ItemModel "{72CD7E5E3190D3FE}Assets/Drones/FPVGoggles/FPVGogglesItem.xob"
+   WornModel "{42714431C70086CB}Assets/Drones/FPVGoggles/NewFPVGoggles.xob"
+   ItemModel "{A73C7751D0035A24}Assets/Drones/FPVGoggles/NewFPVGogglesItem.xob"
   }
   ActionsManagerComponent "{5112706CD4157AC9}" {
    ActionContexts {
@@ -47,6 +47,18 @@ GameEntity : "{17F335BF60DD2550}Prefabs/Characters/Core/Headgear_Base.et" {
      }
     }
    }
+   additionalActions {
+    SAL_CaseEquipItemCloth "{52E6EC76F51E12DE}" {
+    }
+    SAL_CasePickUpItem "{52E6EC76F43FCD58}" {
+    }
+   }
+  }
+  RplComponent "{5244E440DAA03DB6}" {
+   "Rpl State Override" None
+   "Parent Node From Parent Entity" 1
+  }
+  SAL_DroneGogglesComponent "{65E8F331AD7D38A5}" {
   }
  }
  coords 0.594 1.202 -1.52

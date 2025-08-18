@@ -19,12 +19,12 @@ GenericEntity {
   InventoryItemComponent "{65AB2523310F27D1}" {
    Attributes SCR_ItemAttributeCollection "{65AB252330249C83}" {
     ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
-     Name "DJI Drone"
+     Name "#DJI_Drone"
     }
     ItemPhysAttributes ItemPhysicalAttributes "{65ACFD96E4CDB70C}" {
      Weight 0.8
      SizeSetupStrategy Manual
-     ItemDimensions 15 15 15
+     ItemDimensions 20 15 20
      ItemVolume 3000
      DimensionScaler 1
      RestingAdditiveRotationLS 0 0 0
@@ -33,6 +33,7 @@ GenericEntity {
     CustomAttributes {
      PreviewRenderAttributes "{52D4E9E38931C544}" {
       CameraDistanceToItem 0.4
+      PreviewModel "{B85053A44A84C6D7}Assets/Drones/DJIs/NewDJI.xob"
       PreviewPrefab "{FDA92D590B9C633B}Prefabs/Drones/DJIBase/DJIBase.et"
      }
     }
@@ -41,7 +42,7 @@ GenericEntity {
    }
   }
   MeshObject "{659863D74A35D5DA}" {
-   Object "{A49369E24DF84B3F}Assets/Drones/DJIs/DJI.xob"
+   Object "{B85053A44A84C6D7}Assets/Drones/DJIs/NewDJI.xob"
    LODFactors {
     1000
    }
@@ -61,13 +62,15 @@ GenericEntity {
    m_iMinZoom 84
   }
   SAL_DroneBatteryComponent "{65AAA9DA6F0BB1F5}" {
-   m_fMaxBattery 1800
+   m_fMaxBattery 1200
    m_eBatteryType DJI
+  }
+  SAL_DroneCleanUpComponent "{65E8A9CED2D961C9}" {
   }
   SAL_DroneControllerComponent "{659863D74259DF47}" {
    m_iMaxThrustRPM 15000
    m_bStabilized 1
-   m_fYawSensitivity 0.5
+   m_fYawSensitivity 4
    m_DroneStablizerProfile SAL_DroneStablizerProfile "{659C775FE5A6A7EF}" {
     m_fMaxHorizontalSpeed 12
     m_fBrakeStrength 3
@@ -135,44 +138,45 @@ GenericEntity {
      }
      AimpointChecked 1
      VsibilityChecked 1
-     Dimension 0.1
+     Dimension 0.5
     }
    }
-   IlluminationLvPerLight 4
   }
   SlotManagerComponent "{659863D7B9C69FEF}" {
    Slots {
     EntitySlotInfo Rotor1 {
-     Offset -0.205 0.1184 0.155
+     Offset -0.1994 0.1096 0.1185
      Angles 0 0 -4.5
      Prefab "{E7255C105E20C8C0}Prefabs/Drones/DJIBase/DJIRotor.et"
     }
     EntitySlotInfo Rotor2 {
-     Offset 0.205 0.1184 0.155
+     Offset 0.2023 0.1101 0.1206
      Angles 0 0 4.5
      Prefab "{E7255C105E20C8C0}Prefabs/Drones/DJIBase/DJIRotor.et"
     }
     EntitySlotInfo Rotor3 {
-     Offset -0.1536 0.0689 -0.155
-     Angles 0 0 -6.5
+     Offset -0.1742 0.0671 -0.1875
+     Angles -6.7218 0.7694 -6.5452
      Prefab "{E7255C105E20C8C0}Prefabs/Drones/DJIBase/DJIRotor.et"
     }
     EntitySlotInfo Rotor4 {
-     Offset 0.1536 0.0689 -0.155
-     Angles 0 0 6.5
+     Offset 0.1805 0.0659 -0.1857
+     Angles -6.381 -0.7301 6.5406
      Prefab "{E7255C105E20C8C0}Prefabs/Drones/DJIBase/DJIRotor.et"
     }
     EntitySlotInfo Camera {
-     Offset -0.0019 0.0326 0.2
+     Offset -0.0019 0.0326 0.1642
      Prefab "{DD1F5C844352D9A7}Prefabs/Drones/DJIBase/CameraEntity.et"
     }
     EntitySlotInfo CameraBody {
-     Offset 0 0.0531 0.1527
+     Offset 0 0.0323 0.1137
      Prefab "{5A605E0B80EC0B21}Prefabs/Drones/DJIBase/DJICamera.et"
     }
     EntitySlotInfo CameraRotator {
-     Offset 0 0.0536 0.1209
+     Offset 0 0.0345 0.0748
      Prefab "{A4F062E36D6517DA}Prefabs/Drones/DJIBase/DJICameraRotator.et"
+    }
+    EntitySlotInfo Storage {
     }
    }
   }
@@ -191,7 +195,7 @@ GenericEntity {
       "DroneBody"
      }
      UIInfo UIInfo "{659881F9B8D270EF}" {
-      Name "Connect to Drone"
+      Name "#Connect_To_Drone"
      }
     }
     SAL_ReplaceBattery "{65ACFD96759B880F}" {
@@ -199,7 +203,7 @@ GenericEntity {
       "DroneBody"
      }
      UIInfo UIInfo "{65ACFD966F819835}" {
-      Name "Replace Battery"
+      Name "#Replace_Battery"
      }
      "Sort Priority" 1
     }

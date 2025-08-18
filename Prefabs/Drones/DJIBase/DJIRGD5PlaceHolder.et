@@ -4,10 +4,10 @@ GenericEntity {
   InventoryItemComponent "{65BB170CBAA0B120}" {
    Attributes SCR_ItemAttributeCollection "{65BB170CBAA0B116}" {
     ItemDisplayName UIInfo "{65BB170CBAA0B102}" {
-     Name "DJI Drone Dropper (RGD5)"
+     Name "#DJI_Drone_RGD5"
     }
     ItemPhysAttributes ItemPhysicalAttributes "{65BB170CBAA0B10B}" {
-     Weight 0.4
+     Weight 2
      SizeSetupStrategy Manual
      ItemDimensions 15 15 15
      ItemVolume 3000
@@ -29,7 +29,7 @@ GenericEntity {
    }
   }
   MeshObject "{65BB170CBAA0B165}" {
-   Object "{A49369E24DF84B3F}Assets/Drones/DJIs/DJI.xob"
+   Object "{B85053A44A84C6D7}Assets/Drones/DJIs/NewDJI.xob"
   }
   RigidBody "{65BB170CBAA0B16C}" {
    Active Active

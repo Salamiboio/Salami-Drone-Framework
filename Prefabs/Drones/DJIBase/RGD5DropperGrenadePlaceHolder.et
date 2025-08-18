@@ -31,5 +31,4 @@ GenericEntity : "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et" {
   }
  }
  coords 0 0 0
- scale 0.5
 }

@@ -1,0 +1,20 @@
+FrameWidgetClass {
+ Name "rootFrame"
+ {
+  RTTextureWidgetClass "{65D88C346E9B7BA7}" {
+   Name "RenderWindow"
+   Slot FrameWidgetSlot "{65D88C346E9B6CE2}" {
+    Anchor 0 0 1 1
+    PositionX 0
+    OffsetLeft 0
+    PositionY 0
+    OffsetTop 0
+    SizeX -1820
+    OffsetRight 0
+    SizeY -1050
+    OffsetBottom 0
+   }
+   "render always" 1
+  }
+ }
+}

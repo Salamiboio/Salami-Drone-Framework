@@ -49,17 +49,17 @@ class SAL_ConnectToDrone : SCR_InventoryAction
 
 		if (!weaponMan.GetCurrentWeapon())
 		{
-			m_outName = "Controller is not in your hands";
+			m_outName = "#Controller_Error";
 			return false;
 		}
 		
 		if (weaponMan.GetCurrentWeapon().GetOwner().GetPrefabData().GetPrefabName() != "{E2434ED1318D8476}Prefabs/Characters/Items/DroneController.et")
 		{
-			m_outName = "Controller is not in your hands";
+			m_outName = "#Controller_Error";
 			return false;
 		}
 
-		m_outName = "Connect to Drone";
+		m_outName = "#Connect_To_Drone";
 		return true;
 	}
 	
@@ -68,10 +68,10 @@ class SAL_ConnectToDrone : SCR_InventoryAction
 		if (!SCR_PlayerController.GetLocalControlledEntity())
 			return false;
 
-		if (m_DroneManager.GetConnectedDrones().Find(RplComponent.Cast(m_eDrone.FindComponent(RplComponent)).Id()) != -1)
+		if (m_DroneManager.IsDroneConnected(SCR_PlayerController.GetRplId(m_eDrone)))
 			return false;
 		
-		if (m_DroneManager.IsPlayerDroneOwner(SCR_PlayerController.GetLocalPlayerId()))
+		if (!m_DroneManager.CanPlayerConnectDrone(SCR_PlayerController.GetLocalPlayerId()))
 			return false;
 		
 		return true;

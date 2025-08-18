@@ -4,7 +4,7 @@ GenericEntity : "{630FB4AD4A735264}Prefabs/Items/Equipment/Canteens/Canteen_US_0
   InventoryItemComponent "{5222EB4D0C73006B}" {
    Attributes SCR_ItemAttributeCollection "{5222EB4D0A2B466B}" {
     ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
-     Name "DJI Battery"
+     Name "#DJI_Battery"
      Description ""
     }
     CustomAttributes {
@@ -24,8 +24,18 @@ GenericEntity : "{630FB4AD4A735264}Prefabs/Items/Equipment/Canteens/Canteen_US_0
    WornModel "{420C8D7CB1EDF78E}Assets/Drones/Batteries/DJIBattery.xob"
    ItemModel "{420C8D7CB1EDF78E}Assets/Drones/Batteries/DJIBattery.xob"
   }
+  ActionsManagerComponent "{508AB5952B584B2E}" {
+   additionalActions {
+    SAL_CasePickUpItem "{51EC842E3A187379}" {
+    }
+   }
+  }
   GadgetGamepadEffectsManagerComponent "{61E103D57E322BB5}" {
    Enabled 0
+  }
+  RplComponent "{508AB59531D748C9}" {
+   "Rpl State Override" None
+   "Parent Node From Parent Entity" 1
   }
  }
  coords 125.442 1 127.688

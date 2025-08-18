@@ -2,12 +2,44 @@ GenericEntity {
  ID "65A29C46B5531F96"
  components {
   MeshObject "{65A29C4CEDA32B75}" {
-   Object "{D309E1AC4DE1B212}Assets/Drones/FPVs/FPVBase/FPV.xob"
+   Object "{EFE16CE7DC96031D}Assets/Drones/FPVs/NewFPV/FPVNew.xob"
   }
   RigidBody "{65A29C4CE19B5E17}" {
    Active Active
    Mass 0.8
    ModelGeometry 1
+  }
+  SAL_DroneCleanUpComponent "{65E8A9CEFACB52FD}" {
+   m_fMinutesTillCleanup 1
+  }
+  SCR_EditableVehicleComponent "{65D51A33FF50E026}" {
+   m_EntityType VEHICLE
+   m_UIInfo SCR_EditableEntityUIInfo "{65D51A33F49D6CA9}" {
+    Name "FPV Drone Wreck"
+    Icon "{43FEC60974B19651}UI/droneSmallIcon.edds"
+    m_Image "{062D42A783238260}UI/FPVIcon.edds"
+    m_sFaction "US"
+    m_aAuthoredLabels {
+     3 51 37 210
+    }
+    m_aAutoLabels {
+     11 122
+    }
+    m_EntityBudgetCost {
+     SCR_EntityBudgetValue "{6052A79ADDA6C7A8}" {
+     }
+     SCR_EntityBudgetValue "{5EDC86E4AF8908B6}" {
+     }
+     SCR_EntityBudgetValue "{5EE71CA1677C234F}" {
+     }
+     SCR_EntityBudgetValue "{5EF07CE9B4A73374}" {
+      m_BudgetType RANK_SERGEANT
+      m_Value 3
+     }
+    }
+   }
+   m_bAutoRegister ALWAYS
+   m_Flags 5
   }
   RplComponent "{65A29C4CEF5CB46C}" {
   }

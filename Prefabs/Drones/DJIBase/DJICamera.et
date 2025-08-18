@@ -2,7 +2,7 @@ GenericEntity : "{E7255C105E20C8C0}Prefabs/Drones/DJIBase/DJIRotor.et" {
  ID "658B340BE800639F"
  components {
   MeshObject "{658B340BD9325940}" {
-   Object "{13B6EF34A5830497}Assets/Drones/DJIs/DJICamera.xob"
+   Object "{87EFAFD0530F3D6C}Assets/Drones/DJIs/NewDJICamera.xob"
   }
   SAL_GimbalCameraComponent "{6597106D4CFB211D}" {
    m_GimbalMode Combined

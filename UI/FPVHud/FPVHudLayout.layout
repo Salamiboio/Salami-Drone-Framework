@@ -249,7 +249,7 @@ FrameWidgetClass {
    "Z Order" 999
    "Is Visible" 0
    Color 1 0 0 1
-   Text "CONTROLLER NOT IN HANDS || INPUT WILL NOT BE REGISTERED"
+   Text "#Controller_Error_GUI"
    "Font Size" 39
    "Horizontal Alignment" Center
    "Vertical Alignment" Center

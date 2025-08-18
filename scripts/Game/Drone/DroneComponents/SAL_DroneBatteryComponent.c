@@ -33,7 +33,7 @@ class SAL_DroneBatteryComponent: ScriptComponent
 	float m_fBatteryCheck = 0;
 	override void EOnFixedFrame(IEntity owner, float timeSlice)
 	{
-		if (!m_DroneManager.IsDronePlayers(owner))
+		if (m_DroneControllernManager.m_iOwner != SCR_PlayerController.GetLocalPlayerId() )
 			return;
 		
 		if (!m_DroneControllernManager.m_bIsArmed)
@@ -47,7 +47,7 @@ class SAL_DroneBatteryComponent: ScriptComponent
 			
 		m_fBatteryCheck = 0;
 		
-		m_fCurrentBattery -= m_DroneControllernManager.m_iThrottle;
+		m_fCurrentBattery -= m_DroneControllernManager.m_iThrottle + Math.AbsFloat(m_DroneControllernManager.m_iPitch) + Math.AbsFloat(m_DroneControllernManager.m_iRoll);
 		
 		if (m_fCurrentBattery <= 0)
 		{

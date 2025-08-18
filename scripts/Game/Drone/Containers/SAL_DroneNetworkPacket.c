@@ -19,6 +19,7 @@ class SAL_DroneNetworkPacket
 	protected bool m_bIsArmed;
 	protected float m_fbatteryLevel;
 	protected float m_fHealth;
+	protected vector m_vCurrentVelocity;
 	
 	//------------------------------------------------------------------------------------------------
 	// SETTERS
@@ -83,6 +84,12 @@ class SAL_DroneNetworkPacket
 		m_fHealth = input;
 	}
 	
+	void SetVelocity(vector input)
+	{
+		m_vCurrentVelocity = input;
+	}
+	
+	
 	//------------------------------------------------------------------------------------------------
 	// GETTERS
 	//------------------------------------------------------------------------------------------------
@@ -137,77 +144,14 @@ class SAL_DroneNetworkPacket
 		return m_fHealth;
 	}
 	
-	//------------------------------------------------------------------------------------------------
-	// REPLICATION STUFF
-	//------------------------------------------------------------------------------------------------
-	bool RplSave(ScriptBitWriter writer)
+	vector GetCurrentVelocity()
 	{
-		writer.WriteRplId(m_Drone);
-		
-		writer.WriteVector(m_vDroneTransform1);
-		writer.WriteVector(m_vDroneTransform2);
-		writer.WriteVector(m_vDroneTransform3);
-		writer.WriteVector(m_vDroneTransform4);
-		
-		writer.WriteFloat(m_aRotorRPMs1);
-		writer.WriteFloat(m_aRotorRPMs2);
-		writer.WriteFloat(m_aRotorRPMs3);
-		writer.WriteFloat(m_aRotorRPMs4);
-		
-		writer.WriteRplId(m_aRotors1);
-		writer.WriteRplId(m_aRotors2);
-		writer.WriteRplId(m_aRotors3);
-		writer.WriteRplId(m_aRotors4);
-		
-		writer.WriteFloat(m_fTimeSlice);
-		
-		writer.WriteBool(m_bIsTrigger);
-		
-		writer.WriteString(m_sExplosion);
-		
-		writer.WriteBool(m_bIsArmed);
-		
-		writer.WriteFloat(m_fbatteryLevel);
-		
-		writer.WriteFloat(m_fHealth);
-			
-		return true;
+		return m_vCurrentVelocity;
 	}
 	
 	//------------------------------------------------------------------------------------------------
-	bool RplLoad(ScriptBitReader reader)
-	{
-		reader.ReadRplId(m_Drone);
-		
-		reader.ReadVector(m_vDroneTransform1);
-		reader.ReadVector(m_vDroneTransform2);
-		reader.ReadVector(m_vDroneTransform3);
-		reader.ReadVector(m_vDroneTransform4);
-		
-		reader.ReadFloat(m_aRotorRPMs1);
-		reader.ReadFloat(m_aRotorRPMs2);
-		reader.ReadFloat(m_aRotorRPMs3);
-		reader.ReadFloat(m_aRotorRPMs4);
-		
-		reader.ReadRplId(m_aRotors1);
-		reader.ReadRplId(m_aRotors2);
-		reader.ReadRplId(m_aRotors3);
-		reader.ReadRplId(m_aRotors4);
-		
-		reader.ReadFloat(m_fTimeSlice);
-		
-		reader.ReadBool(m_bIsTrigger);
-		
-		reader.ReadString(m_sExplosion);
-		
-		reader.ReadBool(m_bIsArmed);
-		
-		reader.ReadFloat(m_fbatteryLevel);
-		
-		reader.ReadFloat(m_fHealth);
-		
-		return true;
-	}
+	// REPLICATION STUFF
+	//------------------------------------------------------------------------------------------------
 	
 	//------------------------------------------------------------------------------------------------
 	static bool Extract(SAL_DroneNetworkPacket instance, ScriptCtx ctx, SSnapSerializerBase snapshot)
@@ -240,6 +184,8 @@ class SAL_DroneNetworkPacket
 		snapshot.SerializeFloat(instance.m_fbatteryLevel);
 		
 		snapshot.SerializeFloat(instance.m_fHealth);
+		
+		snapshot.SerializeVector(instance.m_vCurrentVelocity);
 		
 		return true;
 	}
@@ -276,6 +222,8 @@ class SAL_DroneNetworkPacket
 		
 		snapshot.SerializeFloat(instance.m_fHealth);
 		
+		snapshot.SerializeVector(instance.m_vCurrentVelocity);
+		
 		return true;
 	}
 	
@@ -310,6 +258,8 @@ class SAL_DroneNetworkPacket
 		snapshot.EncodeFloat(packet);
 		
 		snapshot.EncodeFloat(packet);
+		
+		snapshot.EncodeVector(packet);
 	}
 	
 	//------------------------------------------------------------------------------------------------
@@ -344,6 +294,8 @@ class SAL_DroneNetworkPacket
 		
 		snapshot.DecodeFloat(packet);
 		
+		snapshot.DecodeVector(packet);
+		
 		return true;
 	}
 	
@@ -369,7 +321,8 @@ class SAL_DroneNetworkPacket
 			&& lhs.CompareStringSnapshots(rhs)
 			&& lhs.CompareSnapshots(rhs, 4)
 			&& lhs.CompareSnapshots(rhs, 4)
-			&& lhs.CompareSnapshots(rhs, 4);;
+			&& lhs.CompareSnapshots(rhs, 4)
+			&& lhs.CompareSnapshots(rhs, 12);
 		
 		return bool1 && bool2;
 			
@@ -397,7 +350,8 @@ class SAL_DroneNetworkPacket
 			&& snapshot.CompareString(instance.m_sExplosion)
 			&& snapshot.CompareBool(instance.m_bIsArmed)
 			&& snapshot.CompareFloat(instance.m_fbatteryLevel)
-			&& snapshot.CompareFloat(instance.m_fHealth);
+			&& snapshot.CompareFloat(instance.m_fHealth)
+			&& snapshot.CompareVector(instance.m_vCurrentVelocity);
 		return bool1 && bool2;
 			
 	}

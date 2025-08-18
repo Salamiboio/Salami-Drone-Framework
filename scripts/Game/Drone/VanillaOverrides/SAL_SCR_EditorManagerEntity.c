@@ -41,6 +41,6 @@ modded class SCR_EditorManagerEntity
 	
 	void OpenDrone()
 	{
-		SCR_PlayerController.Cast(GetGame().GetPlayerController()).EnterDrone();
+		SCR_PlayerController.Cast(GetGame().GetPlayerController()).EnterDrone(SAL_DroneConnectionManager.GetInstance().GetPlayersDroneRplId(SCR_PlayerController.GetLocalPlayerId()));
 	}
 }

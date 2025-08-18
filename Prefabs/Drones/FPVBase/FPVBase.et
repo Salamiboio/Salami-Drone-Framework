@@ -18,12 +18,12 @@ GenericEntity {
   InventoryItemComponent "{65AB25234576F8FB}" {
    Attributes SCR_ItemAttributeCollection "{65AB252343D23B3A}" {
     ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
-     Name "FPV Drone"
+     Name "#FPV_Drone"
     }
     ItemPhysAttributes ItemPhysicalAttributes "{65AB252369BC87C7}" {
      Weight 0.8
      SizeSetupStrategy Manual
-     ItemDimensions 15 15 15
+     ItemDimensions 20 15 20
      ItemVolume 2500
      DimensionScaler 1
      RestingAdditiveRotationLS 0 0 0
@@ -41,10 +41,7 @@ GenericEntity {
    }
   }
   MeshObject "{65932E3A1462927F}" {
-   Object "{D309E1AC4DE1B212}Assets/Drones/FPVs/FPVBase/FPV.xob"
-   LODFactors {
-    1000
-   }
+   Object "{EFE16CE7DC96031D}Assets/Drones/FPVs/NewFPV/FPVNew.xob"
    PixelSizeScale 10
   }
   RigidBody "{65932E3A2275FA52}" {
@@ -57,13 +54,15 @@ GenericEntity {
    ModelGeometry 1
   }
   SAL_DroneBatteryComponent "{65AAA9DB5A927044}" {
-   m_fMaxBattery 1800
+   m_fMaxBattery 1200
+  }
+  SAL_DroneCleanUpComponent "{65E8A9CEE1508357}" {
   }
   SAL_DroneControllerComponent "{65967B50676709BE}" {
    m_iMaxThrustRPM 20000
-   m_fPitchSensitivity 8
-   m_fYawSensitivity 8
-   m_fRollSensitivity 8
+   m_fPitchSensitivity 16
+   m_fYawSensitivity 16
+   m_fRollSensitivity 16
    m_fHoverMargin 1
   }
   SAL_DroneExplosionComponent "{65A45D68462685BF}" {
@@ -148,27 +147,26 @@ GenericEntity {
   SlotManagerComponent "{65932E3A16300B2D}" {
    Slots {
     EntitySlotInfo Rotor1 {
-     Offset -0.155 0.03 0.155
+     Offset -0.1688 0.019 0.2
      Prefab "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et"
     }
     EntitySlotInfo Rotor2 {
-     Offset 0.155 0.03 0.155
+     Offset 0.17 0.019 0.2015
      Prefab "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et"
     }
     EntitySlotInfo Rotor3 {
-     Offset -0.155 0.03 -0.155
+     Offset -0.1642 0.019 -0.1348
      Prefab "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et"
     }
     EntitySlotInfo Rotor4 {
-     Offset 0.155 0.03 -0.155
+     Offset 0.1653 0.019 -0.1319
+     Angles 0 44.5843 0
      Prefab "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et"
     }
     EntitySlotInfo Camera {
-     Offset -0.0009 0.0164 0.1352
+     Offset -0.0022 -0.003 0.2245
      Angles 25 0 0
      Prefab "{B9E77330D570CF99}Prefabs/Drones/FPVBase/CameraEntityFPV.et"
-    }
-    EntitySlotInfo Explosion {
     }
    }
   }
@@ -190,7 +188,7 @@ GenericEntity {
       "DroneBody"
      }
      UIInfo UIInfo "{65932E3D1E82E1DD}" {
-      Name "Connect To Drone"
+      Name "#Connect_To_Drone"
      }
     }
     SAL_ReplaceBattery "{65ACFD965259DD1D}" {
@@ -198,7 +196,7 @@ GenericEntity {
       "DroneBody"
      }
      UIInfo UIInfo "{65ACFD966F819835}" {
-      Name "Replace Battery"
+      Name "#Replace_Battery"
      }
      "Sort Priority" 1
     }
@@ -214,6 +212,7 @@ GenericEntity {
    }
   }
   RplComponent "{65932E3A10C5CD87}" {
+   "Rpl State Override" None
    "Parent Node From Parent Entity" 0
   }
   Hierarchy "{65AD715E336FB3AE}" {

@@ -1,0 +1,49 @@
+GenericEntity : "{FDA92D590B9C633B}Prefabs/Drones/DJIBase/DJIBase.et" {
+ ID "659863D5118F3377"
+ components {
+  InventoryItemComponent "{65AB2523310F27D1}" {
+   Attributes SCR_ItemAttributeCollection "{65AB252330249C83}" {
+    ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
+     Name "#DJI_Drone_M67"
+    }
+    ItemPhysAttributes ItemPhysicalAttributes "{65ACFD96E4CDB70C}" {
+     Weight 2
+    }
+   }
+  }
+  SAL_DropperComponent "{662493DE9C4AEA40}" {
+   m_DropperGrenade "{45557281F1F61B43}Prefabs/Drones/DJIBase/82GrenadeDropper.et"
+   m_DropperGrenadeReload "{98EC9C526AFBA282}Prefabs/Weapons/Ammo/Ammo_Shell_82mm_HE_O832DU.et"
+   m_DropperGrenadePlaceholder "{F3A8FD9D4D13BDB4}Prefabs/Drones/DJIBase/82DropperGrenadePlaceHolder.et"
+  }
+  SlotManagerComponent "{659863D7B9C69FEF}" {
+   Slots {
+    EntitySlotInfo GrenadeDropper {
+     Offset 0 -0.0393 0.0244
+     Prefab "{F3A8FD9D4D13BDB4}Prefabs/Drones/DJIBase/82DropperGrenadePlaceHolder.et"
+    }
+   }
+  }
+  ActionsManagerComponent "{659863D77B18E89B}" {
+   additionalActions {
+    SAL_PickUpDroneAction "{65ACFD96778EE500}" {
+     ParentContextList +{
+     }
+     UIInfo UIInfo "{662493DE9C4AEA75}" {
+      Name "#AR-Inventory_PickUp"
+     }
+     "Sort Priority" 3
+    }
+    SAL_ReloadDrone "{662493DE9C4AEA7B}" {
+     ParentContextList {
+      "DroneBody"
+     }
+     UIInfo UIInfo "{662493DE9C4AEA79}" {
+      Name "#Reload_Drone"
+     }
+     "Sort Priority" 2
+    }
+   }
+  }
+ }
+}

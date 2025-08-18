@@ -15,6 +15,8 @@ class SAL_DroneHealthComponent: ScriptComponent
 	RplId m_DroneId;
 	World m_World;
 	SCR_DamageManagerComponent m_DamageManager;
+	SAL_DroneControllerComponent m_DroneController;
+	RplId m_Id;
 	
 	float m_fRplDroneHealth = 100;
 	
@@ -30,30 +32,27 @@ class SAL_DroneHealthComponent: ScriptComponent
 		m_DroneId = RplComponent.Cast(owner.FindComponent(RplComponent)).Id();
 		m_World = GetGame().GetWorld();
 		m_DamageManager = SCR_DamageManagerComponent.Cast(owner.FindComponent(SCR_DamageManagerComponent));
+		m_DroneController = SAL_DroneControllerComponent.Cast(owner.FindComponent(SAL_DroneControllerComponent));
+		m_Id = m_DroneManager.GetRplId(owner);
 	}
 	
 	override void EOnFixedFrame(IEntity owner, float timeSlice)
 	{
-		#ifdef WORKBENCH
-		if (m_DamageManager.IsDestroyed() && !m_bIsDestroyed)
+		if (m_Id == -1)
+			m_Id = RplComponent.Cast(owner.FindComponent(RplComponent)).Id();
+		if (System.IsConsoleApp())
 		{
-			m_bIsDestroyed = true;
-			if (m_DroneManager.GetDronesOwner(GetOwner()) != -1)
-				AwardXPForKill();
-			m_DroneManager.DestroyDroneServer(RplComponent.Cast(owner.FindComponent(RplComponent)).Id(), m_sDroneWreckPrefab, m_DamageManager.GetInstigator());
-		}
-		#else
-		if (RplSession.Mode() != RplMode.Client)
-		{
+			if (m_DroneController.m_bIsTriggered)
+				return;
+			
 			if (m_DamageManager.IsDestroyed() && !m_bIsDestroyed)
 			{
 				m_bIsDestroyed = true;
-				if (m_DroneManager.GetDronesOwner(GetOwner()) != -1)
+				if (m_DroneManager.m_aActiveDrones.Contains(m_Id))
 					AwardXPForKill();
-				m_DroneManager.DestroyDroneServer(RplComponent.Cast(owner.FindComponent(RplComponent)).Id(), m_sDroneWreckPrefab, m_DamageManager.GetInstigator());
+				m_DroneManager.DestroyDroneServer(m_Id, m_sDroneWreckPrefab, m_DamageManager.GetInstigator());
 			}
 		}
-		#endif
 		
 		if (!owner) 
 			return;
@@ -61,7 +60,21 @@ class SAL_DroneHealthComponent: ScriptComponent
 		if (!m_DroneManager)
 			return;
 		
-		if (!m_DroneManager.IsDronePlayers(owner))
+		if (!m_DroneController.m_bIsActive)
+			return;
+		
+		if (!m_DroneManager.m_aActiveDrones.Contains(m_Id))
+		{
+			if (RplSession.Mode() == RplMode.Client)
+				return;
+		}
+		else
+		{
+			if (m_DroneController.m_iOwner != SCR_PlayerController.GetLocalPlayerId())
+				return;
+		}
+		
+		if (m_DroneController.m_bIsTriggered)
 			return;
 		
 		EWaterSurfaceType waterType;
@@ -71,8 +84,10 @@ class SAL_DroneHealthComponent: ScriptComponent
 		if ((m_fRplDroneHealth <= 0 && !m_bIsDestroyed) || (waterType != EWaterSurfaceType.WST_NONE && !m_bIsDestroyed))
 		{
 			m_bIsDestroyed = true;
-			SCR_PlayerController.Cast(GetGame().GetPlayerController()).DisconnectDrone();
-			SCR_PlayerController.Cast(GetGame().GetPlayerController()).DestroyDrone(RplComponent.Cast(owner.FindComponent(RplComponent)).Id(), m_sDroneWreckPrefab);
+			if (!System.IsConsoleApp())
+				SCR_PlayerController.Cast(GetGame().GetPlayerController()).DestroyDroneClient(m_Id, m_sDroneWreckPrefab, SCR_PlayerController.GetLocalPlayerId());
+			else
+				m_DroneManager.DestroyDroneHealth(m_Id, m_sDroneWreckPrefab, SCR_PlayerController.GetLocalPlayerId());
 		}
 		
 	}
@@ -96,8 +111,19 @@ class SAL_DroneHealthComponent: ScriptComponent
 		if (!m_DroneManager)
 			return;
 		
-		if (!m_DroneManager.IsDronePlayers(owner))
+		if (!m_DroneController.m_bIsActive)
 			return;
+		
+		if (!m_DroneManager.m_aActiveDrones.Contains(m_Id))
+		{
+			if (RplSession.Mode() == RplMode.Client)
+				return;
+		}
+		else
+		{
+			if (m_DroneController.m_iOwner != SCR_PlayerController.GetLocalPlayerId())
+				return;
+		}
 
 		vector contactNormal = contact.Normal.Normalized();
 		vector droneUp = owner.GetTransformAxis(1);  // drone's local 'up' direction
@@ -115,10 +141,13 @@ class SAL_DroneHealthComponent: ScriptComponent
 		damage = Math.Clamp(damage, 0.0, 100.0);
 		
 		SAL_DroneNetworkPacket packet = new SAL_DroneNetworkPacket();
-		packet.SetDrone(RplComponent.Cast(owner.FindComponent(RplComponent)).Id());
+		packet.SetDrone(m_Id);
 		packet.SetHealth(m_fRplDroneHealth - damage);
 		
-		SCR_PlayerController.Cast(GetGame().GetPlayerController()).UpdateDroneHealth(packet);
+		if (!System.IsConsoleApp())
+			SCR_PlayerController.Cast(GetGame().GetPlayerController()).UpdateDroneHealth(packet);
+		else
+			m_DroneManager.BroadcastHealthUpdate(packet);
 	}
 	
 	void AwardXPForKill()
@@ -140,7 +169,7 @@ class SAL_DroneHealthComponent: ScriptComponent
 	
 	bool WasFriendlyFire()
 	{
-		int droneOwnerId = m_DroneManager.GetDronesOwner(GetOwner());
+		int droneOwnerId = m_DroneManager.GetDronesOwner(m_Id);
 		SCR_FactionManager factionManager = SCR_FactionManager.Cast(GetGame().GetFactionManager());
 		Faction droneFaction = factionManager.GetPlayerFaction(droneOwnerId);
 		Faction killerFaction = factionManager.GetPlayerFaction(m_DamageManager.GetInstigator().GetInstigatorPlayerID());

@@ -5,6 +5,11 @@ PerceptionManager PerceptionManager1 : "{028DAEAD63E056BE}Prefabs/World/Game/Per
  coords 1651.028 7.356 1999.97
 }
 SCR_GameModeEditor GameMode_Editor_Full1 : "{DA3986AF1B5032B7}Prefabs/MP/Modes/Editor/GameMode_Editor_Full.et" {
+ components {
+  GarbageSystemConfigComponent "{65EA1CA302EF2F80}" {
+   Config "{9107A29B244B05F9}Configs/Systems/GarbageSystem/DroneTest.conf"
+  }
+ }
  coords 1407.511 39 2162.124
  {
   SCR_FactionManager "65A548E4661ADE9C" {
@@ -17,26 +22,87 @@ SCR_GameModeEditor GameMode_Editor_Full1 : "{DA3986AF1B5032B7}Prefabs/MP/Modes/E
   }
  }
 }
-$grp GenericEntity : "{33CBDE73AB48172A}Prefabs/Weapons/Explosives/DemoBlock_M112/DemoBlock_M112.et" {
- {
-  coords 1410.111 39 2172.004
- }
- {
-  coords 1401.048 39 2162.101
- }
- {
-  coords 1412.764 39 2163.814
- }
+BaseGameTriggerEntity HQ {
+ coords 1401.159 36.072 2335.364
+ userScript "	private string m_sFactionKey = \"US\";"\
+ "	"\
+ "	void KillPlayer(IEntity ent)"\
+ "	{"\
+ "		EntitySpawnParams spawnParams = new EntitySpawnParams();"\
+ "		vector transform[4];"\
+ "		ent.GetTransform(transform);"\
+ "		spawnParams.Transform = transform;"\
+ "		IEntity lightning = GetGame().SpawnEntityPrefab(Resource.Load(\"{A8FFCD3F3697D77F}Prefabs/Editor/Lightning/LightningStrike.et\"), GetGame().GetWorld(), spawnParams);"\
+ "	}"
+ TriggerShapeType Sphere
+ SphereRadius 32.4
+ DrawShape 1
+ PeriodicQueries 1
+ UpdatePeriod 5
+ OnQueryFinished ""\
+ "		#ifdef WORKBENCH"\
+ "		#else"\
+ "		if (RplSession.Mode() == RplMode.Client)"\
+ "			return;"\
+ "		#endif"\
+ "		SCR_FactionManager factManager = SCR_FactionManager.Cast(GetGame().GetFactionManager());"\
+ "		ref array<int> playerIds = {};"\
+ "		GetGame().GetPlayerManager().GetPlayers(playerIds);"\
+ "		"\
+ "		foreach (int playerId: playerIds)"\
+ "		{"\
+ "			IEntity ent = GetGame().GetPlayerManager().GetPlayerControlledEntity(playerId);"\
+ "			if (!ent)"\
+ "				continue;"\
+ "			"\
+ "			if (!ent.FindComponent(SCR_CharacterControllerComponent))"\
+ "				continue;"\
+ "			"\
+ "			if (SCR_CharacterControllerComponent.Cast(ent.FindComponent(SCR_CharacterControllerComponent)).IsDead())"\
+ "				continue;"\
+ "			"\
+ "			if (!factManager.GetPlayerFaction(playerId))"\
+ "				continue;"\
+ "			"\
+ "			if (factManager.GetPlayerFaction(playerId).GetFactionKey() == m_sFactionKey)"\
+ "				continue;"\
+ "			"\
+ "			float distance = vector.Distance(this.GetOrigin(), ent.GetOrigin());"\
+ "			if (distance < GetSphereRadius())"\
+ "				KillPlayer(ent);"\
+ "		}"\
+ "	"
 }
-GenericEntity : "{45C675ED3CFBBEC5}Prefabs/Props/Military/Compositions/US/ArsenalBox_US.et" {
- coords 1407.214 39 2165.716
-}
-$grp GenericEntity : "{51AB0E62E80C7249}Prefabs/Drones/DJIBase/DJIM67Dropper.et" {
+$grp GenericEntity : "{45C675ED3CFBBEC5}Prefabs/Props/Military/Compositions/US/ArsenalBox_US.et" {
  {
-  coords 1408.874 39.147 2170.094
+  coords 1407.214 39 2165.716
  }
  {
-  coords 1408.549 39 2162.934
+  coords 1407.214 39 2165.716
+ }
+ {
+  coords 1407.396 39 2168.328
+ }
+ {
+  coords 1404.455 39 2168.573
+ }
+ {
+  coords 1406.033 39 2170.41
+ }
+ {
+  coords 1408.029 39 2170.377
+ }
+ {
+  coords 1402.181 39 2171.571
+ }
+ {
+  coords 1406.046 39 2173.647
+ }
+ {
+  coords 1408.603 39 2172.57
+ }
+ {
+  coords 1403.897 39.091 2173.737
  }
 }
 SCR_SpawnPoint : "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoint_US.et" {
@@ -50,28 +116,50 @@ GenericEntity : "{5A605E0B80EC0B21}Prefabs/Drones/DJIBase/DJICamera.et" {
  }
  coords 1402.875 39 2172.233
 }
-GenericEntity : "{6C6D4CF5F88AE48D}Prefabs/Vehicles/Core/Vehicle_AmmoBox_Base.et" {
- coords 1405.336 39 2172.987
+GenericEntity : "{6356BFD802DEB290}Prefabs/Characters/Items/DroneCommandStation.et" {
+ coords 1411.213 39 2166.446
+ angleX 0
+ angleY 0
+ angleZ 0
 }
 GenericEntity : "{77CA4803A4A2B8E3}Prefabs/Drones/FPVBase/FPVRPG.et" {
- coords 1410.812 39 2163.686
+ coords 1359.552 39.806 2155.479
 }
-$grp GameEntity : "{8951045BFE8BC8E4}Prefabs/Characters/HeadGear/FPV_Goggles.et" {
- {
-  coords 1409.328 39 2165.114
- }
- {
-  coords 1408.633 39.01 2167.116
- }
+GenericEntity : "{8395A2F307CC0C0A}Prefabs/Drones/DJIBase/DJISupplyCrate.et" {
+ coords 1410.781 39 2162.247
 }
-$grp GenericEntity : "{E2434ED1318D8476}Prefabs/Characters/Items/DroneController.et" {
- {
-  coords 1409.749 39 2165.191
- }
- {
-  coords 1409.054 39.01 2167.193
- }
+Vehicle BTR1 : "{C012BB3488BEA0C2}Prefabs/Vehicles/Wheeled/BTR70/BTR70.et" {
+ coords 1389.11 39 2198.33
+ angleY 145
+}
+GameEntity : "{C8EAB0985B66824A}Prefabs/Characters/HeadGear/Helmet_DH132_01/Helmet_DH132A_01.et" {
+ coords 1409.345 39 2166.719
+}
+GenericEntity : "{D96AA3EEDEEA60AD}Prefabs/Drones/DJIBase/M67DropperGrenadePlaceHolder.et" {
+ coords 1413.392 38.989 2167.331
+}
+GenericEntity : "{E779EFAB2CB3ED82}Prefabs/Weapons/Warheads/Explosions/Explosion_Mortar.et" {
+ coords 1410.564 39 2173.06
 }
 GenericEntity : "{EDE6EC8B05227E3E}Prefabs/Props/Military/Arsenal/ArsenalBoxes/USSR/ArsenalBox_USSR.et" {
  coords 1405.245 39 2165.119
+}
+GenericEntity : "{F09518802063A355}Prefabs/Items/Equipment/DroneAntenna/DroneAntenna.et" {
+ components {
+  SAL_DroneCleanUpComponent "{65EA1CA22D8FB35E}" {
+   m_fMinutesTillCleanup 0.2
+  }
+ }
+ coords 1409.397 39 2165.245
+}
+$grp GenericEntity : "{FDA92D590B9C633B}Prefabs/Drones/DJIBase/DJIBase.et" {
+ {
+  coords 1407.932 39 2158.521
+ }
+ {
+  coords 1408.936 39 2158.375
+ }
+ {
+  coords 1410.301 39 2158.576
+ }
 }

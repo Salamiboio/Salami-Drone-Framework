@@ -4,10 +4,10 @@ GenericEntity {
   InventoryItemComponent "{65AD7A14A35B82F9}" {
    Attributes SCR_ItemAttributeCollection "{65AD7A14A35B82E5}" {
     ItemDisplayName UIInfo "{65AD7A14A35B82E9}" {
-     Name "FPV Drone (RPG)"
+     Name "#FPV_Drone_RPG"
     }
     ItemPhysAttributes ItemPhysicalAttributes "{65AD7A14A35B82ED}" {
-     Weight 0.4
+     Weight 3
      SizeSetupStrategy Manual
      ItemDimensions 15 15 15
      ItemVolume 2500
@@ -29,7 +29,7 @@ GenericEntity {
    }
   }
   MeshObject "{65AD7A14A35B82D9}" {
-   Object "{D309E1AC4DE1B212}Assets/Drones/FPVs/FPVBase/FPV.xob"
+   Object "{EFE16CE7DC96031D}Assets/Drones/FPVs/NewFPV/FPVNew.xob"
   }
   RigidBody "{65AD7A14A35B82DC}" {
    Active Active

@@ -10,6 +10,8 @@ class SAL_DropperComponent: ScriptComponent
 	
 	InputManager m_InputManager;
 	SAL_DroneConnectionManager m_DroneManager;
+	SAL_DroneControllerComponent m_DroneController;
+	RplId m_Id;
 	
 	bool m_BGrenadeDropped = false;
 	
@@ -22,11 +24,16 @@ class SAL_DropperComponent: ScriptComponent
 	{
 		m_InputManager = GetGame().GetInputManager();
 		m_DroneManager = SAL_DroneConnectionManager.GetInstance();
+		m_DroneController = SAL_DroneControllerComponent.Cast(owner.FindComponent(SAL_DroneControllerComponent));
+		m_Id = SCR_PlayerController.GetRplId(owner);
 	}
 	
 	override void EOnFrame(IEntity owner, float timeSlice)
 	{
-		if (!m_DroneManager.IsDronePlayers(owner))
+		if (m_Id == -1)
+			m_Id = RplComponent.Cast(owner.FindComponent(RplComponent)).Id();
+		
+		if (m_DroneController.m_iOwner != SCR_PlayerController.GetLocalPlayerId()  || !m_DroneManager.m_aActiveDrones.Contains(m_Id))
 			return;
 		
 		if (!m_BGrenadeDropped && m_InputManager.GetActionValue("DropGrenadeDrone") == 1)

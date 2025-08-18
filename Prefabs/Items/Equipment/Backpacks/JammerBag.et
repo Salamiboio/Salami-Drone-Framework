@@ -2,7 +2,7 @@ GenericEntity : "{09D6A1C9543E4A95}Prefabs/Items/Core/Backpack_Base.et" {
  ID "511E9C6ADE70F798"
  components {
   MeshObject "{511E9C6ADE70F7BD}" {
-   Object "{C31FC70EB14E4D1F}Assets/Drones/JammerBag/JammerBag.xob"
+   Object "{B33A76ED6A229E4D}Assets/Drones/JammerBag/JammerBagNewItem.xob"
   }
   RigidBody "{511E9C6ADE70F7BC}" {
    ModelGeometry 0
@@ -12,15 +12,16 @@ GenericEntity : "{09D6A1C9543E4A95}Prefabs/Items/Core/Backpack_Base.et" {
   SCR_UniversalInventoryStorageComponent "{5222CB03A40528FA}" {
    Attributes SCR_ItemAttributeCollection "{5222CB039E9715D1}" {
     ItemDisplayName UIInfo "{5222CB03904B414C}" {
-     Name "Jammer Backpack"
+     Name "#Jammer_Bag"
      Description ""
     }
     CustomAttributes {
      PreviewRenderAttributes "{52BCBDD2B54658EC}" {
-      CameraOrbitAngles 0 180 0
-      CameraDistanceToItem 4
+      CameraOrbitAngles 90 90 0
+      CameraDistanceToItem 6
+      CameraOffset 0 -0.2 0
       FOV 10
-      PreviewModel "{C31FC70EB14E4D1F}Assets/Drones/JammerBag/JammerBag.xob"
+      PreviewModel "{994A67C2F5FF9379}Assets/Drones/JammerBag/JammerBagNew.xob"
      }
     }
    }
@@ -32,8 +33,8 @@ GenericEntity : "{09D6A1C9543E4A95}Prefabs/Items/Core/Backpack_Base.et" {
     LoadoutSlotInfo "{511E9C6A327EA2E2}" {
     }
    }
-   WornModel "{C31FC70EB14E4D1F}Assets/Drones/JammerBag/JammerBag.xob"
-   ItemModel "{9B2C8C1EBC268A70}Assets/Drones/JammerBag/jammer ground.xob"
+   WornModel "{994A67C2F5FF9379}Assets/Drones/JammerBag/JammerBagNew.xob"
+   ItemModel "{B33A76ED6A229E4D}Assets/Drones/JammerBag/JammerBagNewItem.xob"
    SoundInt 810
   }
   ActionsManagerComponent "{511E9C6ADE70F786}" {
@@ -43,6 +44,13 @@ GenericEntity : "{09D6A1C9543E4A95}Prefabs/Items/Core/Backpack_Base.et" {
       Offset 0 0.1 0
      }
      Radius 1
+    }
+   }
+   additionalActions {
+    SAL_ToggleJammer "{65E2E2BF2C86CE52}" {
+     ParentContextList {
+      "default"
+     }
     }
    }
   }
