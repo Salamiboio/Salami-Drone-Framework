@@ -4,7 +4,7 @@ GenericEntity : "{FDA92D590B9C633B}Prefabs/Drones/DJIBase/DJIBase.et" {
   InventoryItemComponent "{65AB2523310F27D1}" {
    Attributes SCR_ItemAttributeCollection "{65AB252330249C83}" {
     ItemDisplayName UIInfo "{5222EB4D07D865FA}" {
-     Name "#DJI_Drone_M67"
+     Name "#DJI_82_Dropper"
     }
     ItemPhysAttributes ItemPhysicalAttributes "{65ACFD96E4CDB70C}" {
      Weight 2

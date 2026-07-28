@@ -10,7 +10,7 @@ SCR_ManualCamera {
  }
  coords 1339.068 51.001 1437.776
  FOV 70
- cameraFlags 7
+ cameraFlags 0x7 0
  m_bStartAtEntity 1
  m_sActionContext "DroneContext"
  m_DefaultFlags 0

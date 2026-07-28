@@ -151,7 +151,6 @@ GenericEntity : "{FA5C25BF66A53DCF}Prefabs/Weapons/Rifles/AK74/Rifle_AK74.et" {
    }
   }
   RplComponent "{E052E71DCB007AF2}" {
-   "Rpl State Override" None
    "Parent Node From Parent Entity" 1
   }
  }

@@ -17,7 +17,7 @@ class SAL_DroneCleanUpComponent: ScriptComponent
 	
 	override void EOnFrame(IEntity owner, float timeSlice)
 	{
-		if (RplSession.Mode() == RplMode.Client)
+		if (!Replication.IsServer())
 			return;
 		
 

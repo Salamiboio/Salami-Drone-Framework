@@ -23,9 +23,12 @@ class SAL_DroneHUDComponent: ScriptComponent
 	SAL_DroneRangeFinderComponent m_RangeFinderComponent;
 	SAL_DroneControllerComponent m_DroneController;
 	RplComponent m_RplComp;
+	UserSettings m_VideoSettings;
 	RplId m_Id;
 	
+	int m_iOldFPS;
 	int m_iHeight = 0;
+	bool m_bNghtSightOn = false;
 	
 	Widget m_wOverlayWidget;
 	SCR_MapEntity m_MapEntity;
@@ -33,6 +36,15 @@ class SAL_DroneHUDComponent: ScriptComponent
 	override void OnPostInit(IEntity owner)
 	{
 		SetEventMask(owner, EntityEvent.FRAME | EntityEvent.INIT);
+	}
+	
+	void ToggleNightSight()
+	{
+		m_bNghtSightOn = m_DroneController.m_bNightSightActive;
+		if (m_bNghtSightOn)
+			ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().SetCameraPostProcessEffect(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().GetCurrentCameraId(), 8, PostProcessEffectType.Colors, "{41B8CF95B51D4F8A}Prefabs/Editor/Camera/CameraPPEffectNight.emat");
+		else
+			ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().SetCameraPostProcessEffect(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().GetCurrentCameraId(), 8, PostProcessEffectType.Colors, "{BED69BE8F08A9063}Prefabs/Editor/Camera/CameraPPEffect.emat");
 	}
 	
 	override void EOnInit(IEntity owner)
@@ -48,15 +60,25 @@ class SAL_DroneHUDComponent: ScriptComponent
 		m_Id = SCR_PlayerController.GetRplId(owner);
 		if (!m_RplComp)
 			m_RplComp = RplComponent.Cast(owner.FindComponent(RplComponent));
+		ArmaReforgerScripted game = GetGame();
+		UserSettings engineUserSettings = game.GetEngineUserSettings();
+		m_VideoSettings = engineUserSettings.GetModule("VideoUserSettings");
 	};
 	
 	void CloseHud()
 	{
 		if (SCR_PlayerController.GetLocalControlledEntity())
 		{
+			ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().SetCameraPostProcessEffect(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().GetCurrentCameraId(), 8, PostProcessEffectType.None, "");
 			ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().SetCameraPostProcessEffect(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().GetCurrentCameraId(), 9, PostProcessEffectType.None, "");
-			ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().SetCameraPostProcessEffect(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().GetCurrentCameraId(), 10, PostProcessEffectType.None, "");
+			ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().SetCameraPostProcessEffect(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().GetCurrentCameraId(), 7, PostProcessEffectType.None, "");
 		}
+		
+		if (m_eHudType == SAL_HUDType.FPV)
+		{
+			m_VideoSettings.Set("MaxFps", m_iOldFPS);
+		}
+		
 		if (m_MapEntity)
 		{
 			m_MapEntity.CloseMap();
@@ -98,8 +120,14 @@ class SAL_DroneHUDComponent: ScriptComponent
 					ImageWidget roll = ImageWidget.Cast(m_wOverlayWidget.FindWidget("Dots"));
 					roll.LoadImageTexture(1, "{5021E90D8407E44F}UI/FPVHud/Data/FPV_DOTS_THAT_MOVE.edds");
 					roll.SetImage(1);
-					ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().SetCameraPostProcessEffect(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().GetCurrentCameraId(), 9, PostProcessEffectType.ChromAber, "{C245539454FC3F58}UI/Materials/ScreenEffects_ChromAberrPPDrone.emat");
-					ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().SetCameraPostProcessEffect(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().GetCurrentCameraId(), 10, PostProcessEffectType.FilmGrain, "{F5DD5D01C23AD429}UI/Materials/Editor/FilmGrainDrone.emat");
+					if (m_bNghtSightOn)
+						ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().SetCameraPostProcessEffect(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().GetCurrentCameraId(), 8, PostProcessEffectType.Colors, "{41B8CF95B51D4F8A}Prefabs/Editor/Camera/CameraPPEffectNight.emat");
+					else
+						ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().SetCameraPostProcessEffect(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().GetCurrentCameraId(), 8, PostProcessEffectType.Colors, "{BED69BE8F08A9063}Prefabs/Editor/Camera/CameraPPEffect.emat");
+					ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().SetCameraPostProcessEffect(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().GetCurrentCameraId(), 9, PostProcessEffectType.ChromAber, "{FDDEEF9952D91012}Prefabs/Editor/Camera/FPVCameraChromAb.emat");
+					ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().SetCameraPostProcessEffect(ChimeraCharacter.Cast(SCR_PlayerController.GetLocalControlledEntity()).GetWorld().GetCurrentCameraId(), 7, PostProcessEffectType.FilmGrain, "{54CDAA35A1831F7F}Prefabs/Editor/Camera/FPVCameraSharpen.emat");
+					m_VideoSettings.Get("MaxFps", m_iOldFPS);
+					m_VideoSettings.Set("MaxFps", 30);
 					break;
 				}
 				
@@ -113,7 +141,7 @@ class SAL_DroneHUDComponent: ScriptComponent
 						m_MapEntity = SCR_MapEntity.GetMapInstance();
 					
 					if (m_MapEntity)
-						GetGame().GetCallqueue().Call(OpenMap);
+						GetGame().GetCallqueue().CallLater(OpenMap);
 					break;
 				}
 			}	
@@ -126,26 +154,25 @@ class SAL_DroneHUDComponent: ScriptComponent
 			
 			GetGame().GetHUDManager().SetVisible(false);
 		}
-		
-		if (m_fTimer < 0.01)
-		{
-			m_fTimer += timeSlice;
-			return;
-		}
-		else
-			m_fTimer = 0;
 
 		
 		if (m_wOverlayWidget)
 		{
+			if (m_bNghtSightOn != m_DroneController.m_bNightSightActive)
+				ToggleNightSight();
 			switch (m_eHudType)
 			{
 				case SAL_HUDType.FPV: 
 				{
 					vector transform[4];
-					GetGame().GetWorld().GetCurrentCamera(transform);
+					m_DroneController.m_Drone.GetTransform(transform);
 					float roll = -Math3D.MatrixToAngles(transform)[2];
-					ImageWidget.Cast(m_wOverlayWidget.FindWidget("Dots")).SetRotation(roll);
+					ImageWidget dots = ImageWidget.Cast(m_wOverlayWidget.FindWidget("Dots"));
+					dots.SetRotation(roll);
+					float pitch = Math3D.MatrixToAngles(transform)[1];
+					float offsetY = pitch * 3.0;
+					
+					FrameSlot.SetPos(dots, -150, offsetY + -150);
 					
 					TextWidget signalText = TextWidget.Cast(m_wOverlayWidget.FindWidget("SignalText"));
 					int rssiInt = Math.Lerp(-30, -120, m_SignalComponent.m_fRSSI);
@@ -157,60 +184,82 @@ class SAL_DroneHUDComponent: ScriptComponent
 					string lq = lqInt.ToString();
 					lqText.SetTextFormat("LQ: %1%", lq);
 					
-					float batteryPercentage = m_BatteryComponent.m_fCurrentBattery/m_BatteryComponent.m_fCurrentBatteryMax;
-					if (batteryPercentage <= 1 && batteryPercentage >= 0.75)
+					TextWidget date = TextWidget.Cast(m_wOverlayWidget.FindAnyWidget("Date"));
+					ChimeraWorld world = ChimeraWorld.CastFrom(GetGame().GetWorld());
+					int year, month, day;
+					world.GetTimeAndWeatherManager().GetDate(year, month, day);
+					date.SetText(year.ToString() + " - " + month.ToString(2) + " - " + day.ToString(2));
+					
+					TimeContainer time = world.GetTimeAndWeatherManager().GetTime();
+					TextWidget timeWidget = TextWidget.Cast(m_wOverlayWidget.FindAnyWidget("Time"));
+					timeWidget.SetText(time.m_iHours.ToString(2) + ":" + time.m_iMinutes.ToString(2) + ":" + time.m_iSeconds.ToString(2));
+					
+					float batteryPercentage = (m_BatteryComponent.m_fCurrentBattery/m_BatteryComponent.m_fCurrentBatteryMax) * 100;
+					float voltPerCell = ComputeVoltageFromPercent(batteryPercentage);
+					
+					TextWidget allVolts = TextWidget.Cast(m_wOverlayWidget.FindAnyWidget("AllVolts"));
+					allVolts.SetText((voltPerCell * 4).ToString(-1, 2) + "v");
+					
+					TextWidget cellVolts = TextWidget.Cast(m_wOverlayWidget.FindAnyWidget("CellVolts"));
+					cellVolts.SetText(voltPerCell.ToString(-1, 2) + "v");
+					
+					float ampsUsed = ComputeAhUsedFromPercent(m_BatteryComponent.m_fCurrentBatteryMax, batteryPercentage);
+					TextWidget usedAmps = TextWidget.Cast(m_wOverlayWidget.FindAnyWidget("UsedAmps"));
+					usedAmps.SetText(ampsUsed.ToString(-1, 0));
+					
+					float ampsCurrent = ComputeInstantAmps(m_DroneController.m_fWeight * 1000, m_DroneController.m_iThrottle);
+					TextWidget currentAmps = TextWidget.Cast(m_wOverlayWidget.FindAnyWidget("CurrentAmps"));
+					currentAmps.SetText((ampsCurrent * 4).ToString(-1, 2) + " A");
+					
+					TextWidget headingWidget = TextWidget.Cast(m_wOverlayWidget.FindAnyWidget("Heading"));
+					float yaw = -Math3D.MatrixToAngles(transform)[0];
+					int yawInt = -yaw;
+			        
+					if (yawInt < 0) 
+						yawInt = 360 - Math.AbsFloat(yawInt);
+					headingWidget.SetText(yawInt.ToString(3));
+					
+					vector origin = owner.GetOrigin();
+					vector end = origin + Vector(0, -1, 0) * 1000.0; // cast 1000 meters down
+			
+					TraceParam trace = new TraceParam();
+					trace.Start = origin;
+					trace.End = end;
+					trace.Exclude = owner; // prevent hitting self
+					trace.Flags = TraceFlags.WORLD;
+			
+					float height = GetGame().GetWorld().TraceMove(trace, null) * 1000;
+							
+					TextWidget.Cast(m_wOverlayWidget.FindAnyWidget("Altitude")).SetText(height.ToString(-1, 1) + "m");
+					float batteryChange = (34 * (batteryPercentage/100));
+					Widget battLevel1 = m_wOverlayWidget.FindAnyWidget("BatteryLevel1");
+					Widget battLevel2 = m_wOverlayWidget.FindAnyWidget("BatteryLevel2");
+					FrameSlot.SetSizeY(battLevel1, batteryChange);
+					FrameSlot.SetSizeY(battLevel2, batteryChange);
+					FrameSlot.SetPosY(battLevel1, -131 + (34 - batteryChange));
+					FrameSlot.SetPosY(battLevel2, -67 + (34 - batteryChange));
+					
+					if (m_fTimer >= 1)
 					{
-						m_wOverlayWidget.FindWidget("BatteryLevel4").SetVisible(true);
-						m_wOverlayWidget.FindWidget("BatteryLevel3").SetVisible(true);
-						m_wOverlayWidget.FindWidget("BatteryLevel2").SetVisible(true);
-						m_wOverlayWidget.FindWidget("BatteryLevel1").SetVisible(true);
-					}
-					else if (batteryPercentage <= 0.75 && batteryPercentage >= 0.5)
-					{
-						m_wOverlayWidget.FindWidget("BatteryLevel4").SetVisible(false);
-						m_wOverlayWidget.FindWidget("BatteryLevel3").SetVisible(true);
-						m_wOverlayWidget.FindWidget("BatteryLevel2").SetVisible(true);
-						m_wOverlayWidget.FindWidget("BatteryLevel1").SetVisible(true);
-					}
-					else if (batteryPercentage <= 0.50 && batteryPercentage >= 0.25)
-					{
-						m_wOverlayWidget.FindWidget("BatteryLevel4").SetVisible(false);
-						m_wOverlayWidget.FindWidget("BatteryLevel3").SetVisible(false);
-						m_wOverlayWidget.FindWidget("BatteryLevel2").SetVisible(true);
-						m_wOverlayWidget.FindWidget("BatteryLevel1").SetVisible(true);
-					}
-					else if (batteryPercentage <= 0.25 && batteryPercentage >= 0.10)
-					{
-						m_wOverlayWidget.FindWidget("BatteryLevel4").SetVisible(false);
-						m_wOverlayWidget.FindWidget("BatteryLevel3").SetVisible(false);
-						m_wOverlayWidget.FindWidget("BatteryLevel2").SetVisible(false);
-						m_wOverlayWidget.FindWidget("BatteryLevel1").SetVisible(true);
+						m_fTimer = 0;
+						if (batteryPercentage < 20)
+						{
+							Widget batteryFrame = m_wOverlayWidget.FindAnyWidget("BatteryFrame");
+							batteryFrame.SetVisible(!batteryFrame.IsVisible());
+							Widget lowBattery = m_wOverlayWidget.FindAnyWidget("LowBattery");
+							lowBattery.SetVisible(batteryFrame.IsVisible());
+						}
+						else
+							m_wOverlayWidget.FindAnyWidget("LowBattery").SetVisible(false);
 					}
 					else
-					{
-						m_fBatteryTimer += timeSlice;
-						m_wOverlayWidget.FindWidget("BatteryLevel4").SetVisible(false);
-						m_wOverlayWidget.FindWidget("BatteryLevel3").SetVisible(false);
-						m_wOverlayWidget.FindWidget("BatteryLevel2").SetVisible(false);
-						
-						if (m_fBatteryTimer <= 0.5)
-							m_wOverlayWidget.FindWidget("BatteryLevel1").SetVisible(true);
-						else
-						{
-							m_wOverlayWidget.FindWidget("BatteryLevel1").SetVisible(false);
-						}
-						
-						if (m_fBatteryTimer >= 1)
-							m_fBatteryTimer = 0;
-					}
+						m_fTimer += timeSlice;
+					
 					
 					if (m_ExplosiveComponent)
 					{
 						Widget armed = m_wOverlayWidget.FindWidget("Armed");
-						if (m_ExplosiveComponent.m_bIsArmed && !armed.IsVisible())
-							armed.SetVisible(true);
-						else if (!m_ExplosiveComponent.m_bIsArmed && armed.IsVisible())
-							armed.SetVisible(false);
+						armed.SetVisible(m_ExplosiveComponent.m_bIsWarheadArmed);
 					}
 					
 					break;
@@ -472,6 +521,31 @@ class SAL_DroneHUDComponent: ScriptComponent
 				
 		}
 	}
+	
+	float ComputeInstantAmps(float weightGrams, float throttle01)
+	{
+	    throttle01 = Math.Clamp(throttle01, 0, 1);
+	    return (weightGrams / 100.0) * throttle01;
+	}
+	
+	float ComputeAhUsedFromPercent(float batterySize, float batteryPercent)
+	{
+		float batteryCapacityAh = 12600 * (batterySize/1200);
+	    float pct = Math.Clamp(batteryPercent, 0, 100);
+	    return batteryCapacityAh * (1.0 - (pct / 100.0));
+	}
+	
+	float ComputeVoltageFromPercent(float pct)
+	{
+	    pct = Math.Clamp(pct, 0, 100);
+	
+	    float minV = 3.3;
+	    float maxV = 4.2;
+	
+	    float cellV = minV + (maxV - minV) * Math.Pow(pct / 100.0, 1.1);
+	    return cellV;
+	}
+
 	
 	void ~SAL_DroneHUDComponent()
 	{

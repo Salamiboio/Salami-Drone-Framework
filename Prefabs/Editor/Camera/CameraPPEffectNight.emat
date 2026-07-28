@@ -1,0 +1,7 @@
+ColorsEffect {
+ Contrast 2
+ Gamma 0.225
+ Brightness 0.25
+ ImageOffset 0.61
+ Saturation 0
+}

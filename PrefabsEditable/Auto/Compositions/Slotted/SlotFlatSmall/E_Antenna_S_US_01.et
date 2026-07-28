@@ -1,0 +1,34 @@
+GenericEntity : "{8B4B8BF44162B24E}Prefabs/Compositions/Slotted/SlotFlatSmall/Antenna_S_US_01.et" {
+ ID "5282DCB5DFC8538F"
+ components {
+  SCR_EditorLinkComponent "{5EA88D643D971864}" {
+   m_aEntries {
+    SCR_EditorLinkEntry "{66F620F5951ABF13}" {
+     m_Prefab "{163A6815DEEE28E3}Prefabs/Items/Equipment/Backpacks/JammerBagStatic.et"
+     m_vPosition -0.257 1.432 -2.454
+     m_vAngles 0 106.687 -90
+    }
+   }
+  }
+ }
+ {
+  GenericEntity {
+   ID "5D371AC87254ED3A"
+   components {
+    SAL_DroneJammerComponent "{66F620F6328F721F}" {
+     m_fJammingRange 500
+    }
+   }
+  }
+  GenericEntity : "{163A6815DEEE28E3}Prefabs/Items/Equipment/Backpacks/JammerBagStatic.et" {
+   ID "66F620F5BF1D1D28"
+   components {
+    SAL_DroneJammerComponent "{66F620F06939FA77}" {
+     Enabled 0
+    }
+   }
+   coords -0.257 1.432 -2.454
+   angles 0 106.687 -90
+  }
+ }
+}

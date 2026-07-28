@@ -17,8 +17,8 @@ GenericEntity : "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et" {
    Active Active
    Mass 3.1
    CenterOfMass 0 0 0.055
-   LinearDamping 0.01
-   AngularDamping 0.01
+   LinearDamping 0.5
+   AngularDamping 0.5
    LinearSleepingThreashold 0.1
    AngularSleepingThreashold 0.1
    SimState Simulation

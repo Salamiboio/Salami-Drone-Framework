@@ -1,0 +1,82 @@
+GenericEntity : "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et" {
+ ID "658B340BE800639F"
+ components {
+  SignalsManagerComponent "{66F72C659884CD00}" {
+  }
+  SoundComponent "{66F72C659884CD32}" {
+  }
+  MeshObject "{658B340BD9325940}" {
+   Object "{0B14D71F69360619}Assets/Weapons/Ammo/Grenades/M433/M433.xob"
+   LODFactors {
+    1000 1 1 1
+   }
+   PixelSizeScale 10
+  }
+  RigidBody "{658B340BDB337EC0}" {
+   LayerPreset "Projectile"
+   Active Active
+   Mass 3.1
+   CenterOfMass 0 0 0.055
+   LinearDamping 0.5
+   AngularDamping 0.5
+   LinearSleepingThreashold 0.1
+   AngularSleepingThreashold 0.1
+   SimState Simulation
+   ResponseIndex "Normal"
+   ModelGeometry 1
+   CCDRadius 1
+  }
+  SAL_DropperGrenadeComponent "{66F72C659884CD35}" {
+   m_fFuzeTime 0
+   m_bImpactFuze 1
+  }
+  SCR_DamageManagerComponent "{65B933884B65AF78}" {
+   Enabled 0
+   "Additional hit zones" {
+    SCR_DestructibleHitzone Rotor {
+     HZDefault 1
+     BaseDamageMultiplier 0
+     DamageReduction 0
+     DamageThreshold 0
+     "Collision multiplier" 0
+     m_aDamagePassRules {
+      SCR_DamagePassRule "{60AAF83A13B1AFB5}" {
+       m_eOutputDamageType TRUE
+       m_fMultiplier 0
+      }
+     }
+     m_pDestructionHandler SCR_DestructionBaseHandler "{65B9338BDB1BB356}" {
+      m_bAllowHideWreck 0
+     }
+     m_vParticleOffset 0 0 0
+    }
+   }
+  }
+  SCR_ExplosiveChargeComponent "{66F72C659884CD3E}" {
+  }
+  SCR_ExplosiveTriggerComponent "{66F72C659884CD3D}" {
+   PROJECTILE_EFFECTS {
+    ExplosionEffect "{66F72C659884CD23}" {
+     EffectPrefab "{620E8AF45A5143D7}Prefabs/Weapons/Warheads/Warhead_Grenade_HE_M406.et"
+     ParticleEffect "{728768DE31C8D1DE}Particles/Weapon/Explosion_VOG25.ptc"
+     SoundEvent "SOUND_EXPLOSION"
+    }
+    AIExplosionEffect "{66F72C659884CD21}" {
+    }
+   }
+   TRIGGER_ALIVE 0
+   HAS_VALID_DIRECTION 0
+  }
+  SlotManagerComponent "{66F72C659884CD27}" {
+   Slots {
+    EntitySlotInfo Explosion {
+     Prefab ""
+    }
+   }
+  }
+  RplComponent "{658B340BDAF50D06}" {
+   "Parent Node From Parent Entity" 1
+  }
+ }
+ coords 0 0 0
+}

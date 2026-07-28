@@ -16,9 +16,9 @@ modded class SCR_CharacterControllerComponent
 //			SCR_PlayerController.Cast(GetGame().GetPlayerController()).DisconnectDrone();
 	}
 	
-	override void OnLifeStateChanged(ECharacterLifeState previousLifeState, ECharacterLifeState newLifeState)
+	override void OnLifeStateChanged(ECharacterLifeState previousLifeState, ECharacterLifeState newLifeState, bool isJIP)
 	{
-		super.OnLifeStateChanged(previousLifeState, newLifeState);
+		super.OnLifeStateChanged(previousLifeState, newLifeState, isJIP);
 		if (GetOwner() != SCR_PlayerController.GetLocalControlledEntity())
 			return;
 		

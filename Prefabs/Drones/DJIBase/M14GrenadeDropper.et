@@ -1,0 +1,86 @@
+GenericEntity : "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et" {
+ ID "658B340BE800639F"
+ components {
+  SignalsManagerComponent "{66F71193D6A132EB}" {
+  }
+  SoundComponent "{66F71193D6A13110}" {
+  }
+  MeshObject "{658B340BD9325940}" {
+   Object "{8D8FE4BD1107FE30}Assets/Weapons/Explosives/Mine_M14/Mine_M14.xob"
+   LODFactors {
+    1000 1 1 1
+   }
+   PixelSizeScale 10
+  }
+  RigidBody "{658B340BDB337EC0}" {
+   LayerPreset "Projectile"
+   Active Active
+   Mass 3.1
+   CenterOfMass 0 0 0.055
+   LinearDamping 0.5
+   AngularDamping 0.5
+   LinearSleepingThreashold 0.1
+   AngularSleepingThreashold 0.1
+   SimState Simulation
+   ResponseIndex "Normal"
+   ModelGeometry 1
+   CCDRadius 1
+  }
+  SAL_DropperGrenadeComponent "{66F71193D6A1311B}" {
+   m_fFuzeTime 0
+   m_bImpactFuze 0
+   m_bIsMine 1
+   m_rMine "{E4C9F0A4090CFE4D}Prefabs/Weapons/Explosives/Mine_M14/Mine_M14.et"
+  }
+  SCR_DamageManagerComponent "{65B933884B65AF78}" {
+   Enabled 0
+   "Additional hit zones" {
+    SCR_DestructibleHitzone Rotor {
+     HZDefault 1
+     BaseDamageMultiplier 0
+     DamageReduction 0
+     DamageThreshold 0
+     "Collision multiplier" 0
+     m_aDamagePassRules {
+      SCR_DamagePassRule "{60AAF83A13B1AFB5}" {
+       m_eOutputDamageType TRUE
+       m_fMultiplier 0
+      }
+     }
+     m_pDestructionHandler SCR_DestructionBaseHandler "{65B9338BDB1BB356}" {
+      m_bAllowHideWreck 0
+     }
+     m_vParticleOffset 0 0 0
+    }
+   }
+  }
+  SCR_ExplosiveChargeComponent "{66F71193D6A13102}" {
+   Enabled 0
+  }
+  SCR_ExplosiveTriggerComponent "{66F71193D6A13101}" {
+   Enabled 0
+   PROJECTILE_EFFECTS {
+    ExplosionEffect "{66F71193D6A13107}" {
+     EffectPrefab "{6B8EE808E69A69E0}Prefabs/Weapons/Warheads/Warhead_Shell_HE_M821.et"
+     ParticleEffect "{318510C6FB1633D9}Particles/Weapon/Explosion_Mortar_Base.ptc"
+     SoundEvent "SOUND_EXPLOSION"
+    }
+    AIExplosionEffect "{66F71193D6A13105}" {
+    }
+   }
+   TRIGGER_ALIVE 0
+   HAS_VALID_DIRECTION 0
+  }
+  SlotManagerComponent "{66F71193D6A1310A}" {
+   Slots {
+    EntitySlotInfo Explosion {
+     Prefab ""
+    }
+   }
+  }
+  RplComponent "{658B340BDAF50D06}" {
+   "Parent Node From Parent Entity" 1
+  }
+ }
+ coords 0 0 0
+}

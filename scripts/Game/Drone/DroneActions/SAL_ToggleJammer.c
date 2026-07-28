@@ -26,9 +26,9 @@ class SAL_ToggleJammer : SCR_InventoryAction
 			return false;
 
 		if (m_DroneManager.m_aJammers.Contains(RplComponent.Cast(m_ejammer.FindComponent(RplComponent)).Id()))
-			m_outName = "#Turn_On_Jammer";
-		else
 			m_outName = "#Turn_Off_Jammer";
+		else
+			m_outName = "#Turn_On_Jammer";
 		return true;
 	}
 	

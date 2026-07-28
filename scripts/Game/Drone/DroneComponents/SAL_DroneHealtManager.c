@@ -65,7 +65,7 @@ class SAL_DroneHealthComponent: ScriptComponent
 		
 		if (!m_DroneManager.m_aActiveDrones.Contains(m_Id))
 		{
-			if (RplSession.Mode() == RplMode.Client)
+			if (!Replication.IsServer())
 				return;
 		}
 		else

@@ -5,6 +5,7 @@ class SAL_DroneJammerComponentClass: ScriptComponentClass
 class SAL_DroneJammerComponent: ScriptComponent
 {
 	[Attribute("300")] float m_fJammingRange;
+	RplId m_Id;
 
 	override void OnPostInit(IEntity owner)
 	{
@@ -16,7 +17,7 @@ class SAL_DroneJammerComponent: ScriptComponent
 		#ifdef WORKBENCH
 		GetGame().GetCallqueue().CallLater(RegisterJammer, 100, false, owner);
 		#else
-		if (RplSession.Mode() == RplMode.Client)
+		if (!Replication.IsServer())
 			return;
 		
 		GetGame().GetCallqueue().CallLater(RegisterJammer, 100, false, owner);
@@ -26,7 +27,7 @@ class SAL_DroneJammerComponent: ScriptComponent
 	void RegisterJammer(IEntity owner)
 	{
 		SAL_DroneConnectionManager.GetInstance().RegisterJammer(RplComponent.Cast(owner.FindComponent(RplComponent)).Id());
-		
+		m_Id = RplComponent.Cast(owner.FindComponent(RplComponent)).Id();
 	}
 	
 	void ~SAL_DroneJammerComponent()
@@ -37,18 +38,16 @@ class SAL_DroneJammerComponent: ScriptComponent
 			return;
 		
 		if(SAL_DroneConnectionManager.GetInstance())
-			if (GetOwner().FindComponent(RplComponent))
-				SAL_DroneConnectionManager.GetInstance().UnregisterJammer(RplComponent.Cast(GetOwner().FindComponent(RplComponent)).Id());
+				SAL_DroneConnectionManager.GetInstance().UnregisterJammer(m_Id);
 		#else
-		if (RplSession.Mode() == RplMode.Client)
+		if (!Replication.IsServer())
 			return;
 		
 		if (!GetGame().GetWorld())
 			return;
 		
 		if(SAL_DroneConnectionManager.GetInstance())
-			if (GetOwner().FindComponent(RplComponent))
-				SAL_DroneConnectionManager.GetInstance().UnregisterJammer(RplComponent.Cast(GetOwner().FindComponent(RplComponent)).Id());
+				SAL_DroneConnectionManager.GetInstance().UnregisterJammer(m_Id);
 		#endif
 	}
 }

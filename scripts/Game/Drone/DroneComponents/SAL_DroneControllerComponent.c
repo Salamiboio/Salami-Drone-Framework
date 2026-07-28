@@ -1,5 +1,6 @@
-[EntityEditorProps(category: "GameScripted", description: "Acro-style Drone Controller", color: "")]
-class SAL_DroneControllerComponentClass: ScriptComponentClass {}
+class SAL_DroneControllerComponentClass: ScriptComponentClass 
+{
+}
 
 [BaseContainerProps()]
 class SAL_DroneStablizerProfile
@@ -22,13 +23,13 @@ class SAL_DroneControllerComponent: ScriptComponent
 	CameraManager m_CameraManager;
 	SAL_CameraZoomComponent m_CameraZoom;
 	SCR_GarbageSystem m_GarbageSystem;
-	Physics m_RigidBody;
 	RplComponent m_RplComp;
 	
 	bool m_bIsConnected = false;
 	int m_iOwner = -1;
 	
 	[Attribute("35000")] int m_iMaxThrustRPM;
+	[Attribute("1")] bool m_bNightSightsEnabled;
 	[Attribute("0")] bool m_bStabilized;
 	[Attribute("1")] float m_fPitchSensitivity;
 	[Attribute("1")] float m_fYawSensitivity;
@@ -41,6 +42,7 @@ class SAL_DroneControllerComponent: ScriptComponent
 	float m_aRotorRPM[4] = { 0.0, 0.0, 0.0, 0.0 };
 	IEntity m_aRotors[4];
 	RplId m_aRotorsRplId[4];
+	IEntity m_Drone;
 
 	float m_iThrottle = 0.0;
 	float m_iPitch = 0.0;
@@ -48,6 +50,9 @@ class SAL_DroneControllerComponent: ScriptComponent
 	float m_iYaw = 0.0;
 	bool m_bIsArmed = false;
 	bool m_bIsActive = false;
+	bool m_bNightSightActive = false;
+	
+	float m_fWeight = 0;
 
 	float m_fHoverForce = 0.0;
 	float m_fMaxAdditionalThrust = 0.0;
@@ -64,17 +69,7 @@ class SAL_DroneControllerComponent: ScriptComponent
 	vector m_vInputTorque;
 	vector m_vThrustForce;
 	
-	vector m_vLastBroadcastedPosition1 = "0 -1 0";
-	vector m_vLastBroadcastedPosition2 = "0 -1 0";
-	vector m_vLastBroadcastedPosition3 = "0 -1 0";
-	vector m_vLastBroadcastedPosition4 = "0 -1 0";
-	
 	vector m_vCurrentVelocity = "0 0 0";
-	
-	void SAL_DroneControllerComponent(IEntityComponentSource src, IEntity ent, IEntity parent)
-	{
-		Print("Drone Controller Created");
-	}
 
 	void SpinRotors(float timeSlice)
 	{
@@ -142,7 +137,7 @@ class SAL_DroneControllerComponent: ScriptComponent
 	override void OnPostInit(IEntity owner)
 	{
 		super.OnPostInit(owner);
-		SetEventMask(owner, EntityEvent.INIT | EntityEvent.SIMULATE | EntityEvent.FRAME);
+		SetEventMask(owner, EntityEvent.INIT | EntityEvent.SIMULATE | EntityEvent.FRAME | EntityEvent.FIXEDFRAME);
 	}
 
 	override void EOnInit(IEntity owner)
@@ -150,6 +145,8 @@ class SAL_DroneControllerComponent: ScriptComponent
 		super.EOnInit(owner);
 		if (!owner.GetPhysics())
 			return;
+		m_Drone = owner;
+		Physics rigidBody = GetOwner().GetPhysics();
 		m_DroneManager = SAL_DroneConnectionManager.GetInstance();
 		m_InputManager = GetGame().GetInputManager();
 		m_SignalComponent = SAL_DroneSignalComponent.Cast(owner.FindComponent(SAL_DroneSignalComponent));
@@ -158,11 +155,11 @@ class SAL_DroneControllerComponent: ScriptComponent
 		m_CameraManager = GetGame().GetCameraManager();
 		m_CameraZoom = SAL_CameraZoomComponent.Cast(owner.FindComponent(SAL_CameraZoomComponent));
 		m_GarbageSystem = SCR_GarbageSystem.GetByEntityWorld(owner);
-		m_RigidBody = owner.GetPhysics();
 		m_RplComp = RplComponent.Cast(owner.FindComponent(RplComponent));
 		
-		m_RigidBody.SetActive(true);
-		float mass = m_RigidBody.GetMass();
+		rigidBody.SetActive(true);
+		float mass = rigidBody.GetMass();
+		m_fWeight = mass;
 		m_fHoverForce = mass * 9.81;
 		m_fMaxAdditionalThrust = m_fHoverForce;
 		m_DroneId = RplComponent.Cast(owner.FindComponent(RplComponent)).Id();
@@ -173,7 +170,7 @@ class SAL_DroneControllerComponent: ScriptComponent
 			float scaledRatio = Math.Clamp((mass - 0.8) / (2 - 0.8), 0.0, 1);
 			float dampening = Math.Lerp(0.7, 0.99, scaledRatio);
 			
-			m_RigidBody.SetDamping(dampening, dampening);
+			rigidBody.SetDamping(dampening, dampening);
 		}
 		else
 		{
@@ -181,7 +178,7 @@ class SAL_DroneControllerComponent: ScriptComponent
 			float scaledRatio = Math.Clamp((mass - 0.8) / (4 - 0.8), 0.0, 1);
 			float dampening = Math.Lerp(0.4, 0.99, scaledRatio);
 			
-			m_RigidBody.SetDamping(dampening, dampening);
+			rigidBody.SetDamping(dampening, dampening);
 		}
 		GetGame().GetCallqueue().CallLater(InitializeRotors, 200, false);
 	}
@@ -268,8 +265,6 @@ class SAL_DroneControllerComponent: ScriptComponent
 		}
 		else
 			m_bIsActive = true;
-		if (!m_RigidBody)
-			m_RigidBody = owner.GetPhysics();
 		// Needed for deconstructor
 		if (m_DroneId == -1)
 			m_DroneId = RplComponent.Cast(owner.FindComponent(RplComponent)).Id();
@@ -284,10 +279,7 @@ class SAL_DroneControllerComponent: ScriptComponent
 		
 		//Everything below is all on the client
 		if (System.IsConsoleApp())
-		{
-			ServerFrameChecks(owner, timeSlice);
 			return;
-		}
 			
 		
 		ClientFrameChecks(owner, timeSlice);
@@ -348,7 +340,9 @@ class SAL_DroneControllerComponent: ScriptComponent
 			{	
 				m_iPitch = -m_InputManager.GetActionValue("DroneForward") * m_fPitchSensitivity;
 				m_iRoll  = -m_InputManager.GetActionValue("DroneLeft") * m_fRollSensitivity;
-				m_iYaw    = m_InputManager.GetActionValue("DroneYaw") * m_fYawSensitivity;
+				float yawEnvelope = 1.0 - Math.AbsFloat((m_iThrottle - 0.5) * 2.0);
+				yawEnvelope = Math.Clamp(yawEnvelope, 0.3, 1.0);
+				m_iYaw    = m_InputManager.GetActionValue("DroneYaw") * m_fYawSensitivity * yawEnvelope;
 			}
 			else
 			{
@@ -369,17 +363,18 @@ class SAL_DroneControllerComponent: ScriptComponent
 	
 	void ClientFrameChecks(IEntity owner, float timeSlice)
 	{
-		if (owner.GetParent() == null && m_RigidBody.GetSimulationState() == 0)
+		Physics rigidBody = GetOwner().GetPhysics();
+		if (owner.GetParent() == null && rigidBody.GetSimulationState() == 0)
 		{
-			m_RigidBody.ChangeSimulationState(SimulationState.SIMULATION);
-			m_RigidBody.SetActive(true);
+			rigidBody.ChangeSimulationState(SimulationState.SIMULATION);
+			rigidBody.SetActive(true);
 		}
 		
 		// Makes sure everyone is tracking the drones new position if no one is controlling it, if you dont do this picking up the drone breaks
 		if (!m_bIsConnected)
-			m_RigidBody.EnableGravity(1);
+			rigidBody.EnableGravity(1);
 		else if (m_bIsConnected && m_iOwner != SCR_PlayerController.GetLocalPlayerId())
-			m_RigidBody.EnableGravity(0);
+			rigidBody.EnableGravity(0);
 		
 		if (m_SoundComponent)
 		{
@@ -390,104 +385,94 @@ class SAL_DroneControllerComponent: ScriptComponent
 		}
 		vector transform[4];
 		owner.GetTransform(transform);
-		// Handling the drones placement for JIPs
-		if (!m_bIsArmed && m_iOwner != SCR_PlayerController.GetLocalPlayerId() && m_vLastBroadcastedPosition4 != transform[3] && m_vLastBroadcastedPosition4 != "0 -1 0" && owner.GetParent() != null)
-		{
-			GenericEntity droneEntity = GenericEntity.Cast(owner);
-			transform[0] = m_vLastBroadcastedPosition1;
-			transform[1] = m_vLastBroadcastedPosition2;
-			transform[2] = m_vLastBroadcastedPosition3;
-			transform[3] = m_vLastBroadcastedPosition4;
-			droneEntity.SetTransform(transform);
-			droneEntity.Update();
-			droneEntity.OnTransformReset();
-		}
 			
 		//Enables the gravity for the person controlling the drone
 		if (m_iOwner == SCR_PlayerController.GetLocalPlayerId())
-			m_RigidBody.EnableGravity(1);
+			rigidBody.EnableGravity(1);
 	}
 	
 	void ServerFrameChecks(IEntity owner, float timeSlice)
 	{
-		if (owner.GetParent() == null && m_RigidBody.GetSimulationState() == 0)
+		Physics rigidBody = GetOwner().GetPhysics();
+		if (owner.GetParent() == null && rigidBody.GetSimulationState() == 0)
 		{
-			m_RigidBody.ChangeSimulationState(SimulationState.SIMULATION);
-			m_RigidBody.SetActive(true);
+			rigidBody.ChangeSimulationState(SimulationState.SIMULATION);
+			rigidBody.SetActive(true);
 		}
 		
 		// Makes sure everyone is tracking the drones new position if no one is controlling it, if you dont do this picking up the drone breaks
 		if (!m_bIsConnected)
 		{
-			m_RigidBody.EnableGravity(1);
+			rigidBody.EnableGravity(1);
 			if (!IsOnGround(owner))
 				SendPacketServer(owner, timeSlice);
 		}
 		else
-			m_RigidBody.EnableGravity(0);
+			rigidBody.EnableGravity(0);
 	}
 	
 	void SendPacket(IEntity owner, float timeSlice)
 	{
-			
-		m_fSyncTimer += timeSlice;
-		if (m_fSyncTimer > 0.03)
+		Physics rigidBody = GetOwner().GetPhysics();
+		vector transform[4];
+		owner.GetTransform(transform);
+				
+		SAL_DroneNetworkPacket packet = new SAL_DroneNetworkPacket;
+		packet.SetDrone(m_DroneId);
+		packet.SetRotors(m_aRotorsRplId);
+		packet.SetRotorRPMs(m_aRotorRPM);
+		packet.SetTransform(transform);
+		packet.SetTimeSlice(timeSlice);
+		packet.SetIsTriggerd(m_bIsTriggered);
+		packet.SetBatteryLevel(m_BatteryComponent.m_fCurrentBattery);
+		packet.SetVelocity(rigidBody.GetVelocity());
+		if (m_bIsTriggered)
 		{
-			m_fSyncTimer = 0;
-			vector transform[4];
-			owner.GetTransform(transform);
-					
-			SAL_DroneNetworkPacket packet = new SAL_DroneNetworkPacket;
-			packet.SetDrone(m_DroneId);
-			packet.SetRotors(m_aRotorsRplId);
-			packet.SetRotorRPMs(m_aRotorRPM);
+			//Set the position of the drone to where it hit on the clients screen
+			SAL_DroneExplosionComponent droneExplComp = SAL_DroneExplosionComponent.Cast(owner.FindComponent(SAL_DroneExplosionComponent));
+			transform[3] = droneExplComp.m_HitEntity.CoordToParent(droneExplComp.m_vHitVector);
+			
+			packet.SetExplosion(droneExplComp.m_sExplosionEffect);
 			packet.SetTransform(transform);
-			packet.SetTimeSlice(timeSlice);
-			packet.SetIsTriggerd(m_bIsTriggered);
-			packet.SetBatteryLevel(m_BatteryComponent.m_fCurrentBattery);
-			packet.SetVelocity(m_RigidBody.GetVelocity());
-			if (m_bIsTriggered)
-			{
-				packet.SetExplosion(SAL_DroneExplosionComponent.Cast(owner.FindComponent(SAL_DroneExplosionComponent)).m_sExplosionEffect);
-				SCR_PlayerController.Cast(GetGame().GetPlayerController()).ExplodeDrone(packet);
-			}
-			else
-				SCR_PlayerController.Cast(GetGame().GetPlayerController()).SendTransformToServer(packet);
+			SCR_PlayerController.Cast(GetGame().GetPlayerController()).ExplodeDrone(packet);
 		}
+		else
+			SCR_PlayerController.Cast(GetGame().GetPlayerController()).SendTransformToServer(packet);
 	}
 	
 	void SendPacketServer(IEntity owner, float timeSlice)
 	{
-			
-		m_fSyncTimer += timeSlice;
-		if (m_fSyncTimer > 0.03)
+		Physics rigidBody = GetOwner().GetPhysics();
+		vector transform[4];
+		owner.GetTransform(transform);
+		
+		if (m_vCurrentVelocity != "0 0 0")
 		{
-			m_fSyncTimer = 0;
-			vector transform[4];
-			owner.GetTransform(transform);
-			
-			if (m_vCurrentVelocity != "0 0 0")
-			{
-				m_RigidBody.SetVelocity(m_vCurrentVelocity);
-				m_vCurrentVelocity = "0 0 0";
-			}
-			
-			SAL_DroneNetworkPacket packet = new SAL_DroneNetworkPacket;
-			packet.SetDrone(m_DroneId);
-			packet.SetRotors(m_aRotorsRplId);
-			packet.SetRotorRPMs(m_aRotorRPM);
-			packet.SetTransform(transform);
-			packet.SetTimeSlice(timeSlice);
-			packet.SetIsTriggerd(m_bIsTriggered);
-			packet.SetBatteryLevel(m_BatteryComponent.m_fCurrentBattery);
-			if (m_bIsTriggered)
-			{
-				packet.SetExplosion(SAL_DroneExplosionComponent.Cast(owner.FindComponent(SAL_DroneExplosionComponent)).m_sExplosionEffect);
-				m_DroneManager.ExplodeDroneServer(packet);
-			}
-			else
-				m_DroneManager.ReplicateTransform(packet);
+			rigidBody.SetVelocity(m_vCurrentVelocity);
+			m_vCurrentVelocity = "0 0 0";
 		}
+		
+		SAL_DroneNetworkPacket packet = new SAL_DroneNetworkPacket;
+		packet.SetDrone(m_DroneId);
+		packet.SetRotors(m_aRotorsRplId);
+		packet.SetRotorRPMs(m_aRotorRPM);
+		packet.SetTransform(transform);
+		packet.SetTimeSlice(timeSlice);
+		packet.SetIsTriggerd(m_bIsTriggered);
+		packet.SetBatteryLevel(m_BatteryComponent.m_fCurrentBattery);
+		if (m_bIsTriggered)
+		{
+			//Set the position of the drone to where it hit on the clients screen
+			SAL_DroneExplosionComponent droneExplComp = SAL_DroneExplosionComponent.Cast(owner.FindComponent(SAL_DroneExplosionComponent));
+			transform[3] = droneExplComp.m_HitEntity.CoordToParent(droneExplComp.m_vHitVector);
+			
+			packet.SetExplosion(droneExplComp.m_sExplosionEffect);
+			packet.SetTransform(transform);
+			packet.SetExplosion(SAL_DroneExplosionComponent.Cast(owner.FindComponent(SAL_DroneExplosionComponent)).m_sExplosionEffect);
+			m_DroneManager.ExplodeDroneServer(packet);
+		}
+		else
+			m_DroneManager.ReplicateTransform(packet);
 	}
 	
 	bool IsOnGround(IEntity owner)
@@ -504,11 +489,17 @@ class SAL_DroneControllerComponent: ScriptComponent
 		float height = GetGame().GetWorld().TraceMove(trace, null) * 10000;
 		return height <= 2;
 	}
-
-	override void EOnSimulate(IEntity owner, float timeSlice)
+	
+	override void EOnFixedFrame(IEntity owner, float timeSlice)
 	{
-		super.EOnSimulate(owner, timeSlice);
-		if (!m_RigidBody) return;
+		//Everything below is all on the client
+		if (System.IsConsoleApp())
+		{
+			ServerFrameChecks(owner, timeSlice);
+			return;
+		}
+		Physics rigidBody = GetOwner().GetPhysics();
+		if (!rigidBody) return;
 		
 		if (!m_DroneManager) 
 			m_DroneManager = SAL_DroneConnectionManager.GetInstance();
@@ -524,12 +515,33 @@ class SAL_DroneControllerComponent: ScriptComponent
 				SendPacket(owner, timeSlice);
 			return;
 		}
+		
+		//Sends data to other players every 30ms
+		SendPacket(owner, timeSlice);
+	}
+
+	override void EOnSimulate(IEntity owner, float timeSlice)
+	{
+		super.EOnSimulate(owner, timeSlice);
+		Physics rigidBody = GetOwner().GetPhysics();
+		if (!rigidBody) return;
+		
+		if (!m_DroneManager) 
+			m_DroneManager = SAL_DroneConnectionManager.GetInstance();
+		
+		//Same as above just checks to see if the person running this is the drones controller
+		if (!m_DroneManager || m_iOwner != SCR_PlayerController.GetLocalPlayerId())
+			return;
+		
+		// Needed for when the drone is not armed and in the air so everyone can still track where its at
+		if (!m_bIsArmed)
+			return;
 
 		//If the drone is stabalized duh
 		if (m_bStabilized)
-			CalculateStablizedInputs(owner, timeSlice, m_RigidBody);
+			CalculateStablizedInputs(owner, timeSlice, rigidBody);
 		else
-			CalculateAcroInputs(owner, timeSlice, m_RigidBody);
+			CalculateAcroInputs(owner, timeSlice, rigidBody);
 		
 		//Helps stabalize the drones tilt
 		vector dampingTorque = -m_vLocalAngVel * 30;
@@ -544,15 +556,13 @@ class SAL_DroneControllerComponent: ScriptComponent
 		//Get the rotors spinning and the drone in the sky
 		UpdateSimulatedRPMs(timeSlice);
 		SpinRotors(timeSlice);
-		m_RigidBody.ApplyImpulse(m_vThrustForce);
-		m_RigidBody.ApplyTorque(worldTorque * timeSlice);
-
-		//Sends data to other players every 30ms
-		SendPacket(owner, timeSlice);
+		rigidBody.ApplyImpulse(m_vThrustForce);
+		rigidBody.ApplyTorque(worldTorque * timeSlice);
 	}
 	
 	void CalculateAcroInputs(IEntity owner, float timeSlice, Physics physics)
 	{
+		Physics rigidBody = GetOwner().GetPhysics();
 		vector thrustForce;
 		vector inputTorque;
 		vector localAngVel;
@@ -573,7 +583,7 @@ class SAL_DroneControllerComponent: ScriptComponent
 		//Apply thrust in the drone's up direction
 		thrustForce = thrustDir * totalThrust * timeSlice;
 				
-		vector worldAngVel = m_RigidBody.GetAngularVelocity();
+		vector worldAngVel = rigidBody.GetAngularVelocity();
 		localAngVel[0] = vector.Dot(worldAngVel, owner.GetTransformAxis(0));
 		localAngVel[1] = vector.Dot(worldAngVel, owner.GetTransformAxis(1));
 		localAngVel[2] = vector.Dot(worldAngVel, owner.GetTransformAxis(2));
@@ -590,6 +600,7 @@ class SAL_DroneControllerComponent: ScriptComponent
 	
 	void CalculateStablizedInputs(IEntity owner, float timeSlice, Physics physics)
 	{
+		Physics rigidBody = GetOwner().GetPhysics();
 		vector thrustForce;
 		vector inputTorque;
 		vector localAngVel;
@@ -628,12 +639,12 @@ class SAL_DroneControllerComponent: ScriptComponent
 		//Only apply vertical velocity damping when throttle is near hover (user not actively climbing/descending)
 //		if (Math.AbsFloat(m_iThrottle) < 0.05)
 //		{
-//			float verticalVelocity = vector.Dot(m_RigidBody.GetVelocity(), worldUp);
+//			float verticalVelocity = vector.Dot(rigidBody.GetVelocity(), worldUp);
 //			thrustForce -= worldUp * verticalVelocity * 2.0 * timeSlice;
 //		}
 		
 		//Angular velocity
-		vector worldAngVel = m_RigidBody.GetAngularVelocity();
+		vector worldAngVel = rigidBody.GetAngularVelocity();
 		localAngVel[0] = vector.Dot(worldAngVel, right);
 		localAngVel[1] = vector.Dot(worldAngVel, up);
 		localAngVel[2] = vector.Dot(worldAngVel, forward);
@@ -666,7 +677,7 @@ class SAL_DroneControllerComponent: ScriptComponent
 		inputTorque[1] = m_iYaw * fovDifference;
 		
 		//Counter drift
-		vector velocityWorld = m_RigidBody.GetVelocity();
+		vector velocityWorld = rigidBody.GetVelocity();
 		vector localVel;
 		localVel[0] = vector.Dot(velocityWorld, forward);
 		localVel[1] = vector.Dot(velocityWorld, up);
@@ -701,8 +712,6 @@ class SAL_DroneControllerComponent: ScriptComponent
 	
 	void ~SAL_DroneControllerComponent()
 	{
-		Print("Drone Controller Deleted");
-		
 		if (!GetGame().GetWorld())
 			return;
 		
@@ -720,10 +729,6 @@ class SAL_DroneControllerComponent: ScriptComponent
 	{
 		
 		writer.WriteBool(m_bIsArmed);
-		writer.WriteVector(m_vLastBroadcastedPosition1);
-		writer.WriteVector(m_vLastBroadcastedPosition2);
-		writer.WriteVector(m_vLastBroadcastedPosition3);
-		writer.WriteVector(m_vLastBroadcastedPosition4);
 		
 		writer.WriteBool(m_bIsConnected);
 		writer.WriteInt(m_iOwner);
@@ -734,10 +739,6 @@ class SAL_DroneControllerComponent: ScriptComponent
 	{
 		
 		reader.ReadBool(m_bIsArmed);
-		reader.ReadVector(m_vLastBroadcastedPosition1);
-		reader.ReadVector(m_vLastBroadcastedPosition2);
-		reader.ReadVector(m_vLastBroadcastedPosition3);
-		reader.ReadVector(m_vLastBroadcastedPosition4);
 		
 		reader.ReadBool(m_bIsConnected);
 		reader.ReadInt(m_iOwner);

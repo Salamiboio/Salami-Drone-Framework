@@ -33,7 +33,6 @@ GenericEntity : "{630FB4AD4A735264}Prefabs/Items/Equipment/Canteens/Canteen_US_0
    Enabled 0
   }
   RplComponent "{508AB59531D748C9}" {
-   "Rpl State Override" None
    "Parent Node From Parent Entity" 1
   }
  }

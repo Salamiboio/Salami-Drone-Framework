@@ -1,6 +1,10 @@
 GenericEntity : "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et" {
  ID "658B340BE800639F"
  components {
+  SignalsManagerComponent "{662493C6F8D51BB3}" {
+  }
+  SoundComponent "{662493C6FE8E2D7F}" {
+  }
   MeshObject "{658B340BD9325940}" {
    Object "{F4C76CC6740BD4A6}Assets/Weapons/Grenades/RGD5/Grenade_Rgd5.xob"
    LODFactors {
@@ -12,8 +16,8 @@ GenericEntity : "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et" {
    LayerPreset "Projectile"
    Active Active
    Mass 0.397
-   LinearDamping 0.4
-   AngularDamping 0.6
+   LinearDamping 0.5
+   AngularDamping 0.5
    LinearSleepingThreashold 0.1
    AngularSleepingThreashold 0.1
    SimState Simulation
@@ -44,20 +48,6 @@ GenericEntity : "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et" {
     }
    }
   }
-  SlotManagerComponent "{65CAE7624789854B}" {
-   Slots {
-    EntitySlotInfo Explosion {
-     Prefab "{AC89BF1A29385E9C}Prefabs/Weapons/Warheads/Explosions/Explosion_M67.et"
-    }
-   }
-  }
-  RplComponent "{658B340BDAF50D06}" {
-   "Parent Node From Parent Entity" 1
-  }
-  SignalsManagerComponent "{662493C6F8D51BB3}" {
-  }
-  SoundComponent "{662493C6FE8E2D7F}" {
-  }
   SCR_ExplosiveChargeComponent "{662493C6F401A6B5}" {
   }
   SCR_ExplosiveTriggerComponent "{662493C6FA05A0E1}" {
@@ -71,6 +61,16 @@ GenericEntity : "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et" {
     }
    }
    HAS_VALID_DIRECTION 0
+  }
+  SlotManagerComponent "{65CAE7624789854B}" {
+   Slots {
+    EntitySlotInfo Explosion {
+     Prefab "{AC89BF1A29385E9C}Prefabs/Weapons/Warheads/Explosions/Explosion_M67.et"
+    }
+   }
+  }
+  RplComponent "{658B340BDAF50D06}" {
+   "Parent Node From Parent Entity" 1
   }
  }
  coords 0 0 0

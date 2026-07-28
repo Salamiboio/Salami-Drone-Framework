@@ -408,7 +408,6 @@ FrameWidgetClass {
    }
    {
     MapWidgetClass "{65B2E003D35D6421}" {
-     Prefab "{000000009C582FB6}"
      Name "MapWidget"
      Slot FrameWidgetSlot "{50A4DDC879494878}" {
       Anchor 0 0 1 1
@@ -450,7 +449,6 @@ FrameWidgetClass {
      SizeInUnits 1024 1024
     }
     CanvasWidgetClass "{65B2E003D35D6423}" {
-     Prefab "{00000000D821A644}"
      Name "DrawingWidget"
      Slot FrameWidgetSlot "{50A4DDC879494989}" {
       Anchor 0 0 1 1
@@ -477,7 +475,6 @@ FrameWidgetClass {
      }
     }
     FrameWidgetClass "{65B2E003D35D6424}" {
-     Prefab "{5D828475DBE5390E}"
      Name "DrawingContainer"
      Slot FrameWidgetSlot "{5D828475DBE539F7}" {
       Anchor 0 0 1 1
@@ -518,7 +515,6 @@ FrameWidgetClass {
      "Is Visible" 0
      {
       ImageWidgetClass "{59387C05CE1B5E65}" {
-       Prefab "{59387C05CE1B5E65}"
        Size 4096 4096
       }
      }
@@ -640,7 +636,6 @@ FrameWidgetClass {
      "Z Order" 110
      {
       VerticalLayoutWidgetClass "{55A2A2FEB2DAB65B}" {
-       Prefab "{55A2A2FEB2DAB65B}"
        Clipping Ancestor
        {
         TextWidgetClass "{65B2E003D35E26AA}" {
@@ -661,13 +656,11 @@ FrameWidgetClass {
          }
         }
         ImageWidgetClass "{55A2A2FEA6644F65}" {
-         Prefab "{55A2A2FEA6644F65}"
          Slot LayoutSlot "{52DA9C997457414E}" {
           Padding 0 296 0 0
          }
         }
         TextWidgetClass "{5654A18BF82D9B59}" {
-         Prefab "{5654A18BF82D9B59}"
          Slot LayoutSlot "{5654A18BF82D9B6D}" {
           Padding -30 0 0 -2
          }
@@ -676,11 +669,9 @@ FrameWidgetClass {
          "Font Size" 18
         }
         HorizontalLayoutWidgetClass "{56527D6A08904DE4}" {
-         Prefab "{56527D6A08904DE4}"
          "Z Order" 2
         }
         ImageWidgetClass "{55A2A2FE05FD6952}" {
-         Prefab "{55A2A2FE05FD6952}"
          "Z Order" 4
         }
        }
@@ -772,7 +763,6 @@ FrameWidgetClass {
      }
     }
     RichTextWidgetClass "{65B2E00DA57B227C}" {
-     Prefab "{00000000B0FD85CE}"
      Name "Action"
      Slot FrameWidgetSlot "{59107CC3B4EF4150}" {
       Anchor 1 1 1 1

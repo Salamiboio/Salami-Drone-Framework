@@ -27,7 +27,7 @@ class SAL_DronePlaceHolderComponent: ScriptComponent
 		
 		SCR_EntityHelper.DeleteEntityAndChildren(owner);
 		#else
-		if (RplSession.Mode() == RplMode.Client)
+		if (!Replication.IsServer())
 			return;
 			
 		if (owner.GetParent() != null)

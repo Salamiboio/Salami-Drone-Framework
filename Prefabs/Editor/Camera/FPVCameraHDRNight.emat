@@ -1,0 +1,30 @@
+HDREffect {
+ VisiblePercentWhite 85
+ VisiblePercentBlack 4
+ TargetBrightness 0.38
+ SpeedBrightToDark 0.25
+ SceneLVAverageTime 0.85
+ BasicSceneLV -5.5
+ FilmicShoulderStrength 0.4
+ FilmicLinearStrength 0.42
+ FilmicLinearAngle 0.35
+ FilmicToeStrength 0.1
+ FilmicToeNumerator 0.02
+ FilmicToeDenumerator 4.5
+ FilmicExposureBias 5.6
+ FilmicWhitePoint 1.85
+ SecondSceneLV -3.5
+ FilmicShoulderStrength2 0.3
+ FilmicLinearStrength2 0.55
+ FilmicLinearAngle2 0.42
+ FilmicToeStrength2 0.06
+ FilmicToeNumerator2 0.015
+ FilmicToeDenumerator2 5
+ FilmicExposureBias2 4.2
+ FilmicWhitePoint2 2
+ Contrast 2
+ Gamma 0.225
+ Brightness 0.25
+ ImageOffset 0.61
+ Saturation 0
+}

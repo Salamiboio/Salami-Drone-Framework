@@ -23,6 +23,8 @@ GameEntity : "{17F335BF60DD2550}Prefabs/Characters/Core/Headgear_Base.et" {
   MeshObject "{5112706CD4157AE0}" {
    Object "{A73C7751D0035A24}Assets/Drones/FPVGoggles/NewFPVGogglesItem.xob"
   }
+  SAL_DroneGogglesComponent "{65E8F331AD7D38A5}" {
+  }
   SCR_ItemOutfitFactionComponent "{659F1EAD965D80F8}" {
    m_OutfitDataHolder SCR_OutfitFactionDataHolder "{659F1EAD965D80E1}" {
     m_aOutfitFactionData {
@@ -55,10 +57,7 @@ GameEntity : "{17F335BF60DD2550}Prefabs/Characters/Core/Headgear_Base.et" {
    }
   }
   RplComponent "{5244E440DAA03DB6}" {
-   "Rpl State Override" None
    "Parent Node From Parent Entity" 1
-  }
-  SAL_DroneGogglesComponent "{65E8F331AD7D38A5}" {
   }
  }
  coords 0.594 1.202 -1.52

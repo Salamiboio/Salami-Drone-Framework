@@ -1,0 +1,8 @@
+FilmGrainEffect {
+ Intensity 0.18
+ GrainSize 1.35
+ IntensityX0 0.112
+ IntensityX1 -5
+ Distort 1
+ Frequency 749
+}

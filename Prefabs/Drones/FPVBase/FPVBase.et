@@ -13,7 +13,8 @@ GenericEntity {
   }
   AIKnowledgeComponent "{65AE5C09542A3F69}" {
   }
-  ColliderHistoryComponent "{65A5302D07FBBDA4}" {
+  FactionAffiliationComponent "{66E8648CAB1438A3}" {
+   "faction affiliation" "US"
   }
   InventoryItemComponent "{65AB25234576F8FB}" {
    Attributes SCR_ItemAttributeCollection "{65AB252343D23B3A}" {
@@ -108,10 +109,10 @@ GenericEntity {
     m_Image "{062D42A783238260}UI/FPVIcon.edds"
     m_sFaction "US"
     m_aAuthoredLabels {
-     3 51 37 210
+     ENTITYTYPE_VEHICLE VEHICLE_HELICOPTER TRAIT_PASSENGERS_LARGE TRAIT_SUPPLYSTORAGE_LARGE
     }
     m_aAutoLabels {
-     11 122
+     FACTION_US SIZE_M
     }
     m_EntityBudgetCost {
      SCR_EntityBudgetValue "{6052A79ADDA6C7A8}" {
@@ -129,20 +130,16 @@ GenericEntity {
    m_bAutoRegister ALWAYS
    m_Flags 5
   }
-  SCR_FactionAffiliationComponent "{65B3334F801EE534}" {
-   "faction affiliation" "US"
-  }
   PerceivableComponent "{65B1396C6F29110E}" {
    "Additional aim points" {
     AimPoint "{65B1396C63256AE1}" {
-     AimPointPosition PointInfo "{5A44DB148C16BF03}" {
+     AimPointPosition AttachPoint "{5A44DB148C16BF03}" {
      }
      AimpointChecked 1
      VsibilityChecked 1
-     Dimension 0.1
+     Dimension 0.5
     }
    }
-   IlluminationLvPerLight 4
   }
   SlotManagerComponent "{65932E3A16300B2D}" {
    Slots {
@@ -212,7 +209,7 @@ GenericEntity {
    }
   }
   RplComponent "{65932E3A10C5CD87}" {
-   "Rpl State Override" None
+   "Rpl State Override" Runtime
    "Parent Node From Parent Entity" 0
   }
   Hierarchy "{65AD715E336FB3AE}" {

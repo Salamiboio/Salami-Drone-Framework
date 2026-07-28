@@ -1,0 +1,5 @@
+ColorsEffect {
+ Gamma 0.62
+ ImageOffset 0.405
+ Saturation 0.4
+}

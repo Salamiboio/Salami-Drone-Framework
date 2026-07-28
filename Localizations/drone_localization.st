@@ -53,6 +53,20 @@ StringTable {
    Author "tyler"
    LastChanged "tyler"
   }
+  CustomStringTableItem "{66F453743435CB05}" {
+   Id "DJI_81_Dropper"
+   Target_en_us "SAL Drone Dropper (81mm)"
+   Modified 1727405688
+   Author "tyler"
+   LastChanged "tyler"
+  }
+  CustomStringTableItem "{66F453741C080B14}" {
+   Id "DJI_82_Dropper"
+   Target_en_us "SAL Drone Dropper (82mm)"
+   Modified 1727405718
+   Author "tyler"
+   LastChanged "tyler"
+  }
   CustomStringTableItem "{65C8EC9029C4C208}" {
    Id "DJI_Battery"
    Target_en_us "SAL Battery"
@@ -85,10 +99,66 @@ StringTable {
    Author "tyler"
    LastChanged "tyler"
   }
+  CustomStringTableItem "{66F7119288ACBC3C}" {
+   Id "DJI_M14_Dropper"
+   Target_en_us "SAL Drone Dropper (M14AP)"
+   Modified 1727473795
+   Author "tyler"
+   LastChanged "tyler"
+  }
+  CustomStringTableItem "{66F71192A6743ABC}" {
+   Id "DJI_M15_Dropper"
+   Target_en_us "SAL Drone Dropper (M15AT)"
+   Modified 1727473746
+   Author "tyler"
+   LastChanged "tyler"
+  }
+  CustomStringTableItem "{66F72C6522D987EB}" {
+   Id "DJI_M406_Dropper"
+   Target_en_us "SAL Drone Dropper (M406)"
+   Modified 1727476805
+   Author "tyler"
+   LastChanged "tyler"
+  }
+  CustomStringTableItem "{66F735259A55D2FE}" {
+   Id "DJI_M583_Dropper"
+   Target_en_us "SAL Drone Dropper (M583)"
+   Modified 1727478025
+   Author "tyler"
+   LastChanged "tyler"
+  }
+  CustomStringTableItem "{66F71192FFBF85B0}" {
+   Id "DJI_PMN4_Dropper"
+   Target_en_us "SAL Drone Dropper (PMN4)"
+   Modified 1727473814
+   Author "tyler"
+   LastChanged "tyler"
+  }
   CustomStringTableItem "{65E8F012A535DACA}" {
    Id "DJI_Supply_Drone"
    Target_en_us "SAL Supply Drone"
    Modified 1709764932
+   Author "tyler"
+   LastChanged "tyler"
+  }
+  CustomStringTableItem "{66F711929B1BBA49}" {
+   Id "DJI_TM62M_Dropper"
+   Target_en_us "SAL Drone Dropper (TM62M)"
+   Modified 1727473765
+   Author "tyler"
+   LastChanged "tyler"
+  }
+  CustomStringTableItem "{66F73525A7A92D84}" {
+   Id "DJI_VG40OP_Dropper"
+   Target_en_us "SAL Drone Dropper (VG40OP)"
+   Modified 1727478004
+   Author "tyler"
+   LastChanged "tyler"
+  }
+  CustomStringTableItem "{66F72C6515298997}" {
+   Id "DJI_VOG25_Dropper"
+   Target_en_us "SAL Drone Dropper (VOG25)"
+   Modified 1727476726
    Author "tyler"
    LastChanged "tyler"
   }

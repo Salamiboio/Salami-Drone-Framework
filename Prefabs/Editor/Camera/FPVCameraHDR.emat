@@ -1,0 +1,25 @@
+HDREffect {
+ BasicSceneLV -14
+ FilmicShoulderStrength 0.52
+ FilmicLinearStrength 0.27
+ FilmicLinearAngle 0.2
+ FilmicToeStrength 0.28
+ FilmicToeNumerator 0.045
+ FilmicToeDenumerator 2.8
+ FilmicExposureBias 3.4
+ FilmicWhitePoint 1.15
+ SecondSceneLV -14
+ FilmicShoulderStrength2 0.45
+ FilmicLinearStrength2 0.21
+ FilmicLinearAngle2 0.18
+ FilmicToeStrength2 0.33
+ FilmicToeNumerator2 0.035
+ FilmicToeDenumerator2 2.4
+ FilmicExposureBias2 3.1
+ FilmicWhitePoint2 1.25
+ Vignette 0.12
+ VignetteColor 0 0 0 1
+ VignetteSharpness 0.35
+ LensDistort 0.015
+ MaxChromAbberation 0.002
+}

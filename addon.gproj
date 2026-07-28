@@ -5,4 +5,79 @@ GameProject {
  Dependencies {
   "58D0FB3206B6F859"
  }
+ Configurations {
+  GameProjectConfig PC {
+   WidgetManagerSettings WidgetManagerSettings "{AC4BE58770485E02}" {
+    StringTables {
+     StringTableDefinition "{65C8D8FB6AF7024A}" {
+      StringTableSource "{9D31D8F71E1186DF}Localizations/drone_localization.st"
+      Languages {
+       LanguageDefinition "{65C8D8FB644A1CBB}" {
+        Code "cs_cz"
+        StringTableRuntime "{0C1513CC51460AB6}Localizations/drone_localization.cs_cz.conf"
+       }
+       LanguageDefinition "{65C8D8FB644A1CEC}" {
+        Code "de_de"
+        StringTableRuntime "{D96B09FF42E51B96}Localizations/drone_localization.de_de.conf"
+       }
+       LanguageDefinition "{65C8D8FB644A1CC9}" {
+        Code "en_us"
+        StringTableRuntime "{879B83B428161E97}Localizations/drone_localization.en_us.conf"
+       }
+       LanguageDefinition "{65C8D8FB644A1F74}" {
+        Code "es_es"
+        StringTableRuntime "{42D7CE3DC6147588}Localizations/drone_localization.es_es.conf"
+       }
+       LanguageDefinition "{65C8D8FB644A1FBD}" {
+        Code "fr_fr"
+        StringTableRuntime "{F97F3B0A2097968A}Localizations/drone_localization.fr_fr.conf"
+       }
+       LanguageDefinition "{65C8D8FB644A1F97}" {
+        Code "it_it"
+        StringTableRuntime "{7963B43E8DB51573}Localizations/drone_localization.it_it.conf"
+       }
+       LanguageDefinition "{65C8D8FB644A1F8D}" {
+        Code "ja_jp"
+        StringTableRuntime "{697809ACB3C425D8}Localizations/drone_localization.ja_jp.conf"
+       }
+       LanguageDefinition "{65C8D8FB644A1FE2}" {
+        Code "ko_kr"
+        StringTableRuntime "{C9C6210020E926E7}Localizations/drone_localization.ko_kr.conf"
+       }
+       LanguageDefinition "{65C8D8FB644A1FD7}" {
+        Code "pl_pl"
+        StringTableRuntime "{95B787FA9E06BA9B}Localizations/drone_localization.pl_pl.conf"
+       }
+       LanguageDefinition "{65C8D8FB644A1FC9}" {
+        Code "pt_br"
+        StringTableRuntime "{40C01D36A5F87021}Localizations/drone_localization.pt_br.conf"
+       }
+       LanguageDefinition "{65C8D8FB644A1E21}" {
+        Code "ru_ru"
+        StringTableRuntime "{1581099E38811557}Localizations/drone_localization.ru_ru.conf"
+       }
+       LanguageDefinition "{65C8D8FB644A1EC9}" {
+        Code "uk_ua"
+        StringTableRuntime "{9FD95C6854AFAB02}Localizations/drone_localization.uk_ua.conf"
+       }
+       LanguageDefinition "{65C8D8FB644A1923}" {
+        Code "zh_cn"
+        StringTableRuntime "{456932556D0F7B1F}Localizations/drone_localization.zh_cn.conf"
+       }
+      }
+     }
+    }
+   }
+  }
+  GameProjectConfig XBOX_ONE {
+  }
+  GameProjectConfig XBOX_SERIES {
+  }
+  GameProjectConfig PS4 {
+  }
+  GameProjectConfig PS5 {
+  }
+  GameProjectConfig HEADLESS {
+  }
+ }
 }

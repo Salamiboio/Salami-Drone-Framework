@@ -110,10 +110,10 @@ GenericEntity {
     m_Image "{712805FDBC0D3619}UI/DJIIcon.edds"
     m_sFaction "US"
     m_aAuthoredLabels {
-     3 51 37 210
+     ENTITYTYPE_VEHICLE VEHICLE_HELICOPTER TRAIT_PASSENGERS_LARGE TRAIT_SUPPLYSTORAGE_LARGE
     }
     m_aAutoLabels {
-     11 122
+     FACTION_US SIZE_M
     }
     m_EntityBudgetCost {
      SCR_EntityBudgetValue "{6052A79ADDA6C7A8}" {
@@ -134,7 +134,7 @@ GenericEntity {
   PerceivableComponent "{65B1396D5F970440}" {
    "Additional aim points" {
     AimPoint "{65B1396D54075C71}" {
-     AimPointPosition PointInfo "{5A44DB148C16BF03}" {
+     AimPointPosition AttachPoint "{5A44DB148C16BF03}" {
      }
      AimpointChecked 1
      VsibilityChecked 1
@@ -219,6 +219,7 @@ GenericEntity {
    }
   }
   RplComponent "{659863D793C45A93}" {
+   "Rpl State Override" Runtime
    "Parent Node From Parent Entity" 0
   }
  }

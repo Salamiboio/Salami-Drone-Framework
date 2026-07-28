@@ -1,0 +1,17 @@
+MetaFileClass {
+ Name "{2DC1219EF2AF85B8}Prefabs/Drones/DJIBase/TM62MDropperGrenadePlaceHolder.et"
+ Configurations {
+  EntityTemplateResourceClass PC {
+  }
+  EntityTemplateResourceClass XBOX_ONE : PC {
+  }
+  EntityTemplateResourceClass XBOX_SERIES : PC {
+  }
+  EntityTemplateResourceClass PS4 : PC {
+  }
+  EntityTemplateResourceClass PS5 : PC {
+  }
+  EntityTemplateResourceClass HEADLESS : PC {
+  }
+ }
+}

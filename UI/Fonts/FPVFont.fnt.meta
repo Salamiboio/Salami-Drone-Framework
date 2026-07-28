@@ -1,0 +1,17 @@
+MetaFileClass {
+ Name "{308D7EBE959E3DF0}UI/Fonts/FPVFont.fnt"
+ Configurations {
+  FNTResourceClass PC {
+  }
+  FNTResourceClass XBOX_ONE : PC {
+  }
+  FNTResourceClass XBOX_SERIES : PC {
+  }
+  FNTResourceClass PS4 : PC {
+  }
+  FNTResourceClass PS5 : PC {
+  }
+  FNTResourceClass HEADLESS : PC {
+  }
+ }
+}

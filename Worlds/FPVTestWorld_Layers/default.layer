@@ -1,4 +1,20 @@
 SCR_AIWorld : "{01DC74137CFDDB6A}Prefabs/AI/SCR_AIWorld_Arland.et" {
+ components {
+  NavmeshWorldComponent "{5584F30E67F617AD}" {
+   NavmeshSettings NavmeshWorld "{50FC63BEBE3973C5}" {
+    NavmeshFilesConfig BaseNavmeshFilesConfig "{60B8A2995A7E8BC2}" {
+     NavmeshFile "{D8EF7131FB31AF97}worlds/GameMaster/Navmeshes/GM_Arland.nmn"
+    }
+   }
+  }
+  NavmeshWorldComponent "{5584F30EEFEE1223}" {
+   NavmeshSettings ChimeraNavmeshWorld "{50FC63BEBE3973C5}" {
+    NavmeshFilesConfig BaseNavmeshFilesConfig "{60B8A299509CF377}" {
+     NavmeshFile "{A0AEEB1E7EF474FA}worlds/GameMaster/Navmeshes/GM_Arland_vehicles.nmn"
+    }
+   }
+  }
+ }
  coords 1402.078 39 2168.704
 }
 PerceptionManager PerceptionManager1 : "{028DAEAD63E056BE}Prefabs/World/Game/PerceptionManager.et" {
@@ -22,144 +38,16 @@ SCR_GameModeEditor GameMode_Editor_Full1 : "{DA3986AF1B5032B7}Prefabs/MP/Modes/E
   }
  }
 }
-BaseGameTriggerEntity HQ {
- coords 1401.159 36.072 2335.364
- userScript "	private string m_sFactionKey = \"US\";"\
- "	"\
- "	void KillPlayer(IEntity ent)"\
- "	{"\
- "		EntitySpawnParams spawnParams = new EntitySpawnParams();"\
- "		vector transform[4];"\
- "		ent.GetTransform(transform);"\
- "		spawnParams.Transform = transform;"\
- "		IEntity lightning = GetGame().SpawnEntityPrefab(Resource.Load(\"{A8FFCD3F3697D77F}Prefabs/Editor/Lightning/LightningStrike.et\"), GetGame().GetWorld(), spawnParams);"\
- "	}"
- TriggerShapeType Sphere
- SphereRadius 32.4
- DrawShape 1
- PeriodicQueries 1
- UpdatePeriod 5
- OnQueryFinished ""\
- "		#ifdef WORKBENCH"\
- "		#else"\
- "		if (RplSession.Mode() == RplMode.Client)"\
- "			return;"\
- "		#endif"\
- "		SCR_FactionManager factManager = SCR_FactionManager.Cast(GetGame().GetFactionManager());"\
- "		ref array<int> playerIds = {};"\
- "		GetGame().GetPlayerManager().GetPlayers(playerIds);"\
- "		"\
- "		foreach (int playerId: playerIds)"\
- "		{"\
- "			IEntity ent = GetGame().GetPlayerManager().GetPlayerControlledEntity(playerId);"\
- "			if (!ent)"\
- "				continue;"\
- "			"\
- "			if (!ent.FindComponent(SCR_CharacterControllerComponent))"\
- "				continue;"\
- "			"\
- "			if (SCR_CharacterControllerComponent.Cast(ent.FindComponent(SCR_CharacterControllerComponent)).IsDead())"\
- "				continue;"\
- "			"\
- "			if (!factManager.GetPlayerFaction(playerId))"\
- "				continue;"\
- "			"\
- "			if (factManager.GetPlayerFaction(playerId).GetFactionKey() == m_sFactionKey)"\
- "				continue;"\
- "			"\
- "			float distance = vector.Distance(this.GetOrigin(), ent.GetOrigin());"\
- "			if (distance < GetSphereRadius())"\
- "				KillPlayer(ent);"\
- "		}"\
- "	"
-}
-$grp GenericEntity : "{45C675ED3CFBBEC5}Prefabs/Props/Military/Compositions/US/ArsenalBox_US.et" {
- {
-  coords 1407.214 39 2165.716
- }
- {
-  coords 1407.214 39 2165.716
- }
- {
-  coords 1407.396 39 2168.328
- }
- {
-  coords 1404.455 39 2168.573
- }
- {
-  coords 1406.033 39 2170.41
- }
- {
-  coords 1408.029 39 2170.377
- }
- {
-  coords 1402.181 39 2171.571
- }
- {
-  coords 1406.046 39 2173.647
- }
- {
-  coords 1408.603 39 2172.57
- }
- {
-  coords 1403.897 39.091 2173.737
- }
+GenericEntity : "{45C675ED3CFBBEC5}Prefabs/Props/Military/Compositions/US/ArsenalBox_US.et" {
+ coords 1407.214 39 2165.716
 }
 SCR_SpawnPoint : "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoint_US.et" {
  coords 1410.153 39 2166.017
 }
-GenericEntity : "{5A605E0B80EC0B21}Prefabs/Drones/DJIBase/DJICamera.et" {
- components {
-  SCR_DamageManagerComponent "{65B9338BF7272132}" {
-   Enabled 0
-  }
- }
- coords 1402.875 39 2172.233
-}
 GenericEntity : "{6356BFD802DEB290}Prefabs/Characters/Items/DroneCommandStation.et" {
- coords 1411.213 39 2166.446
- angleX 0
- angleY 0
- angleZ 0
+ coords 1411.694 39 2167.334
+ angles 0 0 0
 }
 GenericEntity : "{77CA4803A4A2B8E3}Prefabs/Drones/FPVBase/FPVRPG.et" {
- coords 1359.552 39.806 2155.479
-}
-GenericEntity : "{8395A2F307CC0C0A}Prefabs/Drones/DJIBase/DJISupplyCrate.et" {
- coords 1410.781 39 2162.247
-}
-Vehicle BTR1 : "{C012BB3488BEA0C2}Prefabs/Vehicles/Wheeled/BTR70/BTR70.et" {
- coords 1389.11 39 2198.33
- angleY 145
-}
-GameEntity : "{C8EAB0985B66824A}Prefabs/Characters/HeadGear/Helmet_DH132_01/Helmet_DH132A_01.et" {
- coords 1409.345 39 2166.719
-}
-GenericEntity : "{D96AA3EEDEEA60AD}Prefabs/Drones/DJIBase/M67DropperGrenadePlaceHolder.et" {
- coords 1413.392 38.989 2167.331
-}
-GenericEntity : "{E779EFAB2CB3ED82}Prefabs/Weapons/Warheads/Explosions/Explosion_Mortar.et" {
- coords 1410.564 39 2173.06
-}
-GenericEntity : "{EDE6EC8B05227E3E}Prefabs/Props/Military/Arsenal/ArsenalBoxes/USSR/ArsenalBox_USSR.et" {
- coords 1405.245 39 2165.119
-}
-GenericEntity : "{F09518802063A355}Prefabs/Items/Equipment/DroneAntenna/DroneAntenna.et" {
- components {
-  SAL_DroneCleanUpComponent "{65EA1CA22D8FB35E}" {
-   m_fMinutesTillCleanup 0.2
-  }
- }
- coords 1409.397 39 2165.245
-}
-$grp GenericEntity : "{FDA92D590B9C633B}Prefabs/Drones/DJIBase/DJIBase.et" {
- {
-  coords 1407.932 39 2158.521
- }
- {
-  coords 1408.936 39 2158.375
- }
- {
-  coords 1410.301 39 2158.576
- }
+ coords 1412.4 39.136 2167.383
 }

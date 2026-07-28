@@ -1,0 +1,8 @@
+Projectile : "{16F3F5C6467D43DE}Prefabs/Weapons/Core/Ammo_Spall_Base.et" {
+ ID "DA5C6308000CDEF2"
+ components {
+  ShellMoveComponent "{851AA4A2AE0A5691}" {
+   PenetrationDepth 300
+  }
+ }
+}
