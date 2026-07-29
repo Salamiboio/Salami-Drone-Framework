@@ -17,11 +17,18 @@ GenericEntity : "{630FB4AD4A735264}Prefabs/Items/Equipment/Canteens/Canteen_US_0
   MeshObject "{508EBD4511104198}" {
    Object "{363F6AA8BB69D958}Assets/Drones/Batteries/NewDroneBattery.xob"
   }
+  MeshObject "{685AB1F8F9A7EBD0}" {
+   Enabled 0
+  }
   SAL_BatteryComponent "{65A72413F23C2FEA}" {
   }
   BaseLoadoutClothComponent "{54E6E41D09667B08}" {
+   Enabled 0
    WornModel "{363F6AA8BB69D958}Assets/Drones/Batteries/NewDroneBattery.xob"
    ItemModel "{363F6AA8BB69D958}Assets/Drones/Batteries/NewDroneBattery.xob"
+  }
+  BaseLoadoutClothComponent "{685AB1F8F9A7EBD9}" {
+   Enabled 0
   }
   ActionsManagerComponent "{508AB5952B584B2E}" {
    additionalActions {

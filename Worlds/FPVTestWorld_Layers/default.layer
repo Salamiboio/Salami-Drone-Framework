@@ -38,16 +38,199 @@ SCR_GameModeEditor GameMode_Editor_Full1 : "{DA3986AF1B5032B7}Prefabs/MP/Modes/E
   }
  }
 }
+$grp GenericEntity : "{198FC6ADBB37E556}Prefabs/Drones/FPVBase/FPV_OFCP.et" {
+ {
+  coords 1413.477 39.123 2168.376
+ }
+ {
+  coords 1411.855 39 2168.768
+ }
+ {
+  coords 1413.294 38.98 2169.035
+ }
+ {
+  components {
+   SAL_DroneSoundComponent "{659B5B96CB87B3A2}" {
+    Enabled 0
+   }
+   RigidBody "{65932E3A2275FA52}" {
+    Enabled 0
+   }
+   SAL_DroneBatteryComponent "{65AAA9DB5A927044}" {
+    Enabled 0
+   }
+   SAL_DroneCleanUpComponent "{65E8A9CEE1508357}" {
+    Enabled 0
+   }
+   SAL_DroneControllerComponent "{65967B50676709BE}" {
+    Enabled 0
+   }
+   SAL_DroneExplosionComponent "{65A45D68462685BF}" {
+    Enabled 0
+   }
+   SAL_DroneHUDComponent "{65A136661B17A824}" {
+    Enabled 0
+   }
+   SAL_DroneHealthComponent "{65A29C6C8DC04DAD}" {
+    Enabled 0
+   }
+   SAL_DroneSignalComponent "{65A43CD2DD24F455}" {
+    Enabled 0
+   }
+  }
+  coords 1543.979 33.218 2168.73
+  angles 0 0 -16.557
+ }
+}
+GenericEntity : "{2A283EA7BADDBD28}Prefabs/Drones/FPVBase/FPVBase.et" {
+ coords 1412.745 39.029 2167.139
+}
 GenericEntity : "{45C675ED3CFBBEC5}Prefabs/Props/Military/Compositions/US/ArsenalBox_US.et" {
  coords 1407.214 39 2165.716
+}
+GenericEntity : "{4977C9711C8F1943}Prefabs/Items/Equipment/Backpacks/JammerBag.et" {
+ coords 1543.689 33.237 2166.433
+ angles 0.296 -138.999 -14.048
 }
 SCR_SpawnPoint : "{5A2220DD0C16958B}Prefabs/MP/Spawning/SpawnPoint_US.et" {
  coords 1410.153 39 2166.017
 }
-GenericEntity : "{6356BFD802DEB290}Prefabs/Characters/Items/DroneCommandStation.et" {
- coords 1411.694 39 2167.334
- angles 0 0 0
+$grp GenericEntity : "{6356BFD802DEB290}Prefabs/Characters/Items/DroneCommandStation.et" {
+ {
+  coords 1411.694 39 2167.334
+  angles 0 0 0
+ }
+ {
+  coords 1543.202 33.255 2166.97
+  angles -1.783 -0.112 3.578
+ }
 }
-GenericEntity : "{77CA4803A4A2B8E3}Prefabs/Drones/FPVBase/FPVRPG.et" {
- coords 1412.4 39.136 2167.383
+GenericEntity : "{77CA4803A4A2B8E3}Prefabs/Drones/FPVBase/FPVRpg.et" {
+ components {
+  SlotManagerComponent "{65932E3A16300B2D}" {
+   Slots {
+    EntitySlotInfo Camera {
+     Offset -0.0009 0.0065 0.1604
+    }
+   }
+  }
+ }
+ coords 1412.527 39.274 2167.632
+}
+GameEntity : "{8951045BFE8BC8E4}Prefabs/Characters/HeadGear/FPV_Goggles.et" {
+ components {
+  RigidBody "{5112706CD4157AE6}" {
+   Enabled 0
+  }
+ }
+ coords 1544.062 33.119 2166.993
+}
+$grp GenericEntity : "{8FDC6AA92A0DFADC}Prefabs/Structures/Walls/Brick/BrickWall_02/dst/Brick_wall_02_2m_dst_01.et" {
+ {
+  coords 1406.452 39.677 2153.137
+  angles 0.39 -33.567 0.588
+ }
+ {
+  coords 1405.246 39.544 2155.078
+  angles 0.39 -33.567 0.588
+ }
+ {
+  coords 1405.266 39.511 2154.939
+  angles -0.6 58.248 0.371
+ }
+ {
+  coords 1406.977 39.614 2156.103
+  angles -0.6 58.248 0.371
+ }
+}
+GenericEntity : "{E2434ED1318D8476}Prefabs/Characters/Items/DroneController.et" {
+ components {
+  RigidBody "{55349E9229B55E32}" {
+   Enabled 0
+  }
+ }
+ coords 1544.079 33.131 2166.623
+ angles -6.232 107.814 0
+}
+$grp GenericEntity : "{E2BC2F5C24A925B9}Prefabs/Drones/FPVBase/FPV_OG7V.et" {
+ {
+  coords 1413.004 39.164 2167.938
+ }
+ {
+  components {
+   SAL_DroneSoundComponent "{659B5B96CB87B3A2}" {
+    Enabled 0
+   }
+   RigidBody "{65932E3A2275FA52}" {
+    Enabled 0
+   }
+   SAL_DroneBatteryComponent "{65AAA9DB5A927044}" {
+    Enabled 0
+   }
+   SAL_DroneCleanUpComponent "{65E8A9CEE1508357}" {
+    Enabled 0
+   }
+   SAL_DroneControllerComponent "{65967B50676709BE}" {
+    Enabled 0
+   }
+   SAL_DroneExplosionComponent "{65A45D68462685BF}" {
+    Enabled 0
+   }
+   SAL_DroneHUDComponent "{65A136661B17A824}" {
+    Enabled 0
+   }
+   SAL_DroneHealthComponent "{65A29C6C8DC04DAD}" {
+    Enabled 0
+   }
+   SAL_DroneSignalComponent "{65A43CD2DD24F455}" {
+    Enabled 0
+   }
+  }
+  coords 1543.799 33.151 2168.256
+  angles 0 141.057 -13.396
+ }
+}
+GenericEntity : "{F09518802063A355}Prefabs/Items/Equipment/DroneAntenna/DroneAntenna.et" {
+ coords 1542.718 33.166 2168.068
+}
+$grp GenericEntity : "{FDA92D590B9C633B}Prefabs/Drones/DJIBase/DJIBase.et" {
+ {
+  coords 1412.41 39 2166.719
+ }
+ {
+  components {
+   SAL_DroneSoundComponent "{659C775FD18F485D}" {
+    Enabled 0
+   }
+   RigidBody "{659863D747DB7DA8}" {
+    Enabled 0
+   }
+   SAL_CameraZoomComponent "{65A23C4DF4B2E231}" {
+    Enabled 0
+   }
+   SAL_DroneBatteryComponent "{65AAA9DA6F0BB1F5}" {
+    Enabled 0
+   }
+   SAL_DroneCleanUpComponent "{65E8A9CED2D961C9}" {
+    Enabled 0
+   }
+   SAL_DroneControllerComponent "{659863D74259DF47}" {
+    Enabled 0
+   }
+   SAL_DroneHUDComponent "{65A23C4DFE108560}" {
+    Enabled 0
+   }
+   SAL_DroneHealthComponent "{65A29C6C04B54BFD}" {
+    Enabled 0
+   }
+   SAL_DroneRangeFinderComponent "{65AD4D53172F854B}" {
+    Enabled 0
+   }
+   SAL_DroneSignalComponent "{65AAA9DA6B1749D7}" {
+    Enabled 0
+   }
+  }
+  coords 1543.656 33.142 2167.299
+  angles 7.341 0 0
+ }
 }

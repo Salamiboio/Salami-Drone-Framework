@@ -1,0 +1,81 @@
+GenericEntity : "{6BEC092D354A997E}Prefabs/Weapons/Warheads/Explosions/Warhead_Explosion_Base.et" {
+ ID "9D9BE68EA2672F76"
+ components {
+  SignalsManagerComponent "{C572A75F88B55309}" {
+   Enabled 1
+  }
+  SoundComponent "{D092A75ECEFAE456}" {
+   Enabled 1
+   Filenames {
+    "{B9347A5498317F65}Sounds/Particles/Logistics/Explosion/TNT/Particles_Explosions_TNT_Medium.acp"
+   }
+  }
+  TimerTriggerComponent "{55129E81CBAA1390}" {
+   PROJECTILE_EFFECTS {
+    ExplosionDamageContainer "{5D8D1EB3E2893B43}" {
+     ExplosionEffects {
+      BaseExplosionDamage "{5D8D1EB3EF9D02C6}" {
+      }
+      BaseExplosionDamage "{61DAF5E24D9CA168}" {
+      }
+      BaseExplosionDamage "{5D8D1EB3EBB36077}" {
+      }
+      ExplosionImpulseEffect "{5E6D1CEE09A33086}" {
+      }
+      ExplosionFragmentationEffect "{69FB0B8293ED9593}" {
+       DamageValue 16
+       DamageType Fragmentation
+       DamageDistance 25
+       ExplosionEffectSpeed 1000
+       DamageFalloffCurve {
+        0 1 0.05 1 0.55 0.8 1 0
+       }
+       DamageEffect {
+        SCR_FragmentationDamageEffect "{69FB0B8293ED95BD}" {
+        }
+       }
+       DamageDistanceCurve {
+        0 1 1 0
+       }
+       DamageFragmentCount 1200
+       GurneyShape CYLINDER
+       GurneyConstant 2600
+       CaseWeight 2700
+       FragMassScale 90
+       FragRangeScale 90
+      }
+     }
+     ChargeWeight 210
+     TntEquivalent 1.6
+    }
+    SpawnDecalEffect "{5E24A9E4AE3FCD64}" {
+     Scale 2
+     Material "{2A3A7B73C1EF6936}Assets/Decals/Logistics/Impact/Data/Decal_Logistics_RPG_01.emat"
+    }
+    SpawnParticleEffect "{5E24A9E49067B7F5}" {
+     ParticleEffect "{B6275B6B9E29E9ED}Particles/Weapon/Explosion_RPG7V1.ptc"
+     SoundEvent "SOUND_EXPLOSION"
+    }
+    SubmunitionEffect "{69FB0B8293ED95B8}" {
+     Enabled 0
+     Prefab "{48462DE85FD8CFF0}Prefabs/Weapons/Ammo/Ammo_FPV_Penetrator.et"
+     Dispersion 0
+    }
+    SubmunitionEffect "{69FB0B8293ED95BB}" {
+     Prefab "{0E575A85356F4158}Prefabs/Weapons/Ammo/Ammo_FPV_Spall.et"
+     Count 30
+     Dispersion 360
+    }
+   }
+   HAS_VALID_DIRECTION 0
+  }
+  HitEffectComponent "{9D9BE68D6F65A10F}" {
+   ParticleEffect "{B6275B6B9E29E9ED}Particles/Weapon/Explosion_RPG7V1.ptc"
+  }
+  RplComponent "{5E6D1CE1C6CA478E}" {
+   Enabled 0
+  }
+ }
+ coords 0 0 0
+ angles 90 0 0
+}

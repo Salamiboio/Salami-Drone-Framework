@@ -144,24 +144,24 @@ GenericEntity {
   SlotManagerComponent "{65932E3A16300B2D}" {
    Slots {
     EntitySlotInfo Rotor1 {
-     Offset -0.1688 0.019 0.2
+     Offset -0.1674 0.0133 0.1741
      Prefab "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et"
     }
     EntitySlotInfo Rotor2 {
-     Offset 0.17 0.019 0.2015
+     Offset 0.166 0.0137 0.1738
      Prefab "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et"
     }
     EntitySlotInfo Rotor3 {
-     Offset -0.1642 0.019 -0.1348
+     Offset -0.1681 0.0126 -0.1187
      Prefab "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et"
     }
     EntitySlotInfo Rotor4 {
-     Offset 0.1653 0.019 -0.1319
-     Angles 0 44.5843 0
+     Offset 0.1665 0.0135 -0.1167
+     Angles 0 0 0
      Prefab "{D072D3706963BB04}Prefabs/Drones/FPVBase/FPVBasicRotor.et"
     }
     EntitySlotInfo Camera {
-     Offset -0.0022 -0.003 0.2245
+     Offset -0.0009 0.0065 0.1604
      Angles 25 0 0
      Prefab "{B9E77330D570CF99}Prefabs/Drones/FPVBase/CameraEntityFPV.et"
     }

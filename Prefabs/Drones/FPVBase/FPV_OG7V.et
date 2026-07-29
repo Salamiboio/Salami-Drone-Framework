@@ -1,0 +1,21 @@
+GenericEntity : "{77CA4803A4A2B8E3}Prefabs/Drones/FPVBase/FPVRpg.et" {
+ ID "65932E3D2F6C309A"
+ components {
+  SCR_ExplosiveTriggerComponent "{65CA060FB3785B1E}" {
+   PROJECTILE_EFFECTS {
+    ExplosionEffect "{65CA060FCB92CFC6}" {
+     EffectPrefab "{1515B2C83CB50A22}Prefabs/Weapons/Warheads/Explosions/Warhead_OG7V.et"
+    }
+   }
+  }
+  SlotManagerComponent "{65932E3A16300B2D}" {
+   Slots {
+    EntitySlotInfo Warhead {
+     Offset -0.0059 -0.0005 0.0706
+     Angles 0 0 0
+     Prefab "{B38C6EA0F76D4347}Prefabs/Drones/FPVBase/OG7VWarhead.et"
+    }
+   }
+  }
+ }
+}

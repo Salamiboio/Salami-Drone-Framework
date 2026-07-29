@@ -35,25 +35,6 @@ GenericEntity : "{2A283EA7BADDBD28}Prefabs/Drones/FPVBase/FPVBase.et" {
     m_Image "{BE3A0D7E67AED716}UI/FPVRPGIcon.edds"
    }
   }
-  SlotManagerComponent "{65932E3A16300B2D}" {
-   Slots {
-    EntitySlotInfo Camera {
-     Offset -0.0009 0.0154 0.1723
-    }
-    EntitySlotInfo WarheadHolder {
-     Offset 0 -0.0161 0.0867
-     Prefab "{911DCEC00E3D4C8E}Prefabs/Drones/FPVBase/RoundHolder.et"
-    }
-    EntitySlotInfo Warhead {
-     Offset 0 -0.0161 0.0867
-     Prefab "{F26421FDD2406AC2}Prefabs/Drones/FPVBase/RPGWarhead.et"
-    }
-    EntitySlotInfo Contacts {
-     Offset -0.0048 -0.029 0.1997
-     Prefab "{7CED2E8704F6A347}Prefabs/Drones/FPVBase/Contacts.et"
-    }
-   }
-  }
   SCR_ExplosiveChargeComponent "{65CA060FB12784C7}" {
   }
   SCR_ExplosiveTriggerComponent "{65CA060FB3785B1E}" {
@@ -66,6 +47,26 @@ GenericEntity : "{2A283EA7BADDBD28}Prefabs/Drones/FPVBase/FPVBase.et" {
     }
    }
    TRIGGER_ALIVE 1
+  }
+  SlotManagerComponent "{65932E3A16300B2D}" {
+   Slots {
+    EntitySlotInfo Camera {
+     Offset -0.0009 0.0154 0.1723
+    }
+    EntitySlotInfo WarheadHolder {
+     Offset 0 -0.0161 0.0867
+     Prefab ""
+    }
+    EntitySlotInfo Warhead {
+     Offset -0.0059 -0.0329 0.0706
+     Angles -5.1892 0 0
+     Prefab "{F26421FDD2406AC2}Prefabs/Drones/FPVBase/RPGWarhead.et"
+    }
+    EntitySlotInfo Contacts {
+     Offset -0.0048 -0.029 0.1997
+     Prefab "{7CED2E8704F6A347}Prefabs/Drones/FPVBase/Contacts.et"
+    }
+   }
   }
  }
 }
