@@ -148,6 +148,7 @@ modded class SCR_PlayerController
 		m_eOldCamera = GetGame().GetCameraManager().CurrentCamera();
 		
 		CameraBase cameraBase = CameraBase.Cast(camera);
+		cameraBase.SetFOVDegree(90);
 		GetGame().GetCameraManager().SetCamera(cameraBase);
 		
 		AudioSystem.SetMasterVolume(AudioSystem.SFX, 0.05);

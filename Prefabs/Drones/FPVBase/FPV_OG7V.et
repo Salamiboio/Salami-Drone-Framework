@@ -10,8 +10,11 @@ GenericEntity : "{77CA4803A4A2B8E3}Prefabs/Drones/FPVBase/FPVRpg.et" {
   }
   SlotManagerComponent "{65932E3A16300B2D}" {
    Slots {
+    EntitySlotInfo Camera {
+     Offset -0.0009 0.0006 0.1389
+    }
     EntitySlotInfo Warhead {
-     Offset -0.0059 -0.0005 0.0706
+     Offset -0.0059 -0.0005 0.0857
      Angles 0 0 0
      Prefab "{B38C6EA0F76D4347}Prefabs/Drones/FPVBase/OG7VWarhead.et"
     }

@@ -11,7 +11,7 @@ GenericEntity : "{2A283EA7BADDBD28}Prefabs/Drones/FPVBase/FPVBase.et" {
     }
     CustomAttributes {
      PreviewRenderAttributes "{52D4E9E38931C544}" {
-      PreviewPrefab "{77CA4803A4A2B8E3}Prefabs/Drones/FPVBase/FPVRPG.et"
+      PreviewPrefab "{77CA4803A4A2B8E3}Prefabs/Drones/FPVBase/FPVRpg.et"
      }
     }
    }
@@ -51,14 +51,15 @@ GenericEntity : "{2A283EA7BADDBD28}Prefabs/Drones/FPVBase/FPVBase.et" {
   SlotManagerComponent "{65932E3A16300B2D}" {
    Slots {
     EntitySlotInfo Camera {
-     Offset -0.0009 0.0154 0.1723
+     Offset -0.0009 0.0023 0.1389
+     Angles 0 0 0
     }
     EntitySlotInfo WarheadHolder {
      Offset 0 -0.0161 0.0867
      Prefab ""
     }
     EntitySlotInfo Warhead {
-     Offset -0.0059 -0.0329 0.0706
+     Offset -0.0059 -0.0375 0.1201
      Angles -5.1892 0 0
      Prefab "{F26421FDD2406AC2}Prefabs/Drones/FPVBase/RPGWarhead.et"
     }
